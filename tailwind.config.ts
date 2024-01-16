@@ -8,10 +8,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        primary: '#27F306',
+        secondary: '#1F6115',
+        circular: '#BACDB7'
+      },
+      fontFamily: {
+        lexend: ["Lexend"],
+        body: ['Lexend'],
+        abhaya:['Abhaya Libre']
       },
     },
   },
