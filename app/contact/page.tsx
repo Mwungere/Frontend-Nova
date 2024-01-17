@@ -55,7 +55,7 @@ const ContactPage = () => {
             <label htmlFor="Email" className="font-body lg:text-xl">Email:</label>
             <input type="email" name="email" className="border border-black rounded-3xl my-5 py-2 bg-[#EBEFFF] px-16 md:pr-48 lg:px-28" />
             <label htmlFor="message" className="font-body lg:text-xl">Message:</label>
-            <textarea name="message" id="" cols="10" rows="10" className="p-3 border border-black rounded-3xl my-5 bg-[#EBEFFF]"></textarea>
+            <textarea name="message" id="" className="p-3 border border-black rounded-3xl my-5 bg-[#EBEFFF]"></textarea>
             <button className="bg-secondary w-max py-3 px-10 self-end rounded-2xl font-body text-white font-bold">Submit</button>
           </form>
         </div>
