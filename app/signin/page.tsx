@@ -7,6 +7,7 @@ import welcomeLogo from "../Images/logo_welcome.png";
 import { Button } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 type formData = {
   email: string;
   password: string;
@@ -19,14 +20,25 @@ const SignIn = () => {
     password: z.string().min(4).max(50),
     rememberMe: z.boolean(),
   });
+  console.log("Form initialized");
+  
 
   const { register, handleSubmit } = useForm<formData>({
     resolver: zodResolver(schema),
   });
 
-  const submitData = (data: formData) => {
-    console.log("it worked", data);
+  const submitData: (data: formData) => Promise<void> = async (data) => {
+  console.log("submitData function called");
+  console.log("form data:", data);
+  
+    try {
+      const res = await axios.post("http://127.0.0.1:3500/users/loginUser", data);
+      console.log(res.data, data); 
+    } catch (error) {
+      console.error("Faced an error", error);
+    }
   };
+  
 
   return (
     <div className="flex flex-row items-center h-screen lg:overflow-y-hidden ">
@@ -83,12 +95,16 @@ const SignIn = () => {
           Enter the information you entered while registering{" "}
         </p>
         <div className="pt-[2em] pb-[1em]"></div>
-        <form className="flex flex-col " onSubmit={handleSubmit(submitData)}>
+        <form className="flex flex-col" onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+           e.preventDefault();
+           console.log("Form submitted");
+           handleSubmit(submitData)();
+        }}>
           <label htmlFor="email" className="mb-[1em] font-body">
             Email *
           </label>
           <input
-            className="border-gray-400 border-[1px]  mb-[3%] w-[100%] lg:w-[90%] 2xl:w-[60%] rounded-md h-[50px] lg:h-[35px] indent-3"
+            className="border-gray-400 outline-gray-400 border-[1px]  mb-[3%] w-[100%] lg:w-[90%] 2xl:w-[60%] rounded-md h-[50px] lg:h-[35px] indent-3"
             type="email"
             id="email"
             {...register("email")}
@@ -98,7 +114,7 @@ const SignIn = () => {
             Password *
           </label>
           <input
-            className="border-gray-400 border-[1px]  mb-[3%] w-[100%] lg:w-[90%] 2xl:w-[60%] rounded-md h-[50px] lg:h-[35px] indent-3"
+            className="border-gray-400 border-[1px]  mb-[3%] w-[100%] lg:w-[90%] 2xl:w-[60%] rounded-md h-[50px] lg:h-[35px] indent-3 outline-gray-400"
             type="password"
             id="password"
             {...register("password")}
@@ -142,9 +158,9 @@ const SignIn = () => {
           <hr className="w-[20%] self-center" />
         </div>
 
-        <div className=" mb-[10%]">
+        {/* <div className=" mb-[10%]">
           <Button />
-        </div>
+        </div> */}
       </div>
     </div>
   );

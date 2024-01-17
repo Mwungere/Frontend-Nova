@@ -5,9 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 
 type formData = {
-  names: string;
+  username: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -25,14 +26,13 @@ type GoogleLoginResponseOfflineWithData = {
 };
 
 const SignUp = () => {
-  const schema: ZodType<formData> = z
-    .object({
-      names: z.string().min(3).max(50),
+  const schema: ZodType<formData> = z.object({
+      username: z.string().min(3).max(50),
       email: z.string().email(),
       password: z.string().min(4).max(50),
       confirmPassword: z.string().min(4).max(50),
     })
-    .refine((data) => data.password !== data.confirmPassword, {
+    .refine((data) => data.password === data.confirmPassword, {
       message: "Passwords do not match",
       path: ["confirmPassword"],
     });
@@ -41,8 +41,16 @@ const SignUp = () => {
     resolver: zodResolver(schema),
   });
 
-  const submitData = (data: formData) => {
-    console.log("it worked", data);
+  const submitData =async (data: formData) => {
+    console.log("It worked", data);
+    
+    try {
+      const res = await axios.post("http://127.0.0.1:3500/users/registerUser", data);
+      
+
+    } catch (error) {
+      console.error("An error occurred while sending the request:", error);
+    } 
   };
 
   return (
@@ -89,16 +97,16 @@ const SignUp = () => {
               Names *
             </label>
             <input
-              className="border-gray-400 border-[1px] mb-[3%] w-full lg:w-[100%] rounded-md h-[50px] lg:h-[35px] indent-3"
+              className="border-gray-400 outline-gray-400 border-[1px] mb-[3%] w-full lg:w-[100%] rounded-md h-[50px] lg:h-[35px] indent-3"
               type="text"
               id="names"
-              {...register("names")}
+              {...register("username")}
             />
             <label htmlFor="email" className="mb-[1em] font-body">
               Email *
             </label>
             <input
-              className="border-gray-400 border-[1px] mb-[3%] w-full lg:w-[100%] rounded-md h-[50px] lg:h-[35px] indent-3"
+              className="border-gray-400 outline-gray-400 border-[1px] mb-[3%] w-full lg:w-[100%] rounded-md h-[50px] lg:h-[35px] indent-3"
               type="email"
               id="email"
               {...register("email")}
@@ -107,7 +115,7 @@ const SignUp = () => {
               Password *
             </label>
             <input
-              className="border-gray-400 border-[1px] mb-[3%] w-full lg:w-[100%] rounded-md h-[50px] lg:h-[35px] indent-3"
+              className="border-gray-400 outline-gray-400 border-[1px] mb-[3%] w-full lg:w-[100%] rounded-md h-[50px] lg:h-[35px] indent-3"
               type="password"
               id="password"
               {...register("password")}
@@ -116,7 +124,7 @@ const SignUp = () => {
               Confirm Password *
             </label>
             <input
-              className="border-gray-400 border-[1px] mb-[3%] w-full lg:w-[100%] rounded-md h-[50px] lg:h-[35px] indent-3"
+              className="border-gray-400 outline-gray-400 border-[1px] mb-[3%] w-full lg:w-[100%] rounded-md h-[50px] lg:h-[35px] indent-3"
               type="password"
               id="confirmPassword"
               {...register("confirmPassword")}

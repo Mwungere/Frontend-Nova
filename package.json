@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.3.2",
     "@mui/icons-material": "^5.15.4",
     "@mui/material": "^5.15.4",
+    "axios": "^1.6.5",
     "firebase": "^10.7.0",
     "next": "14.0.0",
     "react": "^18",
