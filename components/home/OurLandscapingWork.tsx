@@ -8,7 +8,7 @@ const OurLandscapingWork = () => {
       <div className=' flex '>
         <div className=' ml-10 w-3/4'>
           <h1 className=' font-body text-[#232A42] text-5xl font-bold'>Our landscaping work and <span className=' font-body text-secondary'>services</span></h1>
-          <p className=' font-body mt-10 text-[#353535]'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit suscipit egestas. <br /> Nunc eget congue ante. Vivamus ut sapien et ex volutpat tincidunt eget at felis.</p>
+          <p className=' font-body mt-10 text-[#353535]'>Explore our exceptional landscaping services, where meticulous attention to detail and creative design <br /> converge to transform outdoor spaces.</p>
         </div>
         <Image
           src='/blur.svg'
