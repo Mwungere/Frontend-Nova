@@ -72,18 +72,18 @@ const Sidebar = () => {
     <Box sx={{ width: "100%", height: "100%", bgcolor: "#1F6115" }}>
       <List>
         <div className=" flex gap-5 px-8 py-5">
-          <Image src={'/logo.svg'} width={41} height={36} alt="logo" />
+          <Image src={"/logo.svg"} width={41} height={36} alt="logo" />
           <h1 className=" text-white font-body">Nova</h1>
         </div>
         {links.map(({ desc, link, icon }) => (
-         <Link href={link}>
-          <ListItem key={desc}>
+          <Link href={link}>
+            <ListItem key={desc}>
               <ListItemButton>
                 <ListItemIcon style={{ color: "white" }}>{icon}</ListItemIcon>
                 <ListItemText primary={desc} style={{ color: "white" }} />
               </ListItemButton>
-          </ListItem>
-         </Link>   
+            </ListItem>
+          </Link>
         ))}
       </List>
     </Box>

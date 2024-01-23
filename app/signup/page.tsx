@@ -11,6 +11,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../components/Firebase";
 import Link from "next/link";
+import axios from "axios";
 interface FormData {
   names: string;
   email: string;
@@ -41,14 +42,33 @@ const SignUp = () => {
         const provider = new GoogleAuthProvider();
         const result = await signInWithPopup(auth, provider);
         setUser(result.user);
-        console.log(result.user);
+         const datas = {
+           names: user?.displayName,
+           email: user?.email,
+           password: "123456",
+           confirmPassword: "123456",
+         };
+
+         const res = await axios.post(
+           "http://localhost:3500/users/registerUser",
+           datas
+         );
+         if (res.status === 200) {
+           toast.success("Logged in successfully", {
+             duration: 5000,
+             position: "top-right",
+           });
+         } 
+
       }
+
+      
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.password.length < 6) {
       const error = new Error("Password must be at least 6 characters");
@@ -66,6 +86,14 @@ const SignUp = () => {
       });
     } else {
       setErrors(null);
+    }
+
+    const res = await axios.post("http://localhost:3500/users/registerUser", formData)
+    if (res.status === 200) {
+      toast.success("User created successfully", {
+        duration: 5000,
+        position:"top-right"
+      })
     }
   };
 

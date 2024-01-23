@@ -1,5 +1,5 @@
 "use client";
-
+import { Toaster,toast } from "react-hot-toast";
 import { Button } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
@@ -46,21 +46,50 @@ const SignIn = () => {
         const provider = new GoogleAuthProvider();
         const result = await signInWithPopup(auth, provider);
         setUser(result.user);
-        console.log(result.user);
-      }
-    } catch (error) {
-      console.error(error);
+      
+        const datas = {
+          names: user?.displayName,
+          email: user?.email,
+          password: "123456",
+          confirmPassword: "123456",
+        };
+ const res = await axios.post(
+   "http://localhost:3500/users/loginUser",
+   datas
+ );
+ if (res.status === 200) {
+   Cookies.set("jwt", res.data);
+   toast.success("Logged in successfully", {
+     duration: 5000,
+     position: "top-right",
+   });
+ }    }
+      } catch (error) {
+        console.error(error);
     }
   };
 
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
       e.preventDefault()
  if (formData.rememberMe) {
    Cookies.set("rememberedUser", formData.email, { expires: 365 }); 
  } else {
    Cookies.remove("rememberedUser");
- }
+    }
+    
+    
+    const res = await axios.post(
+      "http://localhost:3500/users/registerUser",
+      formData
+    );
+    if (res.status === 200) {
+      toast.success("Logged in successfully", {
+        duration: 5000,
+        position: "top-right",
+      });
+    }
+
   };
   
   return (
@@ -195,6 +224,7 @@ const SignIn = () => {
         </div>
         <GoogleButton onClick={handleSignInWithGoogle}/>
       </div>
+      <Toaster />
     </div>
   );
 };
