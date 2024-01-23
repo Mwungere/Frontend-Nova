@@ -1,5 +1,4 @@
 import { BlurredDiv2, BlurredDiv3, Footer, GetToKnowAboutUs, Intro, Navbar, NewsLetter, CaringForYourFarmPlants, OurLandscapingWork, Testimonials, Gallery, Questions } from '@/components'
-import Image from 'next/image'
 
 export default function Home() {
   return (

@@ -1,45 +1,68 @@
 "use client";
-import { useForm } from "react-hook-form";
-import { ZodType, z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import signInBackgroundImage from "../Images/signinBackroundImage.png";
-import welcomeLogo from "../Images/logo_welcome.png";
+
 import { Button } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
+import GoogleButton from "react-google-button";
+import Cookies from "js-cookie"
+import { useState } from "react";
+import { useEffect } from "react";
+import { auth } from "../../components/Firebase";
+import {
+  signInWithPopup,
+  signOut,
+  User,
+  GoogleAuthProvider,
+} from "firebase/auth";
 type formData = {
   email: string;
   password: string;
   rememberMe: boolean;
 };
 
+const logout = () => {
+  if (auth !== null) {
+    signOut(auth);
+  }
+};
+
+
 const SignIn = () => {
-  const schema: ZodType<formData> = z.object({
-    email: z.string().email(),
-    password: z.string().min(4).max(50),
-    rememberMe: z.boolean(),
-  });
-  console.log("Form initialized");
-  
 
-  const { register, handleSubmit } = useForm<formData>({
-    resolver: zodResolver(schema),
-  });
+   useEffect(() => {
+     const rememberedUser = Cookies.get("rememberedUser");
+     if (rememberedUser) {
+       setFormData({ ...formData, email: rememberedUser });
+     }
+   }, []);
 
-  const submitData: (data: formData) => Promise<void> = async (data) => {
-  console.log("submitData function called");
-  console.log("form data:", data);
-  
+  const [formData,setFormData] = useState<formData>({email:"", password:"",rememberMe:false});
+  const [user, setUser] = useState<User | null>(null);
+ 
+  const handleSignInWithGoogle = async () => {
     try {
-      const res = await axios.post("http://127.0.0.1:3500/users/loginUser", data);
-      console.log(res.data, data); 
+      if (auth !== null) {
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        setUser(result.user);
+        console.log(result.user);
+      }
     } catch (error) {
-      console.error("Faced an error", error);
+      console.error(error);
     }
   };
-  
 
+  
+  const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault()
+ if (formData.rememberMe) {
+   Cookies.set("rememberedUser", formData.email, { expires: 365 }); 
+ } else {
+   Cookies.remove("rememberedUser");
+ }
+  };
+  
   return (
     <div className="flex flex-row items-center h-screen lg:overflow-y-hidden ">
       <div
@@ -50,7 +73,7 @@ const SignIn = () => {
           height: "100%",
         }}
       >
-        <div className="my-[20%] pt-[3%] opacity-70 w-[60%] h-fit ml-[2%]  flex flex-col  bg-white">
+        <div className="my-[20%] pt-[3%] opacity-70 w-[60%] h-fit   flex flex-col  bg-white">
           <div className="pl-[10%] my-[6%] ">
             <h1 className=" text-[#1F6115] text-4xl 2xl:text-6xl h-[50px] mb-[2em] 2xl:mb-[3em] font-body font-bold ">
               Want To <br></br> Monitor And <br /> Ensure Your <br /> Farm
@@ -66,7 +89,7 @@ const SignIn = () => {
         </div>
       </div>
 
-      <div className=" w-[70%] lg:w-[50%] pt-[3%] h-full pl-[10%] mx-auto">
+      <div className=" w-[70%] lg:w-[50%] pt-[3%] h-full pl-[5%] mx-auto">
         <div className=" flex justify-between">
           <div className=" flex gap-2 -mt-[1%] lg:-mt-[5%]">
             <Image
@@ -95,11 +118,7 @@ const SignIn = () => {
           Enter the information you entered while registering{" "}
         </p>
         <div className="pt-[2em] pb-[1em]"></div>
-        <form className="flex flex-col" onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-           e.preventDefault();
-           console.log("Form submitted");
-           handleSubmit(submitData)();
-        }}>
+        <form className="flex flex-col" onSubmit={handleSubmit}>
           <label htmlFor="email" className="mb-[1em] font-body">
             Email *
           </label>
@@ -107,29 +126,46 @@ const SignIn = () => {
             className="border-gray-400 outline-gray-400 border-[1px]  mb-[3%] w-[100%] lg:w-[90%] 2xl:w-[60%] rounded-md h-[50px] lg:h-[35px] indent-3"
             type="email"
             id="email"
-            {...register("email")}
+            value={formData.email}
+            onChange={(e) =>
+              setFormData((prevData) => ({
+                ...prevData,
+                email: e.target.value,
+              }))
+            }
           />
 
           <label htmlFor="password" className="mb-[1em] font-body">
             Password *
           </label>
           <input
-            className="border-gray-400 border-[1px]  mb-[3%] w-[100%] lg:w-[90%] 2xl:w-[60%] rounded-md h-[50px] lg:h-[35px] indent-3 outline-gray-400"
+            className="border-gray-400  border-[1px]  mb-[3%] w-[100%] lg:w-[90%] 2xl:w-[60%] rounded-md h-[50px] lg:h-[35px] indent-3 outline-gray-400"
             type="password"
+            value={formData.password}
             id="password"
-            {...register("password")}
+            onChange={(e) =>
+              setFormData((prevData) => ({
+                ...prevData,
+                password: e.target.value,
+              }))
+            }
           />
 
           <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-3 md:gap-44 lg:gap-5 2xl:gap-44">
-            <div>
+            <div className="mt-5">
               <input
                 type="checkbox"
-                value="rememberMe"
                 className=" h-4 w-4 hover:cursor-pointer"
+                onClick={() =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    rememberMe: !prevData.rememberMe,
+                  }))
+                }
               />
-              <span className="pl-[0.75em] font-body">Remember Me</span>
+              <span className="pl-[0.75em]  font-body">Remember Me</span>
             </div>
-            <div className=" cursor-pointer">
+            <div className=" cursor-pointer ">
               <span className="text-[#1F6115] font-body">Forgot password?</span>
             </div>
           </div>
@@ -141,7 +177,7 @@ const SignIn = () => {
           />
         </form>
 
-        <div className="pt-[1em] mb-[2em]">
+        <div className="pt-[1em] mb-[2em] mt-3">
           <p className="text-gray-300 font-lexend">
             Don't have an account ?{" "}
             <Link
@@ -152,15 +188,12 @@ const SignIn = () => {
             </Link>{" "}
           </p>
         </div>
-        <div className="flex flex-row mb-5">
-          <hr className="w-[20%] self-center" />
+        <div className="flex flex-row mt-[1em] ">
+          <hr className="w-[30%] mt-4 text-gray-400 mr-[1rem] " />
           <p>or</p>
-          <hr className="w-[20%] self-center" />
+          <hr className="w-[30%] ml-[1rem] mb-6 mt-4  text-gray-400" />
         </div>
-
-        {/* <div className=" mb-[10%]">
-          <Button />
-        </div> */}
+        <GoogleButton onClick={handleSignInWithGoogle}/>
       </div>
     </div>
   );

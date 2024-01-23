@@ -3,4 +3,8 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {},
   },
+  
+  "compilerOptions": {
+    "types": ["node", "@types/js-cookie"]
+  }
 }

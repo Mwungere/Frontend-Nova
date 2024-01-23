@@ -1,6 +1,5 @@
 import exp from "constants";
-import Image from "next/image";
-
+import Image from "next/image"
 export const pricingLinks = [
     {
       title: "Basic Plan",
@@ -15,7 +14,7 @@ export const pricingLinks = [
         { p: "Free Installation" },
         { p: "Free Monthly Maintenance" },
         { p: "Custom Support 24/7" },
-        { p: "Automatic Lights On/Off" },
+        { p: "Automatic Irrigation On/Off" },
         { p: "intrusion Detection" },
         { p: "Live Stream Video" }
       ],
@@ -33,7 +32,7 @@ export const pricingLinks = [
           { p: "Free Installation" },
           { p: "Free Monthly Maintenance" },
           { p: "Custom Support 24/7" },
-          { p: "Automatic Lights On/Off" },
+          { p: "Automatic Irrigation On/Off" },
           { p: "intrusion Detection" },
           { p: "Live Stream Video" }
         ],
@@ -50,8 +49,8 @@ export const pricingLinks = [
         included: [
           { p: "Free Installation" },
           { p: "Free Monthly Maintenance" },
-          { p: "Custom Support 24/7" },
-          { p: "Automatic Lights On/Off" },
+          { p: "Customer Support 24/7" },
+          { p: "Automatic Irrigation On/Off" },
           { p: "intrusion Detection" },
           { p: "Live Stream Video" }
         ],
