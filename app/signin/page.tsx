@@ -97,12 +97,12 @@ const SignIn = () => {
       <div
         className="hidden  w-[50%] bg-cover bg-no-repeat  lg:flex flex-col items-center overflow-y-hidden justify-center"
         style={{
-          backgroundImage: `url(/background.png)`,
+          backgroundImage: `url(/signinBackroundImage.png)`,
           backgroundSize: "cover",
           height: "100%",
         }}
       >
-        <div className="my-[20%] pt-[3%] opacity-70 w-[60%] h-fit   flex flex-col  bg-white">
+        <div className="my-[20%] pt-[3%] opacity-70 w-[60%] h-fit  rounded-lg flex flex-col  bg-white">
           <div className="pl-[10%] my-[6%] ">
             <h1 className=" text-[#1F6115] text-4xl 2xl:text-6xl h-[50px] mb-[2em] 2xl:mb-[3em] font-body font-bold ">
               Want To <br></br> Monitor And <br /> Ensure Your <br /> Farm
@@ -129,7 +129,7 @@ const SignIn = () => {
               alt="project logo"
             />
 
-            <h1 className="font-body text-2xl font-bold mt-6 text-[#232A42]">
+            <h1 className="font-body text-black text-2xl font-bold mt-6 ">
               Nova
             </h1>
           </div>
@@ -140,8 +140,9 @@ const SignIn = () => {
             Back
           </Link>
         </div>
-        <h1 className="font-lexend text-3xl font-bold mt-[20%] lg:mt-[15%] text-black">
-          Hey, hello
+        <h1 className="font-lexend text-3xl font-bold mt-[10%] lg:mt-[8%] text-black">
+          Hey, Hello 
+          <span className="text-[2em] ">👋</span>
         </h1>
         <p className="mt-[1em] font-body text-[17px]">
           Enter the information you entered while registering{" "}
