@@ -3,28 +3,16 @@ import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import GoogleButton from "react-google-button";
-import {
-  signInWithPopup,
-  signOut,
-  User,
-  GoogleAuthProvider,
-} from "firebase/auth";
-import { auth } from "../../components/Firebase";
+import { handleRequest } from "../RequestFunctions";
 import Link from "next/link";
 import axios from "axios";
+import { signFinally } from "../signFinally";
 interface FormData {
   names: string;
   email: string;
   password: string;
   confirmPassword: string;
 }
-
-const logout = () => {
-  if (auth !== null) {
-    signOut(auth);
-  }
-};
-
 
 const SignUp = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -34,38 +22,8 @@ const SignUp = () => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState<string | null>();
-  const [user, setUser] = useState<User | null>(null);
-
-  const handleSignUpWithGoogle =async () => {
-    try {
-      if (auth !== null) {
-        const provider = new GoogleAuthProvider();
-        const result = await signInWithPopup(auth, provider);
-        setUser(result.user);
-         const datas = {
-           names: user?.displayName,
-           email: user?.email,
-           password: "123456",
-           confirmPassword: "123456",
-         };
-
-         const res = await axios.post(
-           "http://localhost:3500/users/registerUser",
-           datas
-         );
-         if (res.status === 200) {
-           toast.success("Logged in successfully", {
-             duration: 5000,
-             position: "top-right",
-           });
-         } 
-
-      }
-
-      
-    } catch (error) {
-      console.error(error);
-    }
+  const handleSignUpWithGoogle = async () => {
+   signFinally("http://localhost:3500/users/registerUser")
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -86,14 +44,8 @@ const SignUp = () => {
       });
     } else {
       setErrors(null);
-    }
-
-    const res = await axios.post("http://localhost:3500/users/registerUser", formData)
-    if (res.status === 200) {
-      toast.success("User created successfully", {
-        duration: 5000,
-        position:"top-right"
-      })
+      const url= "http://localhost:3500/users/registerUser"
+      handleRequest(formData,url );
     }
   };
 
@@ -129,7 +81,10 @@ const SignUp = () => {
             Create An Account
           </h1>
           <h3 className="mb-10">Enter the fields below to get started </h3>
-          <GoogleButton title="Sign up with Google" onClick={handleSignUpWithGoogle} />
+          <GoogleButton
+            label="Sign up with Google"
+            onClick={handleSignUpWithGoogle}
+          />
         </div>
 
         <div className="flex flex-row mt-[1em] ">

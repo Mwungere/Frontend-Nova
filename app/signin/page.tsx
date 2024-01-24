@@ -15,21 +15,15 @@ import {
   User,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { handleRequest } from "../RequestFunctions";
+import { signFinally } from "../signFinally";
 type formData = {
   email: string;
   password: string;
   rememberMe: boolean;
 };
 
-const logout = () => {
-  if (auth !== null) {
-    signOut(auth);
-  }
-};
-
-
 const SignIn = () => {
-
    useEffect(() => {
      const rememberedUser = Cookies.get("rememberedUser");
      if (rememberedUser) {
@@ -41,56 +35,19 @@ const SignIn = () => {
   const [user, setUser] = useState<User | null>(null);
  
   const handleSignInWithGoogle = async () => {
-    try {
-      if (auth !== null) {
-        const provider = new GoogleAuthProvider();
-        const result = await signInWithPopup(auth, provider);
-        setUser(result.user);
-      
-        const datas = {
-          names: user?.displayName,
-          email: user?.email,
-          password: "123456",
-          confirmPassword: "123456",
-        };
- const res = await axios.post(
-   "http://localhost:3500/users/loginUser",
-   datas
- );
- if (res.status === 200) {
-   Cookies.set("jwt", res.data);
-   toast.success("Logged in successfully", {
-     duration: 5000,
-     position: "top-right",
-   });
- }    }
-      } catch (error) {
-        console.error(error);
-    }
+  signFinally("http://localhost:3500/users/loginUser");
   };
 
-  
-  const handleSubmit = async(e: React.FormEvent) => {
-      e.preventDefault()
- if (formData.rememberMe) {
-   Cookies.set("rememberedUser", formData.email, { expires: 365 }); 
- } else {
-   Cookies.remove("rememberedUser");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (formData.rememberMe) {
+      Cookies.set("rememberedUser", formData.email, { expires: 365 });
+    } else {
+      Cookies.remove("rememberedUser");
     }
-    
-    
-    const res = await axios.post(
-      "http://localhost:3500/users/registerUser",
-      formData
-    );
-    if (res.status === 200) {
-      toast.success("Logged in successfully", {
-        duration: 5000,
-        position: "top-right",
-      });
-    }
-
-  };
+    const url = "http://localhost:3500/users/loginUser";
+    handleRequest(formData,url )
+  }
   
   return (
     <div className="flex flex-row items-center h-screen lg:overflow-y-hidden ">
