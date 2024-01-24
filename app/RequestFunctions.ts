@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation"
 import axios from "axios"
 import toast from "react-hot-toast"
 interface FormData{
@@ -21,7 +22,7 @@ export const handleRequest = async (data: FormData, url:string) => {
   
   if (res.status === 200) {
     toast.success(res.data.message, {
-      duration: 5000,
+      duration: 3000,
       position: "top-right",
     });
   }

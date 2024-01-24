@@ -17,6 +17,7 @@ import {
 } from "firebase/auth";
 import { handleRequest } from "../RequestFunctions";
 import { signFinally } from "../signFinally";
+import { useRouter } from "next/navigation";
 type formData = {
   email: string;
   password: string;
@@ -31,12 +32,21 @@ const SignIn = () => {
      }
    }, []);
 
+  const router = useRouter()
   const [formData,setFormData] = useState<formData>({email:"", password:"",rememberMe:false});
   const [user, setUser] = useState<User | null>(null);
  
   const handleSignInWithGoogle = async () => {
-  signFinally("http://localhost:3500/users/loginUser");
-  };
+ const data = signFinally("http://localhost:3500/users/registerUser");
+ data
+   .then(() => {
+     setTimeout(() => {
+       router.push("/dashboard");
+     }, 4000);
+   })
+   .catch((error) => {
+     console.log(error);
+   });  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,7 +56,11 @@ const SignIn = () => {
       Cookies.remove("rememberedUser");
     }
     const url = "http://localhost:3500/users/loginUser";
-    handleRequest(formData,url )
+    handleRequest(formData, url)
+     setTimeout(() => {
+          router.push("/dashboard");
+        }, 3000);
+      }
   }
   
   return (
