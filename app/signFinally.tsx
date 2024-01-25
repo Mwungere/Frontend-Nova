@@ -8,9 +8,9 @@ import {
 } from "firebase/auth";
 import toast from "react-hot-toast";
 import { auth } from "@/components/Firebase";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 let user: User;
-export const signFinally = async (url: string) => {
+export const signFinally = async (url: string, router:ReturnType<typeof useRouter>) => {
      try {
        if (auth !== null) {
          const provider = new GoogleAuthProvider();
@@ -26,7 +26,7 @@ export const signFinally = async (url: string) => {
          confirmPassword: "123456",
        };
 
-       handleRequest(datas, url );
+       handleRequest(datas, url , router );
      } catch (error: any) {
        toast.error(error.message, {
          duration: 3000,

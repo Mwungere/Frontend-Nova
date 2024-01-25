@@ -24,42 +24,31 @@ const SignUp = () => {
   });
   const [errors, setErrors] = useState<string | null>();
   const handleSignUpWithGoogle = async () => {
-    const data = signFinally("http://localhost:3500/users/registerUser");
-    data.then(() => {
-      setTimeout(() => { router.push("/signin") }, 4000);
-    }).catch((error) => {
-      console.log(error);
-  
-    })
-  
+     signFinally("http://localhost:3500/users/registerUser", router);
   }
-    const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
-      if (formData.password.length < 6) {
-        const error = new Error("Password must be at least 6 characters");
-        setErrors(error.message);
-        toast.error(error.message, {
-          duration: 5000,
-          position: "top-right",
-        });
-      } else if (formData.password !== formData.confirmPassword) {
-        const error = new Error("Passwords do not match");
-        setErrors(error.message);
-        toast.error(error.message, {
-          duration: 5000,
-          position: "top-right",
-        });
-      } else {
-        setErrors(null);
-        const url = "http://localhost:3500/users/registerUser"
-        handleRequest(formData, url);
-        setTimeout(() => {
-          router.push("/signin");
-        }, 3000);
-      }
-    };
-
-    return (
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formData.password.length < 6) {
+      const error = new Error("Password must be at least 6 characters");
+      setErrors(error.message);
+      toast.error(error.message, {
+        duration: 5000,
+        position: "top-right",
+      });
+    } else if (formData.password !== formData.confirmPassword) {
+      const error = new Error("Passwords do not match");
+      setErrors(error.message);
+      toast.error(error.message, {
+        duration: 5000,
+        position: "top-right",
+      });
+    } else {
+      setErrors(null);
+      const url = "http://localhost:3500/users/registerUser"
+      await handleRequest(formData, url, router)
+    }
+  }
+  return (
       <div className="flex md:flex-row sm:flex-col h-screen  lg:overflow-y-hidden  ">
         <div className="pl-[6%] pt-5 pr-5 sm:w-full md:w-[50%]  ">
           <div className="flex flex-row justify-between ">
@@ -220,6 +209,6 @@ const SignUp = () => {
         </div>
       </div>
     );
-  };
-
+  
+}
 export default SignUp;
