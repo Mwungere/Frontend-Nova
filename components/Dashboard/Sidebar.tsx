@@ -42,7 +42,7 @@ const links = [
   },
   {
     desc: "Security",
-    link: "/not-found",
+    link: "/server-error",
     icon: <SecurityIcon />,
   },
   {

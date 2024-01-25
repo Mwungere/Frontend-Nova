@@ -42,6 +42,7 @@ const Gallery = () => {
                     </div>
                 </div>
                 <div className=' mx-auto'>
+        
                     <Image
                         src='/image5.svg'
                         width={337}

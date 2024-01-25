@@ -16,7 +16,8 @@ const config: Config = {
       fontFamily: {
         lexend: ["Lexend"],
         body: ['Lexend'],
-        abhaya:['Abhaya Libre']
+        abhaya: ['Abhaya Libre'],
+        roboto:['Roboto','sans-serif']
       },
     },
   },

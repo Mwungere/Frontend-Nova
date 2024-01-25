@@ -36,12 +36,12 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
       if (url = "http://localhost:3500/users/registerUser") {
 setTimeout(() => {
               return router.replace("/signin")
-}, 4000);
+}, 3000);
       } 
        if (url = "http://localhost:3500/users/loginUser") {
 setTimeout(() => {
               return router.replace("/dashboard")
-}, 4000);
+}, 3000);
       }
         
 } catch (error: any) {
@@ -60,7 +60,19 @@ setTimeout(() => {
         position: "top-right",
          });
         return;
-    } else {
+    } else if (status === 404) {
+         toast.error(error.response.data.message, {
+        duration: 5000,
+        position: "top-right",
+         });     
+        setTimeout(() => {
+            router.replace("/not-found")
+        }, 3000);
+        return;
+    }else if (status === 500) {
+            router.replace("/not-found")
+        return;
+    }else {
       toast.error(`Unexpected error: ${status}`, {
         duration: 5000,
         position: "top-right",
@@ -69,5 +81,4 @@ setTimeout(() => {
       }
   }
 }
-
 }

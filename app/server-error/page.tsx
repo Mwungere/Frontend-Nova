@@ -1,13 +1,13 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Roboto } from "next/font/google";
-  const roboto = Roboto({
-    weight: ["900"],
-    subsets: ["latin"],
-  });
+const roboto = Roboto({
+  weight: ["900"],
+  subsets: ["latin"],
+});
 const page = () => {
-  const router= useRouter()
+  const router = useRouter();
   return (
     <div
       className="w-[100%] h-screen text-white"
@@ -38,10 +38,10 @@ const page = () => {
               "text-[200px]   mt-[-40px] font-bold tracking-[14.4px] uppercase drop-shadow-md"
             }
           >
-            404
+            500
           </p>
           <p className="font-bold text-[20px] pl-[16%] mt-[-30px]">
-            PAGE NOT FOUND
+            SERVER ERROR
           </p>
           <p className="text-[25px] mt-[1em]">
             The page you are looking for might have been remove,had <br /> its
@@ -49,7 +49,13 @@ const page = () => {
           </p>
           <p className="text-[30px] mt-[1%] tracking-[20px]">BACK</p>
           <div className="flex justify-center items-center">
-            <Image src="/back.svg" width={70} height={70} alt="logo" onClick={()=>router.back()} />
+            <Image
+              src="/back.svg"
+              width={70}
+              height={70}
+              alt="logo"
+              onClick={() => router.back()}
+            />
           </div>
         </div>
       </div>
