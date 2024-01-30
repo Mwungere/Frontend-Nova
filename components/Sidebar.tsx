@@ -25,7 +25,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 const links = [
   {
     desc: "Dashboard",
@@ -71,7 +71,6 @@ const links = [
 
 const Sidebar = () => {
   const pathname = usePathname();
-  console.log("pathname", pathname);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -89,25 +88,31 @@ const Sidebar = () => {
           <Image src={"/logo.svg"} width={41} height={36} alt="logo" />
           <h1 className=" text-white font-body">Nova</h1>
         </div>
-        {links.map(({ desc, link, icon }) => (
-          <>
-            <Link
-              href={link}
-              className={
-                pathname.startsWith("/" + desc.toLowerCase())
-                  ? " bg-slate-700"
-                  : ""
-              }
-            >
-              <ListItem key={desc}>
-                <ListItemButton>
-                  <ListItemIcon style={{ color: "white" }}>{icon}</ListItemIcon>
-                  <ListItemText primary={desc} style={{ color: "white" }} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-          </>
-        ))}
+        {links.map(({ desc, link, icon }) => {
+          const isActive = pathname.startsWith(link);
+
+          return (
+            <>
+              <Link href={link}>
+                <ListItem
+                  key={desc}
+                  className={
+                    isActive
+                      ? ` font-bold font-body pl-10 bg-gray-500 transition-all duration-500 ease-in-out`
+                      : "font-body"
+                  }
+                >
+                  <ListItemButton>
+                    <ListItemIcon style={{ color: "white" }}>
+                      {icon}
+                    </ListItemIcon>
+                    <ListItemText primary={desc} style={{ color: "white" }} />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
+            </>
+          );
+        })}
 
         <ListItem>
           <ListItemButton onClick={handleClickOpen}>
