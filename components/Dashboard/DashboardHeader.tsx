@@ -12,6 +12,7 @@ import {
 import React from "react";
 
 const DashboardHeader = () => {
+
   return (
     <div className=" w-full h-full flex justify-between p-5">
       <div>
@@ -32,7 +33,7 @@ const DashboardHeader = () => {
           }}
         />
 
-        <IconButton sx={{width:"48px", height: "48px"}}>
+        <IconButton sx={{ width: "48px", height: "48px" }}>
           <Badge variant="dot" color="error">
             <Notifications />
           </Badge>

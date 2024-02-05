@@ -26,23 +26,23 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
                 duration: 3000,
                 position: "top-right",
             });
+              setTimeout(() => {            
+              return router.replace("/signin")
+}, 3000);
         }
         if (res.status === 200 && url === "http://localhost:3500/users/loginUser") {
             toast.success("Logged in successfully", {
-                duration: 3000,
+                duration: 3000, 
                 position: "top-right",
             });
-        }
-      if (url = "http://localhost:3500/users/registerUser") {
-setTimeout(() => {
-              return router.replace("/signin")
+          setTimeout(() => {      
+            document.cookie = `jwt= ${res.data} ; expires=Sun , 31 Jan 2025 12:00:00 UTC; path=/`;
+              return router.replace("/dashboard")   
 }, 3000);
-      } 
-       if (url = "http://localhost:3500/users/loginUser") {
-setTimeout(() => {
-              return router.replace("/dashboard")
-}, 3000);
-      }
+          
+}
+     
+      
         
 } catch (error: any) {
   if (error.response) {
