@@ -5,7 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { NavButton } from ".";
 import { CustomNavbarProps } from "@/types";
-import { useRef } from "react";
+import { consumers } from "stream";
+import { usePathname } from "next/navigation";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useDarkMode } from "@/app/Context/store";
+import { LightMode } from "@mui/icons-material";
+
 
 const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
   const scrollDownToServices = () => {
@@ -15,7 +20,6 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
       setOpen(false);
     }
   };
-
   const links = [
     {
       desc: "Home",
@@ -41,6 +45,8 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
   ];
 
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const {darkMode, toggleDarkMode} = useDarkMode()
 
   return (
     <div className={`w-screen ${open ? "fixed" : ""} top-0 left-0`}>
@@ -55,7 +61,7 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
             className=" object-contain"
             alt="logo"
           />
-          <h1 className=" text-black font-body mt-2 ml-2 text-2xl font-semibold">
+          <h1 className={` ${darkMode?'text-[#C8C3bC]': 'text-black'} font-body mt-2 ml-2 text-2xl font-semibold`}>
             Nova
           </h1>
         </div>
@@ -72,26 +78,28 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
               : "top-[-490px] md:opacity-100 opacity-0"
           }`}
         >
-          {links.map(({ desc, link }) => (
-            <li key={desc} className="md:ml-6 lg:ml-16 md:my-0 my-7">
-              {link === "/services" ? (
-                <a
-                  href="#"
-                  className={`font-body text-xl text-secondary hover:text-green-300 duration-500 ${textStyles}`}
+          {links.map(({ desc, link }) => {
+            const isActive = pathname.endsWith(link)
+            return (
+              <li key={desc} className="md:ml-6 lg:ml-16 md:my-0 my-7">
+                
+                 {link ==="/services" ? (<a
+                  href="/#"
+                  className={`font-body text-xl text-white duration-500 ${textStyles}`}
                   onClick={scrollDownToServices}
                 >
                   {desc}
-                </a>
-              ) : (
-                <Link
+                </a>):(<Link
                   href={link}
-                  className={`font-body text-xl text-secondary hover:text-green-300 duration-500 ${textStyles}`}
+                  className={` font-body text-xl text-black  ${isActive? 'border-b-4 border-secondary text-secondary': ''} ${darkMode && !isActive ? 'text-white':''} ${isActive && darkMode? 'text-[#91DA8C]':''} `}
                 >
                   {desc}
-                </Link>
-              )}
-            </li>
-          ))}
+                </Link>)}
+              </li>
+            );
+          })}
+          {!darkMode && <LightMode onClick={toggleDarkMode} className=" hover:cursor-pointer" />}
+          {darkMode && <DarkModeIcon onClick = {toggleDarkMode} className=" hover:cursor-pointer text-white" />}
         </ul>
       </div>
     </div>

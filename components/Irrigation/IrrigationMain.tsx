@@ -49,9 +49,9 @@ const IrrigationMain = () => {
   };
   return (
     <div className=" w-full h-full flex flex-col lg:flex-row">
-      <div className=" w-full  lg:w-[65%] p-5">
-        <div className="flex space-x-5 w-full h-[30%] flex-col lg:flex-row ">
-          <div className=" w-full h-full lg:w-1/2 bg-white transition-all duration-300 ease-in-out rounded-lg">
+      <div className=" w-full flex flex-col lg:w-[65%] p-5">
+        <div className="flex flex-1 w-full h-[30%] flex-col space-y-3 lg:space-y-0 lg:space-x-5 lg:flex-row ">
+          <div className=" w-full lg:w-1/2 bg-white transition-all duration-300 ease-in-out rounded-lg">
             <div className=" flex p-3 justify-between">
               <h1 className=" text-secondary text-lg font-body font-semibold">
                 Overview
@@ -88,7 +88,7 @@ const IrrigationMain = () => {
             <Graph />
           </div>
         </div>
-        <div className=" w-full bg-white mt-[3%] pl-[3%]">
+        <div className=" w-full h-[45%] lg:h-[70%] bg-white mt-[3%] pl-[3%]">
           <BarsDataset />
         </div>
       </div>

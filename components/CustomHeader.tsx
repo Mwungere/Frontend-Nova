@@ -81,8 +81,9 @@
       return new Date(timeString).toLocaleTimeString("en-US", options);
     };
 
-    const user = JSON.parse(localStorage.getItem("nova_user"));
-
+const userString = localStorage.getItem("nova_user");
+    const user = userString ? JSON.parse(userString) :  null;
+    
     const firstNameSplitter = (name: string): string => {
       let firstLetter = "";
       for (let i = 0; i < name.length && i < 1; i++) {
@@ -139,7 +140,7 @@
               sx={{
                 marginTop: "-200px",
                 marginRight: "-1300px",
-                maxWidth: "700", // Adjust the width as needed
+                maxWidth: "700", // Adjust the width as needed 
               }}
             >
               <DialogTitle id="dialog-title">Notifications</DialogTitle>
