@@ -92,7 +92,7 @@ const Sidebar = () => {
           const isActive = pathname.startsWith(link);
 
           return (
-            <>
+            <div key={desc}>
               <Link href={link}>
                 <ListItem
                   key={desc}
@@ -110,7 +110,7 @@ const Sidebar = () => {
                   </ListItemButton>
                 </ListItem>
               </Link>
-            </>
+            </div>
           );
         })}
 
