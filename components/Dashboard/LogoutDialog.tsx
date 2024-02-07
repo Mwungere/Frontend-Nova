@@ -5,6 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { logout } from '@/app/signFinally';
 
 export default function AlertDialog() {
   const [open, setOpen] = React.useState(false);
@@ -39,7 +40,7 @@ export default function AlertDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={logout} autoFocus>
             Agree
           </Button>
         </DialogActions>
