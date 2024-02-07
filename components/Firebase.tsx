@@ -3,10 +3,10 @@ import { getAuth, Auth } from "firebase/auth"; // Import Auth type from firebase
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpBmTvKcTvLjLgo3tX94O7tjSecw350TI",
-  authorizedDomains: [
-    "social-login-and-signup-44139.firebaseapp.com",
+  authDomain: "social-login-and-signup-44139.firebaseapp.com", // Primary authDomain
+   authorizedDomains: [
     "social-login-and-signup-44139.web.app",
-    "nova-ruddy.vercel.app",
+    "nova-ruddy.vercel.app"
   ],
   projectId: "social-login-and-signup-44139",
   storageBucket: "social-login-and-signup-44139.appspot.com",
