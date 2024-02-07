@@ -94,7 +94,7 @@
       return firstLetter;
     };
 
-    const firstLetter = firstNameSplitter(user.displayName);
+    const firstLetter = user? firstNameSplitter(user.displayName) : "";
     return (
       <div className="w-full h-full flex justify-between p-5">
         <div className="flex">
