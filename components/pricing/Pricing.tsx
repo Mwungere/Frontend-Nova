@@ -3,10 +3,10 @@ import Image from 'next/image'
 import { pricingLinks } from '@/constants'
 import { useDarkMode } from '@/app/Context/store';
 const Pricing = () => {
-  const {darkMode, toggleDarkMode} = useDarkMode();
+  // const {darkMode, toggleDarkMode} = useDarkMode();
 
   return (
-    <div className={`w-full flex mt-18 flex-col justify-around py-10 ${darkMode ? ' bg-[#181A1B]':'bg-[#EBEFFF]'} `}>
+    <div className={`w-full flex mt-18 flex-col justify-around py-10 bg-[#EBEFFF] `}>
       <div className=' absolute -mt-[2400px] hidden ml-[700px] rotate-180'> 
         <Image
         src='/oval.svg'
