@@ -83,8 +83,8 @@
     };
 
     const userString = Cookies.get("nova_user");
-
     const user = userString ? JSON.parse(userString) : null;
+
 
     const firstNameSplitter = (name: string): string => {
       let firstLetter = "";
