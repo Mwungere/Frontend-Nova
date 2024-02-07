@@ -179,12 +179,12 @@
 
           <Stack direction={"row"} spacing={1}>
             <Avatar
-              src={user.photoURL.replace("http://", "https://")}
+              src={user ? user.photoURL.replace("http://", "https://") : "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"}
               alt={firstLetter}
             />
             <Stack direction={"column"}>
-              <Typography variant="body1">{user.displayName}</Typography>
-              <Typography variant="body2">{user.email}</Typography>
+              <Typography variant="body1">{user ?user.displayName : ""}</Typography>
+              <Typography variant="body2">{user ? user.email : ""}</Typography>
             </Stack>
           </Stack>
         </Stack>
