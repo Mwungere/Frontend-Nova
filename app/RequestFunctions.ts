@@ -21,7 +21,7 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
     }
   );
   
-        if (res.status === 200 && url === "http://localhost:3500/users/registerUser") {
+        if (res.status === 200 && url === "https://nova-169j.onrender.com/users/registerUser") {
             toast.success(res.data.message, {
                 duration: 3000,
                 position: "top-right",
@@ -30,7 +30,7 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
               return router.replace("/signin")
 }, 3000);
         }
-        if (res.status === 200 && url === "http://localhost:3500/users/loginUser") {
+        if (res.status === 200 && url === "https://nova-169j.onrender.com/users/loginUser") {
             toast.success("Logged in successfully", {
                 duration: 3000, 
                 position: "top-right",

@@ -6,7 +6,7 @@ const Pricing = () => {
   // const {darkMode, toggleDarkMode} = useDarkMode();
 
   return (
-    <div className={`w-full flex mt-18 flex-col justify-around py-10 bg-[#EBEFFF] `}>
+    <div className={`w-full flex mt-18 flex-col justify-around py-10  'bg-[#EBEFFF] `}>
       <div className=' absolute -mt-[2400px] hidden ml-[700px] rotate-180'> 
         <Image
         src='/oval.svg'

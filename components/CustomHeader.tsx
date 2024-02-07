@@ -26,7 +26,8 @@
     TextField,
     Typography,
     useTheme,
-  } from "@mui/material";
+} from "@mui/material";
+  import Cookies from "js-cookie";
   import React, { useState } from "react";
   const notifications = [
     {
@@ -81,9 +82,10 @@
       return new Date(timeString).toLocaleTimeString("en-US", options);
     };
 
-const userString = localStorage.getItem("nova_user");
-    const user = userString ? JSON.parse(userString) :  null;
-    
+    const userString = Cookies.get("nova_user");
+    const user = userString ? JSON.parse(userString) : null;
+
+
     const firstNameSplitter = (name: string): string => {
       let firstLetter = "";
       for (let i = 0; i < name.length && i < 1; i++) {
@@ -92,9 +94,7 @@ const userString = localStorage.getItem("nova_user");
       return firstLetter;
     };
 
-
-
-    const firstLetter= firstNameSplitter(user.displayName)
+    const firstLetter = firstNameSplitter(user.displayName);
     return (
       <div className="w-full h-full flex justify-between p-5">
         <div className="flex">
@@ -107,8 +107,7 @@ const userString = localStorage.getItem("nova_user");
           <TextField
             label="Search"
             variant="outlined"
-            style={{
-            }}
+            style={{}}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -140,7 +139,7 @@ const userString = localStorage.getItem("nova_user");
               sx={{
                 marginTop: "-200px",
                 marginRight: "-1300px",
-                maxWidth: "700", // Adjust the width as needed 
+                maxWidth: "700", // Adjust the width as needed
               }}
             >
               <DialogTitle id="dialog-title">Notifications</DialogTitle>

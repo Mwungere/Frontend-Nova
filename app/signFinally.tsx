@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import toast from "react-hot-toast";
 import { auth } from "@/components/Firebase";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 let user: User;
 export const signFinally = async (
@@ -18,7 +19,7 @@ export const signFinally = async (
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       user = result.user;
-      localStorage.setItem("nova_user", JSON.stringify(user));
+      Cookies.set("nova_user", JSON.stringify(user));
       await user.getIdTokenResult();
     }
 

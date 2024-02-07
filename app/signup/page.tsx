@@ -24,7 +24,7 @@ const SignUp = () => {
   });
   const [errors, setErrors] = useState<string | null>();
   const handleSignUpWithGoogle = async () => {
-     signFinally("http://localhost:3500/users/registerUser", router);
+     signFinally("https://nova-169j.onrender.com/users/registerUser", router);
   }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,7 +44,7 @@ const SignUp = () => {
       });
     } else {
       setErrors(null);
-      const url = "http://localhost:3500/users/registerUser"
+      const url = "https://nova-169j.onrender.com/users/registerUser"
       await handleRequest(formData, url, router)
     }
   }
