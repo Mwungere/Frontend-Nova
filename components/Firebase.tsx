@@ -2,17 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth, Auth } from "firebase/auth"; // Import Auth type from firebase/auth
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCpBmTvKcTvLjLgo3tX94O7tjSecw350TI",
-  authDomain: "social-login-and-signup-44139.firebaseapp.com", // Primary authDomain
-   authorizedDomains: [
-    "social-login-and-signup-44139.web.app",
-    "nova-ruddy.vercel.app"
-  ],
-  projectId: "social-login-and-signup-44139",
-  storageBucket: "social-login-and-signup-44139.appspot.com",
-  messagingSenderId: "569129685272",
-  appId: "1:569129685272:web:fd055d1f48a39983070e6d",
-  measurementId: "G-LY2JNY2ZSG",
+  apiKey: "AIzaSyCkNbWJpBPSKNYlVVCKx4lBeXzVf8wDbOo",
+  authDomain: "nova-413808.firebaseapp.com",
+  projectId: "nova-413808",
+  storageBucket: "nova-413808.appspot.com",
+  messagingSenderId: "792852690256",
+  appId: "1:792852690256:web:a075eaa2e96f62dae56855",
+  measurementId: "G-5MV0BSD070",
 };
 
 let app: any;
