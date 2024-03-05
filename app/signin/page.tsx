@@ -32,7 +32,7 @@ const SignIn = () => {
     rememberMe: false,
   });
   const handleSignInWithGoogle = async () => {
-    await signFinally("https://nova-169j.onrender.com/users/loginUser", router);
+    await signFinally("http://127.0.0.1:3500/api/v1/users/loginUser", router);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -42,7 +42,7 @@ const SignIn = () => {
     } else {
       Cookies.remove("rememberedUser");
     }
-    const url = "https://nova-169j.onrender.com/users/loginUser";
+    const url = "http://127.0.0.1:3500/api/v1/users/loginUser";
     await handleRequest(formData, url, router);
   };
   return (

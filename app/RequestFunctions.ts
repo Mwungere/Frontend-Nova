@@ -1,6 +1,7 @@
 import axios from "axios"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
+import Cookies from "js-cookie"
 import { setTimeout } from "timers"
 interface FormData{
     names?: string | null | undefined ,
@@ -21,7 +22,7 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
     }
   );
   
-        if (res.status === 200 && url === "https://nova-169j.onrender.com/users/registerUser") {
+        if (res.status === 200 && url === "http://127.0.0.1:3500/api/v1/users/registerUser") {
             toast.success(res.data.message, {
                 duration: 3000,
                 position: "top-right",
@@ -30,13 +31,13 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
               return router.replace("/signin")
 }, 3000);
         }
-        if (res.status === 200 && url === "https://nova-169j.onrender.com/users/loginUser") {
-            toast.success("Logged in successfully", {
+        if (res.status === 200 && url === "http://127.0.0.1:3500/api/v1/users/loginUser") {
+            toast.success(res.data.message, {
                 duration: 3000, 
                 position: "top-right",
             });
           setTimeout(() => {      
-            document.cookie = `jwt= ${res.data} ; expires=Sun , 31 Jan 2025 12:00:00 UTC; path=/`;
+         Cookies.set("nova_user", JSON.stringify(res.data.user))
               return router.replace("/dashboard")   
 }, 3000);
           

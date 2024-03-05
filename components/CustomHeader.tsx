@@ -94,7 +94,7 @@
       return firstLetter;
     };
 
-    const firstLetter = user? firstNameSplitter(user.displayName) : "";
+    const firstLetter = user? firstNameSplitter(user.displayName || user.names)  : "";
     return (
       <div className="w-full h-full flex justify-between p-5">
         <div className="flex">
@@ -179,11 +179,18 @@
 
           <Stack direction={"row"} spacing={1}>
             <Avatar
-              src={user ? user.photoURL.replace("http://", "https://") : "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"}
+              src={
+                user && user.photoURL
+                  ? user.photoURL.replace("http://", "https://") ||
+                    "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
+                  : "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
+              }
               alt={firstLetter}
             />
             <Stack direction={"column"}>
-              <Typography variant="body1">{user ?user.displayName : ""}</Typography>
+              <Typography variant="body1">
+                {user ? user.displayName || user.names : ""}
+              </Typography>
               <Typography variant="body2">{user ? user.email : ""}</Typography>
             </Stack>
           </Stack>
