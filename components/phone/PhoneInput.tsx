@@ -69,11 +69,11 @@ const PhoneNumberInput: React.FC<PhoneInputProps> = ({
       render={({ field }) => {
         return (
           <div className="flex flex-col mb-6">
-            <PhoneInput 
+            <PhoneInput
               onChange={(value, inputData) =>
                 handleOnChange(value, inputData as CountryData)
               }
-                
+
               value={field.value}
               country={"in"}
               inputStyle={{ width: "100%" }}
@@ -85,8 +85,9 @@ const PhoneNumberInput: React.FC<PhoneInputProps> = ({
                                     pr-4
                                     pl-[45px]
                                     border-solid
-                                    border-gray-700
                                     border
+                                    border-[1px]
+                                    border-gray-600
                                     rounded-md
                                     text-gray-900
                                     shadow-sm ring-1
@@ -98,7 +99,7 @@ const PhoneNumberInput: React.FC<PhoneInputProps> = ({
                                     ${errors[id] && "focus:ring-red-500"}
                                 `,
               }}
-             placeholder="Enter your phone number"
+              placeholder="Enter your phone number"
               enableSearch
               countryCodeEditable={false}
               autoFormat
