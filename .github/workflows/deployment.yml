@@ -42,7 +42,7 @@ jobs:
          # key: ${{ secrets.SSH_PRIVATE_KEY }}
           # fingerprint: ${{ secrets.SSH_FINGERPRINT }}
           script: |
-            cd ~/apps/novamis/Frontend-Nova
+            cd ~/nova/novamis/Frontend-Nova
             git stash
             git pull origin test
             export NVM_DIR=~/.nvm
