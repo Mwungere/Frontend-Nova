@@ -59,3 +59,15 @@
 .rounded-bars-container .recharts-bar-rectangle {
   border-radius: 16px; /* Adjust the value based on your preference */
 }
+
+.loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: blue;
+  z-index: 9999;
+  transform-origin: left;
+  transition: width 0.3s ease;
+}
