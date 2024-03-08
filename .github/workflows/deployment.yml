@@ -35,12 +35,12 @@ jobs:
       - name: Deploy to SSH server
         uses: appleboy/ssh-action@master
         with:
-          host: 194.163.167.131
-          port: 22
-          username: root
-          password: bxnnHBAuNECS3a6m
-         # key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # fingerprint: ${{ secrets.SSH_FINGERPRINT }}
+          host: ${{ secrets.DEPLOY_HOST }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          username: ${{ secrets.DEPLOY_USER }}
+          # key: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
+          # fingerprint: ${{ secrets.DEPLOY_FINGERPRINT }}
           script: |
             cd ~/nova/novamis/Frontend-Nova
             git stash
