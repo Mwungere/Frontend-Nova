@@ -12,7 +12,7 @@ import OurLandscapingWork from "./home/OurLandscapingWork";
 import Testimonials from "./home/Testimonials";
 import Gallery from "./home/Gallery";
 import Questions from "./home/Questions";
-import Button from "./Button";
+import Button from "./Button"; 
 export {
     Intro,
     Navbar,
@@ -29,6 +29,4 @@ export {
     Gallery,
     Questions,
     Button
-    
-    
 }
