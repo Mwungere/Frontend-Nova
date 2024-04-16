@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lexend:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
+}
+.hero {
+  @apply flex xl:flex-row flex-col gap-5 relative z-0 max-w-[1440px] mx-auto;
+}
+
+
+.text-stroke {
+  -webkit-text-stroke: 1px #1F6115; /* Adjust the width and color as needed */
+  color: transparent;
+}
+.text-strokeDarkMode {
+  -webkit-text-stroke: 1px #9CE791; /* Adjust the width and color as needed */
+  color: transparent;
+}
+.text-color{
+  color: #9090A7;
+}
+.borderColor{
+  border: 2px #c3c3d1 solid;
+  
+}
+.faintBorder{
+  border: 2px #d7d7e7 solid;
+}
+
+.color{
+  color: #060640;
+}
+.footerColor{
+  background: #000020;
+}
+
+.toggle-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.toggle-button {
+  transition: background-color 0.3s ease-in-out;
+  background-color: #cce5ff; /* Faint blue background */
+
+}
+
+.toggle-button.active {
+  background-color: #4194ed; /* Deep blue background for active stat */
+  
+}
+.rounded-bars-container .recharts-bar-rectangle {
+  border-radius: 16px; /* Adjust the value based on your preference */
+}
+
+.loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: blue;
+  z-index: 9999;
+  transform-origin: left;
+  transition: width 0.3s ease;
+}
