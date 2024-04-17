@@ -1,4 +1,5 @@
 "use client";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -13,7 +14,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import React from "react";
+import toast, { Toaster } from "react-hot-toast";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
@@ -26,6 +27,8 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useCookies } from 'next-client-cookies';
 const links = [
   {
     desc: "Dashboard",
@@ -49,12 +52,12 @@ const links = [
   },
   {
     desc: "Security",
-    link: "/security",
+    link: "/not-found",
     icon: <SecurityIcon />,
   },
   {
     desc: "Health",
-    link: "/health",
+    link: "/not-found",
     icon: <LocalFloristIcon />,
   },
   {
@@ -72,7 +75,7 @@ const links = [
 const Sidebar = () => {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
-
+  const router = useRouter();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -80,6 +83,20 @@ const Sidebar = () => {
   const handleClose = () => {
     setOpen(false);
   };
+  const cookie =useCookies(); 
+  const jwt = cookie.get("jwt");
+  const handleLogout= async()=>{
+ if(jwt?.length == 0 || !jwt){
+  toast.error("No cookie found please", {duration:3000, position:"top-right"})
+  router.replace("/signin")
+ }
+ 
+ if(jwt?.length != 0){
+  cookie.remove("jwt");
+  toast.success("Logged out successfully");
+  router.replace("/signin")
+ }
+  }
 
   return (
     <Box sx={{ width: "100%", height: "100%", bgcolor: "#1F6115" }}>
@@ -150,13 +167,14 @@ const Sidebar = () => {
             Cancel
           </Button>
           <Button
-            onClick={handleClose}
+            onClick={()=>handleLogout()}
             style={{ backgroundColor: "#F22F2A", color: "#FFF" }}
           >
             Log out
           </Button>
         </DialogActions>
       </Dialog>
+      <Toaster />
     </Box>
   );
 };

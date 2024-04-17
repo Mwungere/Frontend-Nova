@@ -39,8 +39,3 @@ export const signFinally = async (
   }
 };
 
-export const logout = () => {
-  if (auth !== null) {
-    signOut(auth);
-  }
-};

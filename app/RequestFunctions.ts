@@ -14,13 +14,14 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
     try {
         const res = await axios.post(
       url,
-            data,
+      data,
     {
       headers: {
         "Content-Type": "application/json",
       },
     }
   );
+  
   
         if (res.status === 200 && url === "http://194.163.167.131:7500/api/v1/users/registerUser") {
             toast.success(res.data.message, {
@@ -38,6 +39,7 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
             });
           setTimeout(() => {      
          Cookies.set("nova_user", JSON.stringify(res.data.user))
+         Cookies.set("jwt",res.data.token);
               return router.replace("/dashboard")   
 }, 3000);
           
@@ -78,7 +80,7 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
         duration: 5000,
         position: "top-right",
       }); 
-        return;
+        return; 
       }
   }
 }
