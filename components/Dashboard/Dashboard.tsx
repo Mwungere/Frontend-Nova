@@ -6,8 +6,6 @@ import DashboardMain from "./DashboardMain";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
 const Dashboard = () => {
-  console.log("Reached here ");
-
   return (
     <div className=" w-full h-max flex">
       <div className=" w-1/4 h-screen">
