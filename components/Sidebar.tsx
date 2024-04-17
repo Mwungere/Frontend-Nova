@@ -28,7 +28,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import Cookies  from 'js-cookie';
 const links = [
   {
     desc: "Dashboard",

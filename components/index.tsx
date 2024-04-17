@@ -13,6 +13,13 @@ import Testimonials from "./home/Testimonials";
 import Gallery from "./home/Gallery";
 import Questions from "./home/Questions";
 import Button from "./Button"; 
+import SecurityMain from "./security/SecurityMain";
+import Dashboard from "./Dashboard/Dashboard";
+import Settings from "./Settings/Settings";
+import Sidebar from "./Sidebar";
+import CustomHeader from "./CustomHeader";
+import DashboardMain from "./Dashboard/DashboardMain";
+import Health from "./Health/Health";
 export {
     Intro,
     Navbar,
@@ -28,5 +35,12 @@ export {
     Testimonials,
     Gallery,
     Questions,
-    Button
+    Button,
+    Dashboard,
+    SecurityMain,
+    Settings,
+    Sidebar,
+    CustomHeader,
+    DashboardMain,
+    Health
 }

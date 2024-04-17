@@ -4,7 +4,7 @@ import React from 'react';
 const SettingsLinks = [
   {
     desc: 'Account Setting',
-    link: '/settings/account-settings',
+    link: '/settings',
   },
   {
     desc: 'Login & Security',

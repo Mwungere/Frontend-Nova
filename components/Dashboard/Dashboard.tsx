@@ -1,11 +1,10 @@
 import { Box } from "@mui/material";
 import React from "react";
-import Sidebar from "../Sidebar";
-import CustomHeader from "../CustomHeader";
-import DashboardMain from "./DashboardMain";
+import {CustomHeader, DashboardMain, Sidebar} from "@/components";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
 const Dashboard = () => {
+
   return (
     <div className=" w-full h-max flex">
       <div className=" w-1/4 h-screen">
