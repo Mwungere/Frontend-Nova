@@ -1,0 +1,53 @@
+{
+  "name": "nova",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@headlessui/react": "^1.7.18",
+    "@headlessui/tailwindcss": "^0.2.0",
+    "@hookform/resolvers": "^3.3.2",
+    "@mui/icons-material": "^5.15.7",
+    "@mui/material": "^5.15.4",
+    "@mui/x-charts": "^6.19.3",
+    "@tremor/react": "^3.13.3",
+    "@types/js-cookie": "^3.0.6",
+    "axios": "^1.6.5",
+    "firebase": "^10.7.0",
+    "google-libphonenumber": "^3.2.34",
+    "js-cookie": "^3.0.5",
+    "next13-progressbar": "^1.2.1",
+    "nextjs-progressbar": "^0.0.16",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-google-button": "^0.7.2",
+    "react-hook-form": "^7.51.0",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^4.11.0",
+    "react-phone-input-2": "^2.15.1",
+    "react-router-dom": "^6.21.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "@types/d3": "^7.4.3",
+    "@types/google-libphonenumber": "^7.4.30",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10",
+    "eslint": "8.56.0",
+    "eslint-config-next": "14.1.0",
+    "next": "^14.2.1",
+    "postcss": "^8",
+    "tailwindcss": "^3",
+    "typescript": "^5"
+  }
+}
