@@ -28,7 +28,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useCookies } from 'next-client-cookies';
+import Cookies  from 'js-cookie';
 const links = [
   {
     desc: "Dashboard",
@@ -83,8 +83,7 @@ const Sidebar = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const cookie =useCookies(); 
-  const jwt = cookie.get("jwt");
+  const jwt = Cookies.get("jwt");
   const handleLogout= async()=>{
  if(jwt?.length == 0 || !jwt){
   toast.error("No cookie found please", {duration:3000, position:"top-right"})
@@ -92,7 +91,7 @@ const Sidebar = () => {
  }
  
  if(jwt?.length != 0){
-  cookie.remove("jwt");
+  Cookies.remove("jwt");
   toast.success("Logged out successfully");
   router.replace("/signin")
  }
