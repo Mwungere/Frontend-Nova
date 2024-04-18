@@ -12,7 +12,7 @@ import { Button, Stack } from "@mui/material";
 import React, { useState } from "react";
 // import PhProgress from './WaterProgress'
 import Graph from "./WaterProgress";
-import BarsDataset from "./IrrigationGraph";
+import GridDemo from "./IrrigationGraph";
 import Image from "next/image";
 
 const IrrigationMain = () => {
@@ -49,7 +49,7 @@ const IrrigationMain = () => {
   };
   return (
     <div className=" w-full h-full flex flex-col lg:flex-row">
-      <div className=" w-full flex flex-col lg:w-[65%] p-5">
+      <div className=" w-full flex flex-1 flex-col lg:w-[65%] p-5">
         <div className="flex flex-1 w-full h-[30%] flex-col space-y-3 lg:space-y-0 lg:space-x-5 lg:flex-row ">
           <div className=" w-full lg:w-1/2 bg-white transition-all duration-300 ease-in-out rounded-lg">
             <div className=" flex p-3 justify-between">
@@ -89,11 +89,11 @@ const IrrigationMain = () => {
           </div>
         </div>
         <div className=" w-full h-[45%] lg:h-[70%] bg-white mt-[3%] pl-[3%]">
-          <BarsDataset />
+          <GridDemo />
         </div>
       </div>
 
-      <div className="w-full mr-[5%] rounded-lg h-fit bg-white flex flex-col my-[1.5%] justify-center items-center space-y-5 p-5">
+      <div className="w-full mr-[5%] rounded-lg h-fit bg-white lg:flex flex-col my-[1.5%] justify-center items-center space-y-5 p-5 hidden ">
         <h1 className=" text-lg fontbody self-start">Automatic Irrigation</h1>
         <div className=" w-full">
           {systemOn && (
