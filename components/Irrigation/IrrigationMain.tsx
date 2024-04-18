@@ -21,7 +21,7 @@ const IrrigationMain = () => {
       case "sunny":
         return (
           <Image
-            src={'/sunny.svg'}
+            src={"/sunny.svg"}
             width={61}
             height={57}
             alt="sunny"
@@ -84,12 +84,13 @@ const IrrigationMain = () => {
             </div>
           </div>
           <div className=" w-full lg:w-1/2 bg-secondary rounded-lg text-white">
-            
             <Graph />
           </div>
         </div>
         <div className=" w-full h-[45%] lg:h-[70%] bg-white mt-[3%] pl-[3%]">
-          <GridDemo />
+          <div className=" w-full h-full my-auto flex items-center justify-center">
+            <GridDemo />
+          </div>
         </div>
       </div>
 
@@ -97,10 +98,22 @@ const IrrigationMain = () => {
         <h1 className=" text-lg fontbody self-start">Automatic Irrigation</h1>
         <div className=" w-full">
           {systemOn && (
-            <Image src={"/on.svg"} width={450} height={336} alt="image" className="m-auto" />
+            <Image
+              src={"/on.svg"}
+              width={450}
+              height={336}
+              alt="image"
+              className="m-auto"
+            />
           )}
           {!systemOn && (
-            <Image src={"/off.svg"} width={450} height={336} alt="image" className="m-auto" />
+            <Image
+              src={"/off.svg"}
+              width={450}
+              height={336}
+              alt="image"
+              className="m-auto"
+            />
           )}
         </div>
         <div className="toggle-container">

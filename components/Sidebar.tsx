@@ -57,7 +57,7 @@ const links = [
   },
   {
     desc: "Health",
-    link: "/not-found",
+    link: "/health",
     icon: <LocalFloristIcon />,
   },
   {
