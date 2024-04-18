@@ -1,21 +1,22 @@
 import * as React from "react";
 import { LineChart } from "@mui/x-charts/LineChart";
+import { SensorDataType } from "@/app/irrigation/page";
 
-const time = [
-  new Date(2024, 3, 17, 8, 0, 0),   // Sample time points, adjust as needed
-  new Date(2024, 3, 17, 9, 0, 0),
-  new Date(2024, 3, 17, 10, 0, 0),
-  new Date(2024, 3, 17, 11, 0, 0),
-  new Date(2024, 3, 17, 12, 0, 0),
-  new Date(2024, 3, 17, 13, 0, 0),
-];
+interface GridDemoProps {
+  sensorData: SensorDataType[];
+}
 
-export default function GridDemo() {
+const GridDemo: React.FC<GridDemoProps> = ({ sensorData }) => {
+  const time = sensorData.map((data) => new Date(data.time)); 
+  const temperatureValues = sensorData.map((data) => parseFloat(data.temperature));
+  const moistureValues = sensorData.map((data) => parseFloat(data.moisture));
+  console.log(time, moistureValues, temperatureValues, " from graph");
+
   return (
     <LineChart
       xAxis={[
         {
-          id: 'meeasurements',
+          id: 'measurements',
           data: time,
           scaleType: 'time',
           valueFormatter: (date) => {
@@ -30,12 +31,19 @@ export default function GridDemo() {
           id: 'Temperature',
           color: 'green',
           label: 'Temperature',
-          data: [20, 22, 23, 25, 24, 22], // Sample temperature values, adjust as needed
+          data: temperatureValues,
         },
         {
           id: 'Moisture',
           label: 'Moisture',
-          data: [30, 28, 25, 22, 20, 18], // Sample moisture values, adjust as needed
+          data: moistureValues,
+        },
+      ]}
+      yAxis={[
+        {
+          id: 'y-axis-1',
+          label: 'Value',
+          max: 1024, 
         },
       ]}
       height={350}
@@ -43,3 +51,5 @@ export default function GridDemo() {
     />
   );
 }
+
+export default GridDemo;
