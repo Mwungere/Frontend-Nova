@@ -87,7 +87,7 @@ const IrrigationMain:React.FC<IrrigationMainProps> = ({sensorData}) => {
               </p>
             </div>
           </div>
-          <div className=" w-full lg:w-1/2 bg-secondary rounded-lg text-white">
+          <div className=" w-full lg:w-1/2 bg-white rounded-lg text-white">
             <Graph />
           </div>
         </div>

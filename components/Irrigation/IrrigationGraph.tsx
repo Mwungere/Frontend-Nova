@@ -18,6 +18,7 @@ const GridDemo: React.FC<GridDemoProps> = ({ sensorData }) => {
         {
           id: 'measurements',
           data: time,
+          label:"Time",
           scaleType: 'time',
           valueFormatter: (date) => {
             const hour = date.getHours().toString().padStart(2, '0');
@@ -42,12 +43,14 @@ const GridDemo: React.FC<GridDemoProps> = ({ sensorData }) => {
       yAxis={[
         {
           id: 'y-axis-1',
-          label: 'Value',
-          max: 1024, 
+          label: 'Temperature,Moisture',
+          max: 1200, 
+          
         },
       ]}
-      height={350}
-      margin={{ left: 30, right: 30, top: 30, bottom: 30 }}
+      
+      height={450}
+      margin={{ left: 70, right: 30, top: 10, bottom: 40 }}
     />
   );
 }
