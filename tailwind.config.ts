@@ -17,6 +17,10 @@ const config: Config = {
         body: ['Lexend'],
         abhaya:['Abhaya Libre']
       },
+      screens:{
+        ss:"200px",
+        sm:"500px"
+      }
     },
   },
   plugins: [
