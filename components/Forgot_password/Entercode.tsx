@@ -32,24 +32,19 @@ export default function EnterCode({ callback, reset, isLoading }: EnterCodeProps
             if (typeof callback === 'function') callback(code);
             resetCode();
         }
-    }, [code, callback]); // eslint-disable-line react-hooks/exhaustive-deps
-
-    // Listen for external reset toggle
+    }, [code, callback]); 
     useEffect(() => {
         if (reset) {
             resetCode();
         }
     }, [reset]);
 
-    // Handle input
     function handleInput(e: React.ChangeEvent<HTMLInputElement>, index: number) {
         const input = e.target as HTMLInputElement;
         const previousInput = inputRefs.current[index - 1] as HTMLInputElement | null;
         const nextInput = inputRefs.current[index + 1] as HTMLInputElement | null;
 
-        // Update code state with single digit
         const newCodeArray = Array.from(code);
-        // Convert lowercase letters to uppercase
         if (/^[a-z]+$/.test(input.value)) {
             const uc = input.value.toUpperCase();
             newCodeArray[index] = uc;
@@ -62,7 +57,6 @@ export default function EnterCode({ callback, reset, isLoading }: EnterCodeProps
         input.select();
 
         if (input.value === '') {
-            // If the value is deleted, select previous input, if exists
             if (previousInput) {
                 previousInput.focus();
             }
@@ -117,11 +111,15 @@ export default function EnterCode({ callback, reset, isLoading }: EnterCodeProps
         )
     }
 
+    useEffect(()=>{
+console.log(code);
+    },[code])
+
     return (
-        <div className="flex gap-2 relative">
+        <div className="flex gap-6 relative text-center  pt-[10%] justify-center">
             {[0, 1, 2, 3, 4, 5].map((index) => (
                 <input
-                    className="text-2xl bg-gray-800 text-white w-10 flex p-2 text-center"
+                    className="text-2xl bg-white border-[1px] border-gray-400 outline-gray-400 text-gray-400 rounded-md shadow-xl shadow-gray-500  w-12 flex p-2 text-center"
                     key={index}
                     type="text"
                     maxLength={1}

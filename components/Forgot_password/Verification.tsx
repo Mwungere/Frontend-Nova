@@ -5,18 +5,23 @@ import Link from "next/link";
 import VerificationInput from "react-verification-input";
 import EnterCode from "./Entercode";
 import { useState } from "react";
+import { ConfirmationNumber } from "@mui/icons-material";
 const VerificationMain = () => {
 
     const [isLoading, setIsLoading] = useState<boolean >(false);
-    const handleCodeSubmit = async (code:string) => {
+    const [verificationCode, setVerificationCode] = useState<number | null | any >()
+    const handleCodeSubmit = async (code:any) => {
+        console.log("The confirmation code is ", code);
+        
         if (isLoading) return;
-    
         try {
-          const payload = new FormData();
-          payload.append("code", code);
-          const result = await fetch("/path/to/api/endpoint", {
+          const payload = { code };  // Assuming payload is in JSON format
+          const result = await fetch("http://localhost:3500/api/v1/confirmation/verifyConfirmationCode", {
             method: "POST",
-            body: payload,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
           });
           if (!result.ok) {
             const mess = await result.text();
@@ -29,10 +34,10 @@ const VerificationMain = () => {
           setIsLoading(false);
         }
     }
-
+    
 
     const handleVerify = ()=>{
-
+        console.log(verificationCode)
     }
 
     
@@ -86,16 +91,16 @@ const VerificationMain = () => {
         </div>
 
         <div className="text-center mt-[6%]">
-            <h1 className="font-bold text-[1.2em]">Enter 6 Digit Code Sent <br /> To You </h1>
+            <h1 className="font-bold font-lexend text-[1.2em]">Enter 6 Digit Code Sent <br /> To You </h1>
             <p className="mt-[3%] text-gray-400">Please enter the code sent to your email</p>
         </div>
-        <div className="text-center mt-[5%] flex justify-center ">
-                <VerificationInput placeholder=""  />
-        </div>
+        {/* <div className="text-center mt-[5%] flex justify-center ">
+        <VerificationInput className='bg-white'  placeholder=""  value={verificationCode} onChange={(value:any)=>setVerificationCode(value)} />
+        </div> */}
         {/* You may even use this component as verification code component  */}
-        {/* <div className="flex flex-col gap-6 justify-center text-center">
+        <div className="flex flex-col gap-6 justify-center text-center">
         <EnterCode isLoading={isLoading} callback={handleCodeSubmit}  reset={false}/>
-      </div> */}
+      </div>
          <div className="flex justify-center items-center">
             <button className="bg-[#1F6115] py-[2%] mx-auto mt-[4%] w-[30%] text-white rounded-xl" onClick={handleVerify}>Verify</button>
         </div>
