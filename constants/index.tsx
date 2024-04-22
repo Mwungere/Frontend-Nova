@@ -213,4 +213,32 @@ export const weatherData = {
   time: '10:00 Pm',
   state: 'active'
 }
+
+export const HealthSlidesData = [
+  {
+    id: 1,
+    title: "Proper Plant Nutrition",
+    description: "Ensure your plants receive adequate nutrients such as nitrogen, phosphorus, and potassium to support healthy growth and development. Consider using organic fertilizers or compost to provide essential nutrients in a sustainable manner.",
+    imageUrl: "/svg.svg"
+  },
+  {
+    id: 2,
+    title: "Optimal Watering Practices",
+    description: "Water your plants consistently and efficiently, taking into account their specific moisture needs and environmental conditions. Avoid overwatering or underwatering, as both can lead to stress and damage.",
+    imageUrl: "/svg1.jpg"
+  },
+  {
+    id: 3,
+    title: "Sunlight Exposure",
+    description: "Place your plants in locations where they can receive adequate sunlight for photosynthesis, which is essential for producing energy and promoting healthy growth. Monitor light levels and adjust as needed to prevent sunburn or insufficient light.",
+    imageUrl: "/svg2.jpg"
+  },
+  {
+    id: 4,
+    title: "Pest and Disease Management",
+    description: "Implement integrated pest management strategies to control pests and diseases without harming beneficial organisms or the environment. Regularly inspect plants for signs of pests or diseases and take appropriate action.",
+    imageUrl: "/svg3.jpg"
+  }
+];
+
   
