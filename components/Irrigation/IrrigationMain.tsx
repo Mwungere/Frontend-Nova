@@ -14,8 +14,12 @@ import React, { useState } from "react";
 import Graph from "./WaterProgress";
 import GridDemo from "./IrrigationGraph";
 import Image from "next/image";
+import { SensorDataType } from '@/app/irrigation/page'
 
-const IrrigationMain = () => {
+interface IrrigationMainProps{
+  sensorData: SensorDataType[]; 
+}
+const IrrigationMain:React.FC<IrrigationMainProps> = ({sensorData}) => {
   const getWeatherIcon = (weather: WeatherDataType) => {
     switch (weather.weather.toLowerCase()) {
       case "sunny":
@@ -83,13 +87,13 @@ const IrrigationMain = () => {
               </p>
             </div>
           </div>
-          <div className=" w-full lg:w-1/2 bg-secondary rounded-lg text-white">
+          <div className=" w-full lg:w-1/2 bg-white rounded-lg text-white">
             <Graph />
           </div>
         </div>
         <div className=" w-full h-[45%] lg:h-[70%] bg-white mt-[3%] pl-[3%]">
           <div className=" w-full h-full my-auto flex items-center justify-center">
-            <GridDemo />
+            <GridDemo sensorData= {sensorData} />
           </div>
         </div>
       </div>

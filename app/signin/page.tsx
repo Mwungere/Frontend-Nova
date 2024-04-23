@@ -49,6 +49,10 @@ const SignIn = () => {
     await handleRequest(formData, url, router);
     setLoading(false);
   };
+
+  const handleForgotPasswordRedirect = ()=>{
+    router.replace("/forgot_password");
+  }
   return (
     <div>
       {loading && <div className="loading-bar"></div>}
@@ -155,7 +159,7 @@ const SignIn = () => {
                 <span className="pl-[0.75em]  font-body">Remember Me</span>
               </div>
               <div className=" cursor-pointer ">
-                <span className="text-[#1F6115] font-body">
+                <span className="text-[#1F6115] font-body" onClick={handleForgotPasswordRedirect}>
                   Forgot password?
                 </span>
               </div>

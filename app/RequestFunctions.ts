@@ -40,7 +40,7 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
           setTimeout(() => {      
          Cookies.set("nova_user", JSON.stringify(res.data.user))
          Cookies.set("jwt",res.data.token);
-              return router.replace("/dashboard")   
+              return router.replace("/irrigation")   
 }, 3000);
           
 }

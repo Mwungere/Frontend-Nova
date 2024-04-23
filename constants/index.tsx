@@ -209,7 +209,7 @@ export const questionsAndAnswers = [
 
 export const weatherData = {
   weather: 'sunny',
-  temperature: 28,
+  temperature: 22,
   time: '10:00 Pm',
   state: 'active'
 }

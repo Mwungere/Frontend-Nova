@@ -76,7 +76,7 @@ export default function PieChartWithCenterLabel() {
         <PieChart
           series={[{ data, innerRadius: 50 }]}
           {...size2}
-          colors={["#FF0000", "white"]}
+          colors={["#ff3c00", "white"]}
         >
           <PieCenterLabel>Ph Level</PieCenterLabel>
           <PieCenterLabel2>5.5</PieCenterLabel2>
@@ -85,22 +85,22 @@ export default function PieChartWithCenterLabel() {
         <div className=" w-full flex space-x-4">
           <div className="">
             <div className=" flex flex-row space-x-2">
-              <div className=" bg-red-800 w-5 h-5 contend-[''] rounded-lg">{""}</div>
-              <p>Acidic</p>
+              <div className=" bg-[#ff0000] w-5 h-5 contend-[''] rounded-lg  mb-3">{""}</div>
+              <p  className="text-[#000000] font-body text-sm">Acidic</p>
             </div>
             <div className=" flex flex-row space-x-2">
-              <div className=" bg-blue-800 w-5 h-5 contend-[''] rounded-lg">{}</div>
-              <p>Alkaline</p>
+              <div className=" bg-[#7300ff] w-5 h-5 contend-[''] rounded-lg">{}</div>
+              <p className="text-[#000000] font-body text-sm">Alkaline</p>
             </div>
           </div>
           <div>
             <div className=" flex flex-row space-x-2">
-              <div className=" bg-yellow-300 w-5 h-5 contend-[''] rounded-lg"></div>
-              <p>Neutral</p>
+              <div className=" bg-[#8cff00] w-5 h-5 contend-[''] rounded-lg  mb-3"></div>
+              <p className="text-[#000000] font-body text-sm">Neutral</p>
             </div>
             <div className=" flex flex-row space-x-2">
               <div className=" bg-black w-5 h-5 contend-[''] rounded-lg"></div>
-              <p>No data</p>
+              <p className="text-[#000000] font-body text-sm">No data</p>
             </div>
           </div>
           <div></div>

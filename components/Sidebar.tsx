@@ -95,7 +95,7 @@ const Sidebar = () => {
 
     if (jwt?.length != 0) {
       Cookies.remove("jwt");
-      toast.success("Logged out successfully");
+      toast.success("Logged out successfully",{duration:1000});
       router.replace("/signin");
     }
   };
