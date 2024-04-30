@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useRef, useState, ChangeEvent, DragEvent } from "react";
 import { CustomHeader, Sidebar } from "@/components";
 import { LocalFlorist, MoreVert } from "@mui/icons-material";

@@ -75,6 +75,7 @@ const links = [
 const Sidebar = () => {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] =useState(false);
   const router = useRouter();
   const handleClickOpen = () => {
     setOpen(true);
@@ -100,14 +101,16 @@ const Sidebar = () => {
     }
   };
 
+
   return (
     <Box sx={{ width: "100%", height: "100%", bgcolor: "#1F6115" }}>
       <List>
-        <div className=" flex gap-5 px-8 py-5">
+        <div className=" flex items-center seksta gap-5 py-5">
           <Image src={"/logo.svg"} width={41} height={36} alt="logo" />
           <h1 className=" text-white font-body">Nova</h1>
         </div>
-        {links.map(({ desc, link, icon }) => {
+        {
+        links.map(({ desc, link, icon }) => {
           const isActive = pathname.startsWith(link);
 
           return (

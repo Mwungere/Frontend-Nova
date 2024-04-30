@@ -61,6 +61,9 @@
 }
 
 .loading-bar {
+
+
+
   position: fixed;
   top: 0;
   left: 0;
@@ -163,4 +166,9 @@
 .delete{
   z-index: 999;
   color: #0000;
+}
+
+.full-height {
+  height: 100vh; /* Ensure full viewport height */
+  overflow: hidden; /* Hide overflow to prevent scrolling */
 }

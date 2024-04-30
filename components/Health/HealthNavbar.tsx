@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { MoreVertOutlined } from '@mui/icons-material'
 import Link from 'next/link'
 import React, { useState } from 'react'

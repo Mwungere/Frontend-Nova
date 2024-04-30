@@ -1,3 +1,4 @@
+"use client"
 import { Box } from "@mui/material";
 import React from "react";
 import {CustomHeader, DashboardMain, Sidebar} from "@/components";
@@ -6,8 +7,8 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 const Dashboard = () => {
 
   return (
-    <div className=" w-full h-max flex">
-      <div className=" w-1/4 h-screen">
+    <div className=" w-full h-screen flex">
+      <div className=" w-1/4 h-full">
         <Sidebar />
       </div>
       <div className=" w-3/4">
@@ -17,7 +18,7 @@ const Dashboard = () => {
             icon={<DashboardIcon color="success" />}
           />
         </div>
-        <div className="w-full h-[90%] bg-[#EDF2FA]">
+        <div className="w-full h-[90%] bg-[#EDF2FA] overflow-y-scroll whitespace-nowrap scroll-smooth scrollbar-hide ">
           <DashboardMain />
         </div>
       </div>
