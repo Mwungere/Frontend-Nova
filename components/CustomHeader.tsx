@@ -126,7 +126,7 @@ const CustomHeader = ({ heading, icon }: CustomHeaderProps) => {
   return (
     <div className="w-full h-full flex justify-between p-5">
       <div className="flex justify-center items-center">
-        <div className="mt-[4%] mr-3">{icon}</div>
+        <div className="mr-3">{icon}</div>
         <Typography
           variant="h4"
           component={"h1"}

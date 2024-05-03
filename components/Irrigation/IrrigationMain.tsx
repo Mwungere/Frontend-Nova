@@ -3,7 +3,6 @@ import { IrrigationData, waterData, weatherData } from "@/constants";
 import { WeatherDataType } from "@/types";
 import { ResponsivePie } from "@nivo/pie";
 import {
-  WbSunny,
   Cloud,
   BeachAccess,
   LocationOn,
@@ -11,9 +10,6 @@ import {
 } from "@mui/icons-material";
 import { Button, Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import React, { useState } from "react";
-// import PhProgress from './WaterProgress'
-// import Graph from "./WaterProgress";
-import GridDemo from "./IrrigationGraph";
 import Image from "next/image";
 import { SensorDataType } from "@/app/irrigation/page";
 import DashboardGraph from "../Dashboard/DashboardGraph";
@@ -23,6 +19,35 @@ interface IrrigationMainProps {
   sensorData: SensorDataType[];
 }
 const IrrigationMain: React.FC<IrrigationMainProps> = ({ sensorData }) => {
+
+  const formatTime = (time: Date) => {
+    const hours = time.getHours();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    return `${formattedHours}${ampm}`;
+  };
+
+  const transformedData = [
+    {
+      id: 'temperature',
+      color: 'hsl(255, 70%, 50%)',
+      data: IrrigationData.map(dataPoint => ({
+        x: formatTime(dataPoint.time), // Assuming you want time as x-axis
+        y: parseFloat(dataPoint.temperature) // Convert string to number
+      }))
+    },
+    {
+      id: 'moisture',
+      color: 'hsl(120, 70%, 50%)',
+      data: IrrigationData.map(dataPoint => ({
+        x: formatTime(dataPoint.time), // Assuming you want time as x-axis
+        y: parseFloat(dataPoint.moisture) // Convert string to number
+      }))
+    }
+  ];
+
+  
+
   const getWeatherIcon = (weather: WeatherDataType) => {
     switch (weather.weather.toLowerCase()) {
       case "sunny":
@@ -160,11 +185,11 @@ const IrrigationMain: React.FC<IrrigationMainProps> = ({ sensorData }) => {
       </div>
       <div className=" flex flex-col justify-center items-center w-full h-[467px] bg-white rounded-2xl">
         <div className=" flex w-full justify-between items-center px-4">
-          <p className=" font-body text-lg font-semibold">Temperature / Humidity</p>
-          <p className="font-body text-sm font-semibold uppercase text-[#949494]">HUMIDITY   Temperature</p>
+          <p className=" font-body text-lg font-semibold">Temperature / Moisture</p>
+          <p className="font-body text-sm font-semibold uppercase text-[#949494]">Moisture   Temperature</p>
         </div>
         <ResponsiveLine
-        data={IrrigationData}
+        data={transformedData}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
         xScale={{ type: 'point' }}
         yScale={{
@@ -182,7 +207,7 @@ const IrrigationMain: React.FC<IrrigationMainProps> = ({ sensorData }) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'transportation',
+            legend: 'Time',
             legendOffset: 36,
             legendPosition: 'middle',
             truncateTickAt: 0
@@ -191,7 +216,7 @@ const IrrigationMain: React.FC<IrrigationMainProps> = ({ sensorData }) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'count',
+            legend: 'Values',
             legendOffset: -40,
             legendPosition: 'middle',
             truncateTickAt: 0
@@ -205,7 +230,32 @@ const IrrigationMain: React.FC<IrrigationMainProps> = ({ sensorData }) => {
         pointLabelYOffset={-12}
         enableTouchCrosshair={true}
         useMesh={true}
-        legends={[]}
+        legends={[
+          {
+              anchor: 'bottom-right',
+              direction: 'column',
+              justify: false,
+              translateX: 100,
+              translateY: 0,
+              itemsSpacing: 0,
+              itemDirection: 'left-to-right',
+              itemWidth: 80,
+              itemHeight: 20,
+              itemOpacity: 0.75,
+              symbolSize: 12,
+              symbolShape: 'circle',
+              symbolBorderColor: 'rgba(0, 0, 0, .5)',
+              effects: [
+                  {
+                      on: 'hover',
+                      style: {
+                          itemBackground: 'rgba(0, 0, 0, .03)',
+                          itemOpacity: 1
+                      }
+                  }
+              ]
+          }
+      ]}
     />
       </div>
     </div>

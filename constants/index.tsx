@@ -564,33 +564,19 @@ export const users = [
 ]
 
 
-export const sensorData = [
-  {
-    time: new Date('2024-05-01T08:00:00Z'),
-    temperature: '25°C',
-    moisture: '50%',
-  },
-  {
-    time: new Date('2024-05-01T08:15:00Z'),
-    temperature: '26°C',
-    moisture: '55%',
-  },
-  {
-    time: new Date('2024-05-01T08:30:00Z'),
-    temperature: '27°C',
-    moisture: '60%',
-  },
-  {
-    time: new Date('2024-05-01T08:45:00Z'),
-    temperature: '28°C',
-    moisture: '58%',
-  },
-  {
-    time: new Date('2024-05-01T09:00:00Z'),
-    temperature: '27°C',
-    moisture: '57%',
-  },
+export const IrrigationData = [
+  { time: new Date("2024-05-01T12:00:00Z"), temperature: "25", moisture: "60" },
+  { time: new Date("2024-05-01T13:00:00Z"), temperature: "26", moisture: "28" },
+  { time: new Date("2024-05-01T14:00:00Z"), temperature: "24", moisture: "32" },
+  { time: new Date("2024-05-01T15:00:00Z"), temperature: "27", moisture: "27" },
+  { time: new Date("2024-05-01T16:00:00Z"), temperature: "23", moisture: "35" },
+  { time: new Date("2024-05-01T17:00:00Z"), temperature: "28", moisture: "25" },
+  { time: new Date("2024-05-01T18:00:00Z"), temperature: "22", moisture: "38" },
+  { time: new Date("2024-05-01T19:00:00Z"), temperature: "29", moisture: "23" },
+  { time: new Date("2024-05-01T20:00:00Z"), temperature: "21", moisture: "40" },
+  { time: new Date("2024-05-01T21:00:00Z"), temperature: "30", moisture: "21" },
 ];
+
 
 export const waterData = [
     {
@@ -606,114 +592,3 @@ export const waterData = [
       "color": "hsl(183, 70%, 50%)"
     }
   ]
-export const IrrigationData = [
-  {
-    "id": "japan",
-    "color": "hsl(133, 70%, 50%)",
-    "data": [
-      {
-        "x": "plane",
-        "y": 143
-      },
-      {
-        "x": "helicopter",
-        "y": 60
-      },
-      {
-        "x": "boat",
-        "y": 152
-      },
-      {
-        "x": "train",
-        "y": 211
-      },
-      {
-        "x": "subway",
-        "y": 282
-      },
-      {
-        "x": "bus",
-        "y": 15
-      },
-      {
-        "x": "car",
-        "y": 199
-      },
-      {
-        "x": "moto",
-        "y": 114
-      },
-      {
-        "x": "bicycle",
-        "y": 89
-      },
-      {
-        "x": "horse",
-        "y": 122
-      },
-      {
-        "x": "skateboard",
-        "y": 121
-      },
-      {
-        "x": "others",
-        "y": 215
-      }
-    ]
-  },
-  {
-    "id": "france",
-    "color": "hsl(107, 70%, 50%)",
-    "data": [
-      {
-        "x": "plane",
-        "y": 112
-      },
-      {
-        "x": "helicopter",
-        "y": 282
-      },
-      {
-        "x": "boat",
-        "y": 27
-      },
-      {
-        "x": "train",
-        "y": 85
-      },
-      {
-        "x": "subway",
-        "y": 17
-      },
-      {
-        "x": "bus",
-        "y": 35
-      },
-      {
-        "x": "car",
-        "y": 47
-      },
-      {
-        "x": "moto",
-        "y": 237
-      },
-      {
-        "x": "bicycle",
-        "y": 186
-      },
-      {
-        "x": "horse",
-        "y": 74
-      },
-      {
-        "x": "skateboard",
-        "y": 37
-      },
-      {
-        "x": "others",
-        "y": 19
-      }
-    ]
-  },
- 
-]

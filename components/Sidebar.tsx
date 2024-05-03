@@ -8,6 +8,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Drawer,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -24,12 +26,14 @@ import SecurityIcon from "@mui/icons-material/Security";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import ListIcon from '@mui/icons-material/List';
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-const links = [
+import DrawerList from "./Drawer";
+export const links = [
   {
     desc: "Dashboard",
     link: "/dashboard",
@@ -75,8 +79,11 @@ const links = [
 const Sidebar = () => {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
   const router = useRouter();
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setDrawerOpen(newOpen);
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -101,23 +108,31 @@ const Sidebar = () => {
     }
   };
 
+
+
   return (
     <Box sx={{ width: "100%", height: "100%", bgcolor: "#1F6115" }}>
-      <List>
-        <div className=" flex items-center seksta gap-5 py-5">
+      <div className="flex justify-center items-center w-full h-full bg-white lg:hidden">
+        <IconButton className="" onClick={toggleDrawer(true)}><ListIcon className=" font-body font-bold text-3xl" /></IconButton>
+        <Drawer open={drawerOpen} onClose={toggleDrawer(false)}>
+         {<DrawerList />}
+        </Drawer>
+      </div>
+      <List className="hidden lg:block px-5">
+        <div className=" flex items-center justify-start pl-8 gap-5 py-5">
           <Image src={"/logo.svg"} width={41} height={36} alt="logo" />
           <h1 className=" text-white font-body">Nova</h1>
         </div>
         {links.map(({ desc, link, icon }) => {
           const isActive = pathname.startsWith(link);
           return (
-            <div key={desc}>
+            <div key={desc} className=" mt-3">
               <Link href={link}>
                 <ListItem
                   key={desc}
                   className={
                     isActive
-                      ? ` font-bold font-body pl-10 bg-gray-500 transition-all duration-500 ease-in-out`
+                      ? ` font-bold font-body bg-[#3D3D3D] transition-all duration-500 ease-in-out`
                       : "font-body"
                   }
                 >
@@ -133,7 +148,7 @@ const Sidebar = () => {
           );
         })}
 
-        <ListItem>
+        <ListItem className=" mt-32">
           <ListItemButton onClick={handleClickOpen}>
             <ListItemIcon style={{ color: "white" }}>
               {<ExitToAppIcon />}
