@@ -562,3 +562,158 @@ export const users = [
     time: "Tue"
   },
 ]
+
+
+export const sensorData = [
+  {
+    time: new Date('2024-05-01T08:00:00Z'),
+    temperature: '25°C',
+    moisture: '50%',
+  },
+  {
+    time: new Date('2024-05-01T08:15:00Z'),
+    temperature: '26°C',
+    moisture: '55%',
+  },
+  {
+    time: new Date('2024-05-01T08:30:00Z'),
+    temperature: '27°C',
+    moisture: '60%',
+  },
+  {
+    time: new Date('2024-05-01T08:45:00Z'),
+    temperature: '28°C',
+    moisture: '58%',
+  },
+  {
+    time: new Date('2024-05-01T09:00:00Z'),
+    temperature: '27°C',
+    moisture: '57%',
+  },
+];
+
+export const waterData = [
+    {
+      "id": "stylus",
+      "label": "stylus",
+      "value": 355,
+      "color": "hsl(40, 70%, 50%)"
+    },
+    {
+      "id": "rust",
+      "label": "rust",
+      "value": 387,
+      "color": "hsl(183, 70%, 50%)"
+    }
+  ]
+export const IrrigationData = [
+  {
+    "id": "japan",
+    "color": "hsl(133, 70%, 50%)",
+    "data": [
+      {
+        "x": "plane",
+        "y": 143
+      },
+      {
+        "x": "helicopter",
+        "y": 60
+      },
+      {
+        "x": "boat",
+        "y": 152
+      },
+      {
+        "x": "train",
+        "y": 211
+      },
+      {
+        "x": "subway",
+        "y": 282
+      },
+      {
+        "x": "bus",
+        "y": 15
+      },
+      {
+        "x": "car",
+        "y": 199
+      },
+      {
+        "x": "moto",
+        "y": 114
+      },
+      {
+        "x": "bicycle",
+        "y": 89
+      },
+      {
+        "x": "horse",
+        "y": 122
+      },
+      {
+        "x": "skateboard",
+        "y": 121
+      },
+      {
+        "x": "others",
+        "y": 215
+      }
+    ]
+  },
+  {
+    "id": "france",
+    "color": "hsl(107, 70%, 50%)",
+    "data": [
+      {
+        "x": "plane",
+        "y": 112
+      },
+      {
+        "x": "helicopter",
+        "y": 282
+      },
+      {
+        "x": "boat",
+        "y": 27
+      },
+      {
+        "x": "train",
+        "y": 85
+      },
+      {
+        "x": "subway",
+        "y": 17
+      },
+      {
+        "x": "bus",
+        "y": 35
+      },
+      {
+        "x": "car",
+        "y": 47
+      },
+      {
+        "x": "moto",
+        "y": 237
+      },
+      {
+        "x": "bicycle",
+        "y": 186
+      },
+      {
+        "x": "horse",
+        "y": 74
+      },
+      {
+        "x": "skateboard",
+        "y": 37
+      },
+      {
+        "x": "others",
+        "y": 19
+      }
+    ]
+  },
+ 
+]

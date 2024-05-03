@@ -75,7 +75,7 @@ const links = [
 const Sidebar = () => {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
-  const [isMenuOpen, setIsMenuOpen] =useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const handleClickOpen = () => {
     setOpen(true);
@@ -96,11 +96,10 @@ const Sidebar = () => {
 
     if (jwt?.length != 0) {
       Cookies.remove("jwt");
-      toast.success("Logged out successfully",{duration:1000});
+      toast.success("Logged out successfully", { duration: 1000 });
       router.replace("/signin");
     }
   };
-
 
   return (
     <Box sx={{ width: "100%", height: "100%", bgcolor: "#1F6115" }}>
@@ -109,10 +108,8 @@ const Sidebar = () => {
           <Image src={"/logo.svg"} width={41} height={36} alt="logo" />
           <h1 className=" text-white font-body">Nova</h1>
         </div>
-        {
-        links.map(({ desc, link, icon }) => {
+        {links.map(({ desc, link, icon }) => {
           const isActive = pathname.startsWith(link);
-
           return (
             <div key={desc}>
               <Link href={link}>
