@@ -213,4 +213,382 @@ export const weatherData = {
   time: '10:00 Pm',
   state: 'active'
 }
+
+export const HealthSlidesData = [
+  {
+    id: 1,
+    title: "Proper Plant Nutrition",
+    description: "Ensure your plants receive adequate nutrients such as nitrogen, phosphorus, and potassium to support healthy growth and development. Consider using organic fertilizers or compost to provide essential nutrients in a sustainable manner.",
+    imageUrl: "/svg.svg"
+  },
+  {
+    id: 2,
+    title: "Optimal Watering Practices",
+    description: "Water your plants consistently and efficiently, taking into account their specific moisture needs and environmental conditions. Avoid overwatering or underwatering, as both can lead to stress and damage.",
+    imageUrl: "/svg1.jpg"
+  },
+  {
+    id: 3,
+    title: "Sunlight Exposure",
+    description: "Place your plants in locations where they can receive adequate sunlight for photosynthesis, which is essential for producing energy and promoting healthy growth. Monitor light levels and adjust as needed to prevent sunburn or insufficient light.",
+    imageUrl: "/svg2.jpg"
+  },
+  {
+    id: 4,
+    title: "Pest and Disease Management",
+    description: "Implement integrated pest management strategies to control pests and diseases without harming beneficial organisms or the environment. Regularly inspect plants for signs of pests or diseases and take appropriate action.",
+    imageUrl: "/svg3.jpg"
+  }
+];
+
+
+export const todos = [
+  {
+    id: 1,
+    activity: "Planting",
+    date: "27 Jun 2024",
+    description: "Applying fertilizers",
+  },
+  {
+    id: 1,
+    activity: "Planting",
+    date: "27 Jun 2024",
+    description: "Applying fertilizers",
+  },
+  {
+    id: 1,
+    activity: "Planting",
+    date: "27 Jun 2024",
+    description: "Applying fertilizers",
+  },
+]
   
+export const data = [
+  {
+    "id": "japan",
+    "color": "hsl(280, 70%, 50%)",
+    "data": [
+      {
+        "x": "plane",
+        "y": 216
+      },
+      {
+        "x": "helicopter",
+        "y": 71
+      },
+      {
+        "x": "boat",
+        "y": 130
+      },
+      {
+        "x": "train",
+        "y": 97
+      },
+      {
+        "x": "subway",
+        "y": 257
+      },
+      {
+        "x": "bus",
+        "y": 9
+      },
+      {
+        "x": "car",
+        "y": 22
+      },
+      {
+        "x": "moto",
+        "y": 183
+      },
+      {
+        "x": "bicycle",
+        "y": 119
+      },
+      {
+        "x": "horse",
+        "y": 50
+      },
+      {
+        "x": "skateboard",
+        "y": 94
+      },
+      {
+        "x": "others",
+        "y": 212
+      }
+    ]
+  },
+  {
+    "id": "france",
+    "color": "hsl(47, 70%, 50%)",
+    "data": [
+      {
+        "x": "plane",
+        "y": 154
+      },
+      {
+        "x": "helicopter",
+        "y": 143
+      },
+      {
+        "x": "boat",
+        "y": 290
+      },
+      {
+        "x": "train",
+        "y": 276
+      },
+      {
+        "x": "subway",
+        "y": 254
+      },
+      {
+        "x": "bus",
+        "y": 219
+      },
+      {
+        "x": "car",
+        "y": 92
+      },
+      {
+        "x": "moto",
+        "y": 260
+      },
+      {
+        "x": "bicycle",
+        "y": 246
+      },
+      {
+        "x": "horse",
+        "y": 229
+      },
+      {
+        "x": "skateboard",
+        "y": 6
+      },
+      {
+        "x": "others",
+        "y": 134
+      }
+    ]
+  },
+  {
+    "id": "us",
+    "color": "hsl(187, 70%, 50%)",
+    "data": [
+      {
+        "x": "plane",
+        "y": 17
+      },
+      {
+        "x": "helicopter",
+        "y": 167
+      },
+      {
+        "x": "boat",
+        "y": 207
+      },
+      {
+        "x": "train",
+        "y": 106
+      },
+      {
+        "x": "subway",
+        "y": 87
+      },
+      {
+        "x": "bus",
+        "y": 192
+      },
+      {
+        "x": "car",
+        "y": 151
+      },
+      {
+        "x": "moto",
+        "y": 289
+      },
+      {
+        "x": "bicycle",
+        "y": 109
+      },
+      {
+        "x": "horse",
+        "y": 116
+      },
+      {
+        "x": "skateboard",
+        "y": 145
+      },
+      {
+        "x": "others",
+        "y": 217
+      }
+    ]
+  },
+  {
+    "id": "germany",
+    "color": "hsl(8, 70%, 50%)",
+    "data": [
+      {
+        "x": "plane",
+        "y": 109
+      },
+      {
+        "x": "helicopter",
+        "y": 254
+      },
+      {
+        "x": "boat",
+        "y": 268
+      },
+      {
+        "x": "train",
+        "y": 31
+      },
+      {
+        "x": "subway",
+        "y": 5
+      },
+      {
+        "x": "bus",
+        "y": 4
+      },
+      {
+        "x": "car",
+        "y": 160
+      },
+      {
+        "x": "moto",
+        "y": 71
+      },
+      {
+        "x": "bicycle",
+        "y": 290
+      },
+      {
+        "x": "horse",
+        "y": 39
+      },
+      {
+        "x": "skateboard",
+        "y": 215
+      },
+      {
+        "x": "others",
+        "y": 96
+      }
+    ]
+  },
+  {
+    "id": "norway",
+    "color": "hsl(355, 70%, 50%)",
+    "data": [
+      {
+        "x": "plane",
+        "y": 287
+      },
+      {
+        "x": "helicopter",
+        "y": 13
+      },
+      {
+        "x": "boat",
+        "y": 111
+      },
+      {
+        "x": "train",
+        "y": 61
+      },
+      {
+        "x": "subway",
+        "y": 214
+      },
+      {
+        "x": "bus",
+        "y": 175
+      },
+      {
+        "x": "car",
+        "y": 9
+      },
+      {
+        "x": "moto",
+        "y": 4
+      },
+      {
+        "x": "bicycle",
+        "y": 37
+      },
+      {
+        "x": "horse",
+        "y": 70
+      },
+      {
+        "x": "skateboard",
+        "y": 269
+      },
+      {
+        "x": "others",
+        "y": 266
+      }
+    ]
+  }
+]
+
+export const users = [
+  {
+    img: "/user3.png",
+    role: "JK engineering suppliers",
+    sms: "Can I get a Water pump, motor, and some sensors shaking her head. I checked her ears and they look red and inflamed. She also seems to be in pain when I touch them. It's been a challenge lately with the equipment malfunctioning, and we're falling behind on our production schedule. Urgent assistance would be greatly appreciated.",
+    isActive: true,
+    new: 1,
+    time: "15:56"
+  },
+  {
+    img: "/user2.png",
+    role: "Green farm company",
+    sms: "I need some pesticides for applying to my plants in that area. The recent influx of pests has been devastating our crops, and without proper treatment, we risk losing our entire harvest. Your prompt response is crucial to saving our livelihoods.",
+    isActive: true,
+    new: 2,
+    time: "Wed"
+  },
+  {
+    img: "/user1.png",
+    role: "Rwanda Agriculture Board",
+    sms: "How can I receive Nkunganire support for farmers in my district?",
+    isActive: false,
+    new: 0,
+    time: "Tue"
+  },
+]
+
+
+export const IrrigationData = [
+  { time: new Date("2024-05-01T12:00:00Z"), temperature: "25", moisture: "60" },
+  { time: new Date("2024-05-01T13:00:00Z"), temperature: "26", moisture: "28" },
+  { time: new Date("2024-05-01T14:00:00Z"), temperature: "24", moisture: "32" },
+  { time: new Date("2024-05-01T15:00:00Z"), temperature: "27", moisture: "27" },
+  { time: new Date("2024-05-01T16:00:00Z"), temperature: "23", moisture: "35" },
+  { time: new Date("2024-05-01T17:00:00Z"), temperature: "28", moisture: "25" },
+  { time: new Date("2024-05-01T18:00:00Z"), temperature: "22", moisture: "38" },
+  { time: new Date("2024-05-01T19:00:00Z"), temperature: "29", moisture: "23" },
+  { time: new Date("2024-05-01T20:00:00Z"), temperature: "21", moisture: "40" },
+  { time: new Date("2024-05-01T21:00:00Z"), temperature: "30", moisture: "21" },
+];
+
+
+export const waterData = [
+    {
+      "id": "stylus",
+      "label": "stylus",
+      "value": 355,
+      "color": "hsl(40, 70%, 50%)"
+    },
+    {
+      "id": "rust",
+      "label": "rust",
+      "value": 387,
+      "color": "hsl(183, 70%, 50%)"
+    }
+  ]

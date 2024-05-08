@@ -2,11 +2,14 @@
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
+import { IoEyeSharp } from "react-icons/io5";
 import GoogleButton from "react-google-button";
 import { useRouter } from "next/navigation";
 import { handleRequest } from "../RequestFunctions";
 import Link from "next/link";
 import { signFinally } from "../signFinally";
+import { IoMdEyeOff } from "react-icons/io";
+import { Button, Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 interface FormData {
   names: string;
   email: string;
@@ -23,6 +26,12 @@ const SignUp = () => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState<string | null>();
+  const [show, setShow] = useState<boolean>(false);
+
+  const handleClick = () => {
+    setShow(!show);
+  };
+
   const handleSignUpWithGoogle = async () => {
     signFinally(
       "http://194.163.167.131:7500/api/v1/users/registerUser",
@@ -53,7 +62,7 @@ const SignUp = () => {
   };
   return (
     <div className="flex md:flex-row sm:flex-col h-screen  lg:overflow-y-hidden  ">
-      <div className="pl-[6%] pt-5 pr-5 sm:w-full md:w-[50%]  ">
+      <div className="pl-[3%] pt-5 pr-5 sm:w-full md:w-[50%]  ">
         <div className="flex flex-row justify-between ">
           <div className="flex font-bold cursor-pointer items-center font-body">
             <Image
@@ -98,14 +107,15 @@ const SignUp = () => {
         <div>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col  mt-4">
-              <label className="font-semibold" htmlFor="names">
-                Names *
-              </label>
-              <input
-                className="border-gray-400 border-[1px] md:w-[80%] rounded-lg mt-3 indent-3 outline-gray-400  h-[35px] "
+              <label htmlFor="names">Names * </label>
+              <Input
+                mt={2}
+                w={"80%"}
                 type="text"
+                size={"lg"}
                 name="names"
                 value={formData.names}
+                focusBorderColor="gray.400"
                 onChange={(e) =>
                   setFormData((prevData) => {
                     return { ...prevData, names: e.target.value };
@@ -117,10 +127,13 @@ const SignUp = () => {
               <label className="font-semibold" htmlFor="names">
                 Email *
               </label>
-              <input
-                className="border-gray-400 md:w-[80%] border-[1px] rounded-lg mt-3 indent-3 outline-gray-400  h-[35px] "
+              <Input
                 type="email"
                 name="email"
+                w={"80%"}
+                mt={2}
+                size={"lg"}
+                focusBorderColor="gray.400"
                 value={formData.email}
                 onChange={(e) =>
                   setFormData((prevData) => {
@@ -129,52 +142,70 @@ const SignUp = () => {
                 }
               />
             </div>
+
             <div className="flex flex-col  mt-4">
               <label className="font-semibold" htmlFor="names">
                 Password *
               </label>
-              <input
-                className={
-                  errors
-                    ? "border-red-900 border-[1px] md:w-[80%] rounded-lg mt-3 indent-3 outline-red-900  h-[35px] "
-                    : "border-gray-400 border-[1px] md:w-[80%] rounded-lg mt-3 indent-3 outline-gray-400  h-[35px] "
-                }
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData((prevData) => {
-                    return { ...prevData, password: e.target.value };
-                  })
-                }
-              />
+
+              <InputGroup size="lg" mt={2} w={"80%"}>
+                <Input
+                  pr="4.5rem"
+                  type={show ? "text" : "password"}
+                  borderColor={errors ? "red.900" : "gray.400"}
+                  name="password"
+                  focusBorderColor="gray.400"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData((prevData) => {
+                      return { ...prevData, password: e.target.value };
+                    })
+                  }
+                />
+                <InputRightElement width="4.5rem">
+                  {show ? (
+                    <Icon as={IoMdEyeOff} />
+                  ) : (
+                    <Icon as={IoEyeSharp} size={"sm"} onClick={handleClick} />
+                  )}
+                </InputRightElement>
+              </InputGroup>
             </div>
+
+
             <div className="flex flex-col  mt-4">
               <label className="font-semibold" htmlFor="names">
-                Confirm password *
+                Password *
               </label>
-              <input
-                className={
-                  errors
-                    ? "border-red-900 border-[1px] md:w-[80%] rounded-lg mt-3 indent-3 outline-red-900  h-[35px] "
-                    : "border-gray-400 border-[1px] md:w-[80%] rounded-lg mt-3 indent-3 outline-gray-400  h-[35px] "
-                }
-                type="password"
-                name="password"
-                value={formData.confirmPassword}
-                onChange={(e) =>
-                  setFormData((prevData) => {
-                    return { ...prevData, confirmPassword: e.target.value };
-                  })
-                }
-              />
+
+              <InputGroup size="lg" mt={2} w={"80%"}>
+                <Input
+                  pr="4.5rem"
+                  type={show ? "text" : "password"}
+                  borderColor={errors ? "red.900" : "gray.400"}
+                  name="password"
+                  focusBorderColor="gray.400"
+                  value={formData.confirmPassword}
+                  onChange={(e) =>
+                    setFormData((prevData) => {
+                      return { ...prevData, confirmPassword: e.target.value };
+                    })
+                  }
+                />
+                <InputRightElement width="4.5rem">
+                  {show ? (
+                    <Icon as={IoMdEyeOff} onClick={handleClick} />
+                  ) : (
+                    <Icon as={IoEyeSharp} size={"sm"} onClick={handleClick} />
+                  )}
+                </InputRightElement>
+              </InputGroup>
             </div>
-            <button
-              type="submit"
-              className="bg-[#1F6115] h-[50px] font-body text-white w-[60%] rounded-lg mt-6"
-            >
-              Sign Up
-            </button>
+
+            <div className="flex  w-[80%]">
+            <Button bg={"#1F6115"} color={"white"} mt={5} w={"60%"} _hover={{bg:"#1F6115"}} size={"lg"} flex={"row"} justifyContent={"center"}> Submit</Button>
+            </div>
+
           </form>
 
           <div className="flex flex-row">

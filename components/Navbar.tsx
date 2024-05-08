@@ -3,14 +3,13 @@ import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-import { NavButton } from ".";
 import { CustomNavbarProps } from "@/types";
-import { consumers } from "stream";
 import { usePathname } from "next/navigation";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useDarkMode } from "@/app/Context/store";
 import { LightMode } from "@mui/icons-material";
-
+import { IoMoon } from "react-icons/io5";
+import { useColorMode } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
 const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
   const scrollDownToServices = () => {
     const services = document.getElementById("services");
@@ -46,7 +45,8 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const { darkMode, toggleDarkMode } = useDarkMode();
-
+  const { colorMode, toggleColorMode } = useColorMode()
+  
   return (
     <div className={`w-screen ${open ? "fixed" : ""} top-0 left-0`}>
       <div
@@ -101,7 +101,7 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
                         ? "border-b-4 border-secondary text-secondary"
                         : ""
                     } ${darkMode && !isActive ? "text-white" : ""} ${
-                      isActive && darkMode ? "text-[#91DA8C]" : ""
+                      isActive && colorMode ==="dark" ? "text-[#91DA8C]" : ""
                     } `}
                   >
                     {desc}
@@ -110,18 +110,10 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
               </li>
             );
           })}
-          {!darkMode && (
-            <LightMode
-              onClick={toggleDarkMode}
-              className=" hover:cursor-pointer"
-            />
-          )}
-          {darkMode && (
-            <DarkModeIcon
-              onClick={toggleDarkMode}
-              className=" hover:cursor-pointer text-white"
-            />
-          )}
+          {
+            colorMode ==="light" ?  <Icon as={IoMoon} className="ml-6" w={5} h={5}  onClick={toggleColorMode}/> : <LightMode onClick={toggleColorMode}
+            className=" hover:cursor-pointer  ml-4" />
+          }    
         </ul>
       </div>
     </div>

@@ -27,6 +27,7 @@ const config: Config = {
         require('@tailwindcss/forms')({
             strategy: 'class',
         }),
+        require('tailwind-scrollbar-hide'),
     ],
 }
 export default config

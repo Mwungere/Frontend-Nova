@@ -8,6 +8,7 @@ export interface CustomNavbarProps {
 export interface CustomHeaderProps{
     heading: string;
     icon: ReactElement;
+    menuIcon?: ReactElement;
 }
 
 export interface WeatherDataType{
@@ -15,4 +16,11 @@ export interface WeatherDataType{
     temperature: number;
     time: string;
     state: string
+}
+
+export interface HealthDataSlidesProps{
+    id: number;
+    title: string;
+    description: string;
+    imageUrl: string;
 }

@@ -1,10 +1,8 @@
 "use client";
 import { Toaster, toast } from "react-hot-toast";
 import { Button } from "@/components";
-// import Image from "next/image";
 import Link from "next/link";
 import Image from "@/node_modules/next/image";
-import axios from "axios";
 import GoogleButton from "react-google-button";
 import Cookies from "js-cookie";
 import { useState } from "react";
@@ -12,6 +10,9 @@ import { useEffect } from "react";
 import { handleRequest } from "../RequestFunctions";
 import { signFinally } from "../signFinally";
 import { useRouter } from "next/navigation";
+import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { IoMdEyeOff } from "react-icons/io";
+import { IoEyeSharp } from "react-icons/io5";
 type formData = {
   email: string;
   password: string;
@@ -33,6 +34,13 @@ const SignIn = () => {
     password: "",
     rememberMe: false,
   });
+
+  const [show, setShow] = useState<boolean>(false)
+
+  const handleClick = ()=>{
+    setShow(!show)
+  }
+
   const handleSignInWithGoogle = async () => {
     await signFinally("http://194.163.167.131:7500/api/v1/users/loginUser", router);
   };
@@ -112,11 +120,14 @@ const SignIn = () => {
           </p>
           <div className="pt-[2em] pb-[1em]"></div>
           <form className="flex flex-col" onSubmit={handleSubmit}>
-            <label htmlFor="email" className="mb-[1em] font-body">
+            <label htmlFor="email" className="font-body">
               Email *
             </label>
-            <input
-              className="border-gray-400 outline-gray-400 border-[1px]  mb-[3%] w-[100%] lg:w-[90%] 2xl:w-[60%] rounded-md h-[50px] lg:h-[35px] indent-3"
+            <Input
+            size={"lg"}
+            mt={2}
+            w={"70%"}
+            focusBorderColor="gray.400"
               type="email"
               id="email"
               value={formData.email}
@@ -128,24 +139,38 @@ const SignIn = () => {
               }
             />
 
-            <label htmlFor="password" className="mb-[1em] font-body">
-              Password *
-            </label>
-            <input
-              className="border-gray-400  border-[1px]  mb-[3%] w-[100%] lg:w-[90%] 2xl:w-[60%] rounded-md h-[50px] lg:h-[35px] indent-3 outline-gray-400"
-              type="password"
-              value={formData.password}
-              id="password"
-              onChange={(e) =>
-                setFormData((prevData) => ({
-                  ...prevData,
-                  password: e.target.value,
-                }))
-              }
-            />
 
-            <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-3 md:gap-44 lg:gap-5 2xl:gap-44">
-              <div className="mt-5">
+            <div className="flex flex-col  mt-4">
+              <label className="font-semibold" htmlFor="names">
+                Password *
+              </label>
+
+              <InputGroup size="lg" mt={2} w={"70%"}>
+                <Input
+                  pr="4.5rem"
+                  type={show ? "text" : "password"}
+                  borderColor={"gray.400"}
+                  name="password"
+                  focusBorderColor="gray.400"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData((prevData) => {
+                      return { ...prevData, password: e.target.value };
+                    })
+                  }
+                />
+                <InputRightElement width="4.5rem">
+                  {show ? (
+                    <Icon as={IoMdEyeOff} onClick={handleClick} />
+                  ) : (
+                    <Icon as={IoEyeSharp} size={"sm"} onClick={handleClick} />
+                  )}
+                </InputRightElement>
+              </InputGroup>
+            </div>
+
+            <div className="flex flex-col md:flex-row mt-6 lg:flex-col xl:flex-row gap-3 md:gap-44 lg:gap-5 2xl:gap-44">
+              <div  >
                 <input
                   type="checkbox"
                   className=" h-4 w-4 hover:cursor-pointer"
@@ -158,8 +183,8 @@ const SignIn = () => {
                 />
                 <span className="pl-[0.75em]  font-body">Remember Me</span>
               </div>
-              <div className=" cursor-pointer ">
-                <span className="text-[#1F6115] font-body" onClick={handleForgotPasswordRedirect}>
+              <div className=" cursor-pointer w-[70% ">
+                <span className="text-[#1F6115]  font-body" onClick={handleForgotPasswordRedirect}>
                   Forgot password?
                 </span>
               </div>

@@ -61,6 +61,9 @@
 }
 
 .loading-bar {
+
+
+
   position: fixed;
   top: 0;
   left: 0;
@@ -72,8 +75,8 @@
   transition: width 0.3s ease;
 }
 .card{
-  padding: 10px;
-  box-shadow: 0 0 5px #ffdfdf;
+  /* padding: 10px; */
+  /* box-shadow: 0 0 5px #ffdfdf; */
   border-radius: 5px;
   overflow: hidden;
 }
@@ -91,16 +94,17 @@
   border-radius: 4px;
   cursor: pointer;
   font-weight: 400;
-  padding: 8px 13px;
+  padding: 10px 13px;
   width: 100%;
-  background: #0086fe;
+  background: #1F6115;
+  
 }
 .card .drag-area{
   /* height: 150px; */
   border-radius: 5px;
-  border: 2px dashed #0086fe;
-  color: #0086fe;
-  background: #f4f3f9;
+  border: 2px dashed rgba(76, 83, 95, 0.5);
+  color: #4C535F;
+  background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,7 +118,7 @@
 }
 
 .card .select{
-  color: #5256ad;
+  color: #4C535F;
   margin-left: 5px;
   cursor: pointer;
   transition: 0.4s;
@@ -162,4 +166,9 @@
 .delete{
   z-index: 999;
   color: #0000;
+}
+
+.full-height {
+  height: 100vh; /* Ensure full viewport height */
+  overflow: hidden; /* Hide overflow to prevent scrolling */
 }

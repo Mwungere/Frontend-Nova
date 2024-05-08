@@ -23,7 +23,8 @@ const RecoveryEmail = () => {
       </div>
 
       <div className="pl-[5%]  pt-[5%] w-[50%]">
-        <div className="flex flex-row justify-between w-full ">
+        <div className="w-[90%]">
+        <div className="flex flex-row justify-between w-full">
           <div className="flex font-bold cursor-pointer items-center font-body pb-6">
             <Image
               src="/logo.svg"
@@ -81,6 +82,7 @@ const RecoveryEmail = () => {
               </p>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
