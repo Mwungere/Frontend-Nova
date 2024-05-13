@@ -70,7 +70,7 @@ const GoToEmail = () => {
             className="bg-[#1F6115] py-[2%] mx-auto mt-[4%] w-[60%] text-white rounded-xl"
             onClick={handleGoToEmail}
           >
-            Go To Email
+           Verify confirmation code 
           </button>
         </div>
         {/* Don't have an account yet */}
