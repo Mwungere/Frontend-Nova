@@ -3,10 +3,12 @@ import React from "react";
 import { Next13ProgressBar } from "next13-progressbar";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./themes/theme";
+import ReduxProvider from "@/store/redux-provider";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-   <ChakraProvider>
+  <ReduxProvider>
+     <ChakraProvider>
      {children}
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Next13ProgressBar
@@ -16,6 +18,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         showOnShallow
       />
    </ChakraProvider>
+  </ReduxProvider>
   );
 };
 
