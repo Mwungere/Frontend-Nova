@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
-import toast, { Toaster } from "react-hot-toast";
+// import toast, { Toaster } from "react-hot-toast";
+import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoEyeSharp } from "react-icons/io5";
 import GoogleButton from "react-google-button";
@@ -27,6 +28,9 @@ const SignUp = () => {
   });
   const [errors, setErrors] = useState<string | null>();
   const [show, setShow] = useState<boolean>(false);
+  const [pic, setPic] = useState();
+  const [picLoading, setPicLoading] = useState<boolean>(false);
+  const toast = useToast();
 
   const handleClick = () => {
     setShow(!show);
@@ -38,22 +42,78 @@ const SignUp = () => {
       router
     );
   };
+
+
+
+  const postDetails = (pics:any) => {
+    setPicLoading(true);
+    if (pics === undefined) {
+      toast({
+        title: "Please Select an Image!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    console.log(pics);
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "chat-app");
+      data.append("cloud_name", "piyushproj");
+      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+          console.log(data.url.toString());
+          setPicLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setPicLoading(false);
+        });
+    } else {
+      toast({
+        title: "Please Select an Image!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setPicLoading(false);
+      return;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.password.length < 6) {
       const error = new Error("Password must be at least 6 characters");
       setErrors(error.message);
-      toast.error(error.message, {
-        duration: 5000,
-        position: "top-right",
-      });
+
+      toast({
+        title:"Faced an error",
+        description:error.message,
+        status:"error",
+        isClosable:true,
+        position:"top-right"
+      })
+
     } else if (formData.password !== formData.confirmPassword) {
       const error = new Error("Passwords do not match");
-      setErrors(error.message);
-      toast.error(error.message, {
-        duration: 5000,
-        position: "top-right",
-      });
+      toast({
+        title:"Faced an error",
+        description:error.message,
+        status:"error",
+        isClosable:true,
+        position:"top-right"
+      })
+
     } else {
       setErrors(null);
       const url = "http://194.163.167.131:7500/api/v1/users/registerUser";
@@ -217,7 +277,7 @@ const SignUp = () => {
               Login{" "}
             </Link>{" "}
           </div>
-          <Toaster />
+          {/* <Toaster /> */}
         </div>
       </div>
       <div></div>
