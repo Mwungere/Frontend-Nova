@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { DarkModeProvider } from "./Context/store";
 import theme from "./themes/theme"
 import { ColorModeScript } from "@chakra-ui/react";
 
@@ -23,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <DarkModeProvider>{children}</DarkModeProvider>
+          {children}
         </Providers>
       </body>
     </html>

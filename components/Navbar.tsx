@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { CustomNavbarProps } from "@/types";
 import { usePathname } from "next/navigation";
-import { useDarkMode } from "@/app/Context/store";
 import { LightMode } from "@mui/icons-material";
 import { IoMoon } from "react-icons/io5";
 import { useColorMode } from "@chakra-ui/react";
@@ -44,7 +43,6 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
 
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const { darkMode, toggleDarkMode } = useDarkMode();
   const { colorMode, toggleColorMode } = useColorMode()
   
   return (
@@ -61,9 +59,7 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
             alt="logo"
           />
           <h1
-            className={` ${
-              darkMode ? "text-[#C8C3bC]" : "text-black"
-            } font-body mt-2 ml-2 text-2xl font-semibold`}
+            className={` text-black font-body mt-2 ml-2 text-2xl font-semibold`}
           >
             Nova
           </h1>
@@ -100,9 +96,7 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
                       isActive
                         ? "border-b-4 border-secondary text-secondary"
                         : ""
-                    } ${darkMode && !isActive ? "text-white" : ""} ${
-                      isActive && colorMode ==="dark" ? "text-[#91DA8C]" : ""
-                    } `}
+                    }`}
                   >
                     {desc}
                   </Link>

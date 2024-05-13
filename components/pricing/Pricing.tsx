@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 import { pricingLinks } from '@/constants'
-import { useDarkMode } from '@/app/Context/store';
 const Pricing = () => {
   // const {darkMode, toggleDarkMode} = useDarkMode();
 

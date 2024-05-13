@@ -1,6 +1,5 @@
 import { Navbar, Pricing } from '@/components'
 import React from 'react'
-import { useDarkMode } from '../Context/store'
 
 const PricingPage = () => {
   // const {darkMode} = useDarkMode()
