@@ -111,7 +111,7 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
             );
           })}
           {
-            colorMode ==="light" ?  <Icon as={IoMoon} className="ml-6" w={5} h={5}  onClick={toggleColorMode}/> : <LightMode onClick={toggleColorMode}
+            colorMode ==="light" ?  <Icon as={IoMoon} className="ml-6 cursor-pointer" w={5} h={5}  onClick={toggleColorMode}/> : <LightMode onClick={toggleColorMode}
             className=" hover:cursor-pointer  ml-4" />
           }    
         </ul>

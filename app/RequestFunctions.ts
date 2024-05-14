@@ -1,3 +1,4 @@
+"use server "
 import axios from "axios"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
@@ -10,6 +11,7 @@ interface FormData{
     password?: string
 };
 
+
 export const handleRequest = async (data: FormData, url:string , router: ReturnType<typeof useRouter>) => {
     try {
         const res = await axios.post(
@@ -17,13 +19,15 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
       data,
     {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type":"application/json",
+        "Cookie":`jwt=${Cookies.get("jwt")}`
+                
       },
     }
   );
   
   
-        if (res.status === 200 && url === "http://194.163.167.131:7500/api/v1/users/registerUser") {
+        if (res.status === 200 && url === "http://127.0.0.1:3500/api/v1/users/registerUser") {
             toast.success(res.data.message, {
                 duration: 3000,
                 position: "top-right",
@@ -32,7 +36,7 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
               return router.replace("/signin")
 }, 3000);
         }
-        if (res.status === 200 && url === "http://194.163.167.131:7500/api/v1/users/loginUser") {
+        if (res.status === 200 && url === "http://127.0.0.1:3500/api/v1/users/loginUser") {
             toast.success(res.data.message, {
                 duration: 3000, 
                 position: "top-right",
