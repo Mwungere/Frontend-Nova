@@ -2,14 +2,45 @@
 import VerificationBackground from "../../public/verificationBackground.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useToast } from "@chakra-ui/react";
 import { HStack, PinInput, PinInputField } from "@chakra-ui/react";
 import { useState } from "react";
+import { useAppSelector } from "@/store/store";
+import axios from "axios";
 const VerificationMain = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [confirmationCode, setConfirmationCode]= useState<string | number>()
-  
-  const handleSubmit= ()=>{
-    console.log(confirmationCode);
+  const userEmail = useAppSelector((state)=>state.verification.email);
+  const toast = useToast()
+  const handleSubmit= async(e:React.FormEvent)=>{
+    e.preventDefault();
+    
+    const formData = {
+      email:userEmail,
+      code:confirmationCode
+    }
+    const res = await axios.post("http://127.0.0.1:3500/api/v1/confirmation/verify_code",formData, {} )
+    try {
+      if(res.status == 200){
+        toast({
+          title:"Confirmation code verification",
+          "description": res.data.message,
+          status:"success",
+          position:"top-right",
+          duration: 3000,
+          isClosable:true
+        })
+      }
+    } catch (error) {
+      toast({
+       title:"Verification error",
+       description:res.data.message,
+       status:"error",
+       position:"top-right",
+       isClosable:true,
+       duration:3000
+      })
+    }
   }
 
   return (
@@ -84,7 +115,7 @@ const VerificationMain = () => {
         
         <div className="flex justify-center items-center">
           <button
-            onClick={()=>handleSubmit()}
+            onClick={handleSubmit}
             className="bg-[#1F6115] py-[2%] mx-auto mt-[4%] w-[30%] text-white rounded-xl"
           >
             Verify

@@ -7,48 +7,63 @@ import { useState } from "react";
 import { Button, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { Input } from "@chakra-ui/react";
+import { useAppDispatch } from "@/store/store";
 import { EmailIcon } from "@chakra-ui/icons";
+import { setVerificationState } from "@/store/verificationSlice";
+import axios from "axios";
 const RecoveryEmail = () => {
-  const [recoveryEmail, setRecoveryEmail] = useState<String | null>();
-  const [confirmationCode, setConfirmationCode] = useState<number | string>();
+  const [recoveryEmail, setRecoveryEmail] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const toast = useToast();
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     setIsLoading(true)
     e.preventDefault();
     const generatedCode = generateConfirmationCode();
-    setConfirmationCode(generatedCode);
-    const templateParams = {
-      from_email: "verygoodmuhirwa2@gmail.com",
-      to_email: recoveryEmail,
-      message: `Dear customer , we appreciate you for collaborating and trusting Nova. Your confirmation code is ${generatedCode}`,
-    };
+    const formData = {
+      email: recoveryEmail,
+      code: generatedCode
+    }
+   const res = await axios.post("http://127.0.0.1:3500/api/v1/confirmation/store_verification_code",formData )
+   try {
+    if(res.status === 200) {
+      const templateParams = {
+        from_email: "verygoodmuhirwa2@gmail.com",
+        to_email: recoveryEmail,
+        message: `Dear customer , we appreciate you for collaborating and trusting Nova. Your confirmation code is ${generatedCode}`,
+      };
+  
+      emailjs
+        .send("service_346kmq2", "template_7j3zjir", templateParams, {
+          publicKey: "Ne8MFb415mmePvu0B",
+        })
+        .then(
+          function (response) {
+            console.log("SUCCESS!", response.status, response.text);
+            setIsLoading(false)
+            setTimeout(() => {
+              toast({
+                title: "Confirmation code",
+                description: "Confirmation code sent successfully",
+                duration: 5000,
+                status: "success",
+                position: "top-right",
+              });
+              dispatch(setVerificationState({email:recoveryEmail}))
 
-    emailjs
-      .send("service_346kmq2", "template_7j3zjir", templateParams, {
-        publicKey: "Ne8MFb415mmePvu0B",
-      })
-      .then(
-        function (response) {
-          console.log("SUCCESS!", response.status, response.text);
-          setIsLoading(false)
-          setTimeout(() => {
-            toast({
-              title: "Confirmation code",
-              description: "Confirmation code sent successfully",
-              duration: 5000,
-              status: "success",
-              position: "top-right",
-            });
-            router.replace("/go-email");
-          }, 3000);
-        },
-        function (err) {
-          console.log("FAILED...", err);
-          setIsLoading(false)
-        }
-      );
+              router.replace("/go-email");
+            }, 3000);
+          },
+          function (err) {
+            console.log("FAILED...", err);
+            setIsLoading(false)
+          }
+        );
+    }
+   } catch (error) {
+    console.log(error);
+   } 
   };
 
   function generateConfirmationCode() {
