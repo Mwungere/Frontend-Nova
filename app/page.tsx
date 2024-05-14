@@ -14,7 +14,6 @@ import {
   Gallery,
   Questions,
 } from "@/components";
-import { useDarkMode } from "./Context/store";
 import { ColorModeScript } from '@chakra-ui/react'
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
 export default function Home() {

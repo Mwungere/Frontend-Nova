@@ -2,9 +2,8 @@
 import React from "react";
 import { Next13ProgressBar } from "next13-progressbar";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
-import theme from "./themes/theme";
 import ReduxProvider from "@/store/redux-provider";
-
+import { theme } from "./themes/theme";
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
   <ReduxProvider>
