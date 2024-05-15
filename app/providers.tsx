@@ -7,7 +7,6 @@ import { theme } from "./themes/theme";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ThemeProvider,createTheme } from "@mui/material";
 const themes = createTheme();
-
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
   <ReduxProvider>
