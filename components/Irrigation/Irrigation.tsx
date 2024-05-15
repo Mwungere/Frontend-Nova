@@ -2,20 +2,17 @@
 import React, { useState } from 'react'
 import Sidebar from '../Sidebar'
 import CustomHeader from '../CustomHeader'
-import { ChevronRight, WaterDrop } from '@mui/icons-material'
+import {  WaterDrop } from '@mui/icons-material'
 import IrrigationMain from './IrrigationMain'
-import { useDarkMode } from '@/app/Context/store'
 import { SensorDataType } from '@/app/irrigation/page'
-import { IconButton } from '@mui/material'
 
 
 interface IrrigationProps {
-  sensorData: SensorDataType[]; // Assuming SensorData is the interface for your sensor data
+  sensorData: SensorDataType[]; 
 }
 
 const Irrigation : React.FC<IrrigationProps> = ({sensorData}) => {
   
-  // const {darkMode} = useDarkMode()
   return (
     <div className=' w-full h-screen overflow-x-hidden flex'>
           <div className={`hidden relative  w-fit h-fit lg:h-full lg:w-1/4  z-50  lg:block `}>

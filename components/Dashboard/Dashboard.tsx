@@ -1,6 +1,4 @@
 "use client"
-import { Box } from "@mui/material";
-import React from "react";
 import {CustomHeader, DashboardMain, Sidebar} from "@/components";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 

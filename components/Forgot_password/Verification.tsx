@@ -10,7 +10,7 @@ import { useAppSelector } from "@/store/store";
 import axios from "axios";
 const VerificationMain = () => {
   const router = useRouter()
-  const [confirmationCode, setConfirmationCode] = useState<string | number>();
+  const [confirmationCode, setConfirmationCode] = useState<string | undefined>();
   const userEmail = useAppSelector((state) => state.verification.email);
   const toast = useToast();
   const handleSubmit = async (e: React.FormEvent) => {
