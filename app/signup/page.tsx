@@ -4,12 +4,13 @@ import Image from "next/image";
 import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { IoEyeSharp } from "react-icons/io5";
+import { IoMdEyeOff } from "react-icons/io";
+
 import GoogleButton from "react-google-button";
 import { useRouter } from "next/navigation";
 import { handleRequest } from "../RequestFunctions";
 import Link from "next/link";
 import { signFinally } from "../signFinally";
-import { IoMdEyeOff } from "react-icons/io";
 import { Button, Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 interface FormData {
   names: string;

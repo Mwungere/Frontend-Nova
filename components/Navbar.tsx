@@ -43,6 +43,8 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
 
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  // const { darkMode, toggleDarkMode } = useDarkMode();
+  
   const { colorMode, toggleColorMode } = useColorMode()
   
   return (
@@ -59,7 +61,9 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
             alt="logo"
           />
           <h1
-            className={` text-black font-body mt-2 ml-2 text-2xl font-semibold`}
+            className={` ${
+              colorMode ? "text-[#C8C3bC]" : "text-black"
+            } font-body mt-2 ml-2 text-2xl font-semibold`}
           >
             Nova
           </h1>
@@ -96,7 +100,9 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
                       isActive
                         ? "border-b-4 border-secondary text-secondary"
                         : ""
-                    }`}
+                    } ${colorMode  && !isActive ? "text-white" : ""} ${
+                      isActive && colorMode ==="dark" ? "text-[#91DA8C]" : ""
+                    } `}
                   >
                     {desc}
                   </Link>
@@ -105,7 +111,7 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
             );
           })}
           {
-            colorMode ==="light" ?  <Icon as={IoMoon} className="ml-6" w={5} h={5}  onClick={toggleColorMode}/> : <LightMode onClick={toggleColorMode}
+            colorMode ==="light" ?  <Icon as={IoMoon} className="ml-6 cursor-pointer" w={5} h={5}  onClick={toggleColorMode}/> : <LightMode onClick={toggleColorMode}
             className=" hover:cursor-pointer  ml-4" />
           }    
         </ul>

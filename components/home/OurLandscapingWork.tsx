@@ -1,13 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
 import { services } from '@/constants'
+import { useColorMode } from '@chakra-ui/react';
 const OurLandscapingWork = () => {
+const {colorMode, toggleColorMode} = useColorMode();
   return (
     <div id='services' className=' w-full mt-20 flex flex-col'>
       <div className=' flex '>
         <div className=' ml-10 w-3/4'>
-          <h1 className={` font-body text-[#232A42] text-5xl font-bold`}>Our landscaping work and <span className={` font-body text-secondary`}>services</span></h1>
-          <p className={` font-body mt-10 text-[#353535]`}>Explore our exceptional landscaping services, where meticulous attention to detail and creative design <br /> converge to transform outdoor spaces.</p>
+          <h1 className={` font-body ${ colorMode ? 'text-[#C8C3bC]':'text-[#232A42]'} text-5xl font-bold`}>Our landscaping work and <span className={` font-body ${ colorMode ? 'text-[#9CE791]':'text-secondary'}`}>services</span></h1>
+          <p className={` font-body mt-10 ${colorMode?'text-[#CBC6BF]':'text-[#353535]'}`}>Explore our exceptional landscaping services, where meticulous attention to detail and creative design <br /> converge to transform outdoor spaces.</p>
         </div>
         <Image
           src="/blur.svg"
@@ -28,8 +30,8 @@ const OurLandscapingWork = () => {
                 alt=' image'
                 className=' text-white'
               />
-              <h1 className={`text-[#232A42] group-hover:text-white text-2xl font-semibold lg:text-3xl font-body mt-7 `}>{h}<span className={` text-secondary font-body  group-hover:text-white`}>{sp}</span></h1>
-              <p className={`font-body mt-5 text-[#353535] group-hover:text-white`}>{p}</p>
+              <h1 className={` ${ colorMode ? 'text-[#C8C3bC]':'text-[#232A42]'} group-hover:text-white text-2xl font-semibold lg:text-3xl font-body mt-7 `}>{h}<span className={` ${ colorMode ? 'text-[#9CE791]':'text-secondary'} font-body  group-hover:text-white`}>{sp}</span></h1>
+              <p className={`font-body mt-5 ${colorMode ? 'text-[#CBC6BF]':'text-[#353535]'} group-hover:text-white`}>{p}</p>
             </div>
           ))
         }

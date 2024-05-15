@@ -42,7 +42,7 @@ const SignIn = () => {
   }
 
   const handleSignInWithGoogle = async () => {
-    await signFinally("http://194.163.167.131:7500/api/v1/users/loginUser", router);
+    await signFinally("http://127.0.0.1:3500/api/v1/users/loginUser", router);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -52,7 +52,7 @@ const SignIn = () => {
     } else {
       Cookies.remove("rememberedUser");
     }
-    const url = "http://194.163.167.131:7500/api/v1/users/loginUser";
+    const url = "http://127.0.0.1:3500/api/v1/users/loginUser";
     setLoading(!loading);
     await handleRequest(formData, url, router);
     setLoading(false);
@@ -192,6 +192,7 @@ const SignIn = () => {
 
             <input
               type="submit"
+              onClick={handleSubmit}
               className="text-white h-[60px] cursor-pointer font-lexend mt-[1em] w-[100%] lg:h-[50px] lg:w-[90%] 2xl:w-[60%] border-none rounded-lg bg-[#1F6115]"
               value={"Login"}
             />

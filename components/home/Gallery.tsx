@@ -1,11 +1,13 @@
 import React from 'react'
 import Image from 'next/image'
+import { useColorMode } from '@chakra-ui/react';
 const Gallery = () => {
+    const {colorMode} = useColorMode();
     return (
         <div className=' flex flex-col items-center mt-20'>
             <div className=' flex flex-col items-center'>
-                <h1 className={`text-[#232A42] font-body text-5xl lg:text-6xl font-bold mb-8`}>Our <span className={` font-body text-secondary`}>Gallery</span></h1>
-                <p className={` font-body text-[#525252] mb-7 lg:text-lg`}>Explore the heart of our transformative journey in agriculture through our Project Gallery. Immerse yourself in a visual <br /> narrative showcasing the innovation and impact of our Farm Security, Monitoring, and Automation solutions. Witness <br /> firsthand the strides we're making towards a sustainable and efficient future for global agriculture.</p>
+                <h1 className={`${ colorMode ? 'text-[#C8C3bC]':'text-[#232A42]'} font-body text-5xl lg:text-6xl font-bold mb-8`}>Our <span className={` font-body ${ colorMode ? 'text-[#9CE791]':'text-secondary'}`}>Gallery</span></h1>
+                <p className={` font-body ${colorMode ? 'text-[#CBC6BF]':'text-[#525252]'} mb-7 lg:text-lg`}>Explore the heart of our transformative journey in agriculture through our Project Gallery. Immerse yourself in a visual <br /> narrative showcasing the innovation and impact of our Farm Security, Monitoring, and Automation solutions. Witness <br /> firsthand the strides we're making towards a sustainable and efficient future for global agriculture.</p>
             </div>
             <div className=' flex flex-col  lg:flex-row gap-7 flex-wrap'>
                 <div className=' flex flex-col md:flex-row gap-7'>

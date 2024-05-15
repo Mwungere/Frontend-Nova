@@ -22,6 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           {children}
+          {/* <DarkModeProvider>{children}</DarkModeProvider> */}
         </Providers>
       </body>
     </html>

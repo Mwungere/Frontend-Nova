@@ -2,13 +2,10 @@
 import React from "react";
 import { Next13ProgressBar } from "next13-progressbar";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
-import theme from "./themes/theme";
 import ReduxProvider from "@/store/redux-provider";
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'; // Import AppRouterCacheProvider
-
+import { theme } from "./themes/theme";
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-    <AppRouterCacheProvider> {/* Wrap with AppRouterCacheProvider */}
       <ReduxProvider>
         {/* <ChakraProvider> */}
           {children}
@@ -21,7 +18,6 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           />
         {/* </ChakraProvider> */}
       </ReduxProvider>
-    </AppRouterCacheProvider>
   );
 };
 

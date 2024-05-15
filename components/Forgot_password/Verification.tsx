@@ -5,48 +5,63 @@ import Link from "next/link";
 import { useToast } from "@chakra-ui/react";
 import { HStack, PinInput, PinInputField } from "@chakra-ui/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/store/store";
 import axios from "axios";
 const VerificationMain = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [confirmationCode, setConfirmationCode]= useState<string | number>()
-  const userEmail = useAppSelector((state)=>state.verification.email);
-  const toast = useToast()
-  const handleSubmit= async(e:React.FormEvent)=>{
+  const router = useRouter()
+  const [confirmationCode, setConfirmationCode] = useState<string | number>();
+  const userEmail = useAppSelector((state) => state.verification.email);
+  const toast = useToast();
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const formData = {
-      email:userEmail,
-      code:confirmationCode
-    }
-    const res = await axios.post("http://127.0.0.1:3500/api/v1/confirmation/verify_code",formData, {} )
+      email: userEmail,
+      code: confirmationCode,
+    };
+    const res = await axios.post(
+      "http://127.0.0.1:3500/api/v1/confirmation/verify_code",
+      formData,
+      {}
+    );
     try {
-      if(res.status == 200){
+      if (res.status == 200) {
         toast({
-          title:"Confirmation code verification",
-          "description": res.data.message,
-          status:"success",
-          position:"top-right",
+          title: "Confirmation code verification",
+          description: res.data.message,
+          status: "success",
+          position: "top-right",
           duration: 3000,
-          isClosable:true
-        })
+          isClosable: true,
+        });
+        router.replace("/new-password")    
+      } else if (res.status == 404) {
+        toast({
+          title: "Verification error",
+          description: res.data.message,
+          status: "error",
+          position: "top-right",
+          isClosable: true,
+          duration: 3000,
+        });
       }
     } catch (error) {
       toast({
-       title:"Verification error",
-       description:res.data.message,
-       status:"error",
-       position:"top-right",
-       isClosable:true,
-       duration:3000
-      })
+        title: "Verification error",
+        description: res.data.message,
+        status: "error",
+        position: "top-right",
+        isClosable: true,
+        duration: 3000,
+      });
     }
-  }
+  };
 
   return (
     <div className="flex lg:flex-row">
       <div
-        className="hidden  w-[50%] bg-cover h-screen  bg-no-repeat  lg:flex flex-col items-center overflow-y-hidden justify-center"
+        className="hidden  w-[50%] bg-cover h-screen  bg-no-repeat  lg:flex  items-center overflow-y-hidden justify-center"
         style={{
           backgroundImage: `url(${VerificationBackground.src})`,
           backgroundSize: "cover",
@@ -101,18 +116,22 @@ const VerificationMain = () => {
         </div>
 
         <div className="flex flex-col pt-[5%]  justify-center items-center py-5">
-        <HStack>
-          <PinInput size="lg" value={confirmationCode}  onChange={(value)=>setConfirmationCode(value)} >
-            <PinInputField />
-            <PinInputField />
-            <PinInputField />
-            <PinInputField />
-            <PinInputField />
-            <PinInputField />
-          </PinInput>
-        </HStack>
+          <HStack>
+            <PinInput
+              size="lg"
+              value={confirmationCode}
+              onChange={(value) => setConfirmationCode(value)}
+            >
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+            </PinInput>
+          </HStack>
         </div>
-        
+
         <div className="flex justify-center items-center">
           <button
             onClick={handleSubmit}
