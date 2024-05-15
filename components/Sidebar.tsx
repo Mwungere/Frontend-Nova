@@ -56,7 +56,7 @@ export const links = [
   },
   {
     desc: "Security",
-    link: "/not-found",
+    link: "/security",
     icon: <SecurityIcon />,
   },
   {

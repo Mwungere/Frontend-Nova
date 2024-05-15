@@ -5,7 +5,6 @@ import CustomHeader from '../CustomHeader'
 import { ChevronRight, WaterDrop } from '@mui/icons-material'
 import IrrigationMain from './IrrigationMain'
 import { SensorDataType } from '@/app/irrigation/page'
-import { IconButton } from '@mui/material'
 
 
 interface IrrigationProps {
