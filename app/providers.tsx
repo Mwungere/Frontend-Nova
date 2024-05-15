@@ -7,7 +7,7 @@ import { theme } from "./themes/theme";
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
       <ReduxProvider>
-        {/* <ChakraProvider> */}
+        <ChakraProvider>
           {children}
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Next13ProgressBar
@@ -16,7 +16,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
             options={{ showSpinner: true }}
             showOnShallow
           />
-        {/* </ChakraProvider> */}
+        </ChakraProvider>.
       </ReduxProvider>
   );
 };
