@@ -158,12 +158,12 @@ const CustomHeader = ({ heading, icon }: CustomHeaderProps) => {
           } lg:flex lg:w-[500px] `}
         />
         <div>
-          <IconButton
+          {/* <IconButton
             className={`flex lg:hidden ${searchOpen ? "hidden" : "flex"}`}
             onClick={handleSearch}
           >
             <Search />
-          </IconButton>
+          </IconButton> */}
         </div>
 
         <div>

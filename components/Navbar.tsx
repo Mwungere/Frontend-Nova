@@ -44,7 +44,7 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   // const { darkMode, toggleDarkMode } = useDarkMode();
-  
+
   const { colorMode, toggleColorMode } = useColorMode()
   
   return (

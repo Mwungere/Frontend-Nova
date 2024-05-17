@@ -2,13 +2,13 @@
 import React, { useState } from 'react'
 import Sidebar from '../Sidebar'
 import CustomHeader from '../CustomHeader'
-import { ChevronRight, WaterDrop } from '@mui/icons-material'
+import {  WaterDrop } from '@mui/icons-material'
 import IrrigationMain from './IrrigationMain'
 import { SensorDataType } from '@/app/irrigation/page'
 
 
 interface IrrigationProps {
-  sensorData: SensorDataType[]; // Assuming SensorData is the interface for your sensor data
+  sensorData: SensorDataType[]; 
 }
 
 const Irrigation : React.FC<IrrigationProps> = ({sensorData}) => {

@@ -7,7 +7,8 @@ import { Search } from "@mui/icons-material";
 import TodoTable from "./TodoTable";
 import AddTodoDialog from "./AddTodoDialog";
 import LineChart from "./DashboardGraph";
-import { users } from "@/constants";
+import { IrrigationData, users } from "@/constants";
+import { ResponsiveLine } from "@nivo/line";
 
 
 
@@ -24,7 +25,35 @@ const DashboardMain = () => {
       return true
     }
   }
+
+  const formatTime = (time: Date) => {
+    const hours = time.getHours();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    return `${formattedHours}${ampm}`;
+  };
+
   
+
+  const transformedData = [
+    {
+      id: 'temperature',
+      color: 'hsl(255, 70%, 50%)',
+      data: IrrigationData.map(dataPoint => ({
+        x: formatTime(dataPoint.time), // Assuming you want time as x-axis
+        y: parseFloat(dataPoint.temperature) // Convert string to number
+      }))
+    },
+    {
+      id: 'moisture',
+      color: 'hsl(120, 70%, 50%)',
+      data: IrrigationData.map(dataPoint => ({
+        x: formatTime(dataPoint.time), // Assuming you want time as x-axis
+        y: parseFloat(dataPoint.moisture) // Convert string to number
+      }))
+    }
+  ];
+
   return (
     <div className=" w-full h-full flex flex-col lg:flex-row justify-center items-center pt-56 lg:pt-0  px-2">
       <div className=" w-full lg:w-1/2 flex flex-col justify-center items-center ">
@@ -94,8 +123,76 @@ const DashboardMain = () => {
               </div>
             </div>
           </div>
-          <div className=" h-[300px] mt-10">
-            <LineChart />
+          <div className=" w-[550px] h-[350px] mt-10">
+          <ResponsiveLine
+        data={transformedData}
+        margin={{ top: 50, right: 50, bottom: 50, left: 20 }}
+        xScale={{ type: 'point' }}
+        yScale={{
+            type: 'linear',
+            min: 'auto',
+            max: 'auto',
+            stacked: true,
+            reverse: false
+        }}
+        yFormat=" >-.2f"
+        curve="natural"
+        axisTop={null}
+        axisRight={null}
+        axisBottom={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'Time',
+            legendOffset: 36,
+            legendPosition: 'middle',
+            truncateTickAt: 0
+        }}
+        axisLeft={{
+            tickSize: 5,
+            tickPadding: 5,
+            tickRotation: 0,
+            legend: 'Values',
+            legendOffset: -40,
+            legendPosition: 'middle',
+            truncateTickAt: 0
+        }}
+        lineWidth={1}
+        enablePoints={false}
+        pointSize={2}
+        pointColor={{ theme: 'background' }}
+        pointBorderColor={{ from: 'serieColor' }}
+        pointLabel="data.yFormatted"
+        pointLabelYOffset={-12}
+        enableTouchCrosshair={true}
+        useMesh={true}
+        legends={[
+          {
+              anchor: 'bottom-right',
+              direction: 'column',
+              justify: false,
+              translateX: 100,
+              translateY: 0,
+              itemsSpacing: 0,
+              itemDirection: 'left-to-right',
+              itemWidth: 80,
+              itemHeight: 20,
+              itemOpacity: 0.75,
+              symbolSize: 12,
+              symbolShape: 'circle',
+              symbolBorderColor: 'rgba(0, 0, 0, .5)',
+              effects: [
+                  {
+                      on: 'hover',
+                      style: {
+                          itemBackground: 'rgba(0, 0, 0, .03)',
+                          itemOpacity: 1
+                      }
+                  }
+              ]
+          }
+      ]}
+    />
           </div>
           <h1 className=" text-[#0B1C33] font-body text-lg font-normal">
             Chart for Analyzing Monthly Farm Activities
