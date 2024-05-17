@@ -127,6 +127,7 @@ const SignIn = () => {
             size={"lg"}
             mt={2}
             w={"70%"}
+            placeholder="Hello input"
             focusBorderColor="gray.400"
               type="email"
               id="email"

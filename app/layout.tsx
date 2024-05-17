@@ -21,8 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          {children}
-          {/* <DarkModeProvider>{children}</DarkModeProvider> */}
+         {children}
         </Providers>
       </body>
     </html>

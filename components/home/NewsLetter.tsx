@@ -1,11 +1,9 @@
 import React from 'react'
 import Image from 'next/image'
-import { useColorMode } from '@chakra-ui/react';
 const NewsLetter = () => {
-    const {colorMode} = useColorMode();
     return (
         <div className=' w-full p-10'>
-            <div className={`w-full ${colorMode?'bg-[#22512c]': 'bg-[#B6F8C4]'}  rounded-xl flex mt-18 flex-row justify-around mt-5 py-10`}>
+            <div className={`w-full bg-[#B6F8C4]  rounded-xl flex mt-18 flex-row justify-around mt-5 py-10`}>
                 <div className='px-10 flex'>
                     <div className=' flex flex-col w-1/2'>
                         <Image
@@ -15,9 +13,9 @@ const NewsLetter = () => {
                             alt='image'
                             className=' ml-56'
                         />
-                        <h1 className={`font-body text-4xl font-bold ${ colorMode ? 'text-[#9CE791]':'text-secondary'} mb-5`}>Subscribe newsletter</h1>
-                        <p className={` font-body ${ colorMode ? 'text-[#CBC6BF]':'text-color'} mb-10`}>Businesses generally promote their brand, products, and services by identifying audience. No wonder that promotion strategy is one of the most important processes in marketing.</p>
-                        <div className={` ${colorMode?' bg-[#181A1B]':' bg-white'} w-max px-6 py-5 rounded-lg`}>
+                        <h1 className={`font-body text-4xl font-bold text-secondary mb-5`}>Subscribe newsletter</h1>
+                        <p className={` font-body text-color mb-10`}>Businesses generally promote their brand, products, and services by identifying audience. No wonder that promotion strategy is one of the most important processes in marketing.</p>
+                        <div className={`  bg-white w-max px-6 py-5 rounded-lg`}>
                             <form action="https://getform.io/f/ca363283-18e7-4389-9546-f7efa12b2fc0" method="POST">
                                 <input type="email" placeholder='Enter email address' className=' font-body' />
                                 <button className=' font-body bg-secondary text-white p-4 rounded-lg'>Subscribe</button>
