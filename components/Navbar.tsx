@@ -7,8 +7,6 @@ import { CustomNavbarProps } from "@/types";
 import { usePathname } from "next/navigation";
 import { LightMode } from "@mui/icons-material";
 import { IoMoon } from "react-icons/io5";
-import { useDarkMode } from "@/app/Context/store";
-import { Icon } from "@chakra-ui/react";
 
 const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
   const scrollDownToServices = () => {
@@ -45,7 +43,6 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  const {darkMode, toggleDarkMode } = useDarkMode()
   
   return (
     <div className={`w-screen ${open ? "fixed" : ""} top-0 left-0`}>
@@ -61,9 +58,9 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
             alt="logo"
           />
           <h1
-            className={` ${
-              darkMode ? "text-[#C8C3bC]" : "text-black"
-            } font-body mt-2 ml-2 text-2xl font-semibold`}
+            className={`
+              text-black
+             font-body mt-2 ml-2 text-2xl font-semibold`}
           >
             Nova
           </h1>
@@ -100,8 +97,6 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
                       isActive
                         ? "border-b-4 border-secondary text-secondary"
                         : ""
-                    } ${darkMode  && !isActive ? "text-white" : ""} ${
-                      isActive && darkMode  ? "text-[#91DA8C]" : ""
                     } `}
                   >
                     {desc}
@@ -110,10 +105,10 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
               </li>
             );
           })}
-          {
+          {/* {
             darkMode ?  <Icon as={IoMoon} className="ml-6 cursor-pointer" w={5} h={5}  onClick={toggleDarkMode}/> : <LightMode onClick={toggleDarkMode}
             className=" hover:cursor-pointer  ml-4" />
-          }    
+          }     */}
         </ul>
       </div>
     </div>

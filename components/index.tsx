@@ -13,7 +13,7 @@ import Testimonials from "./home/Testimonials";
 import Gallery from "./home/Gallery";
 import Questions from "./home/Questions";
 import Button from "./Button"; 
-import SecurityMain from "./security/SecurityMain";
+import Security from "./security/Security";
 import Dashboard from "./Dashboard/Dashboard";
 import Settings from "./Settings/Settings";
 import Sidebar from "./Sidebar";
@@ -37,10 +37,10 @@ export {
     Questions,
     Button,
     Dashboard,
-    SecurityMain,
+    Security,
     Settings,
     Sidebar,
     CustomHeader,
     DashboardMain,
-    Health
+    Health,
 }

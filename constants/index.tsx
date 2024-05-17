@@ -592,3 +592,21 @@ export const waterData = [
       "color": "hsl(183, 70%, 50%)"
     }
   ]
+
+export const Videos = [
+  {
+    video:'https://www.youtube.com/watch?v=7KoDXtX--34&list=RD7KoDXtX--34&start_radio=1'
+  },
+  {
+    video:'https://www.youtube.com/watch?v=Q3zJRrIe89I&list=RD7KoDXtX--34&index=3'
+  },
+  {
+    video:'https://www.youtube.com/watch?v=9uIufpUah9Y&list=RD7KoDXtX--34&index=5'
+  },
+  {
+    video:'https://www.youtube.com/watch?v=P760YnVj76I&list=RD7KoDXtX--34&index=24'
+  },
+  {
+    video:'https://www.youtube.com/watch?v=Fes6I7fAqUI&list=RD7KoDXtX--34&index=30'
+  },
+]

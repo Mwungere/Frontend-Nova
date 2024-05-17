@@ -19,15 +19,17 @@ const Page = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter()
   useEffect(() => {
-    const jwt = Cookies.get("jwt");
-    if(!jwt || jwt.length ==0){
-      toast.error("Not authorized to reach this page",{duration:3000, position:"top-right"})
-      router.replace("/signin");
-    }
+    // const jwt = Cookies.get("jwt");
+    // if(!jwt || jwt.length ==0){
+    //   toast.error("Not authorized to reach this page",{duration:3000, position:"top-right"})
+    //   router.replace("/signin");
+    // }
     Pusher.logToConsole = true;
     var pusher = new Pusher('b474acc965ca822765e5', {
       cluster: 'eu'
     });
+
+    console.log("reached here");
 
     var channel = pusher.subscribe('nova_data');
     channel.bind('sensor_data_event', function (data: SensorDataType) {
@@ -47,16 +49,16 @@ const Page = () => {
 
   return (
     <div className="">
-      {loading ? (
+      {/* {loading ? (
         <div className=" h-screen flex justify-center items-center">
                   <CircularProgress color="success" className="flex justify-center items-center" />
 
         </div>
-      ) : sensorData.length > 0 ? (
+      ) : sensorData.length > 0 ? ( */}
         <Irrigation sensorData={sensorData} />
-      ) : (
+      {/* ) : (
         <div>No sensor data available</div>
-      )}
+      )} */}
     </div>
   );
 };

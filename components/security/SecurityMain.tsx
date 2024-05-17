@@ -1,42 +1,55 @@
 "use client";
 import React from "react";
 import Sidebar from "../Sidebar";
-import {CustomHeader} from "@/components";
-import { PowerSettingsNewOutlined, Security } from "@mui/icons-material";
+import { CustomHeader } from "@/components";
+import { Menu, PowerSettingsNewOutlined, Security } from "@mui/icons-material";
 import Image from "next/image";
 import { Button, IconButton } from "@mui/material";
+import ReactPlayer from "react-player/youtube";
+import { Videos } from "@/constants";
+import { index } from "d3";
+
 
 const SecurityMain = () => {
+  
   return (
-    <div className=" w-full flex h-screen overflow-hidden">
-      <div className=" w-1/4 h-full">
-        <Sidebar />
+    <div className=" w-full h-full flex  flex-col space-y-2 overflow-hidden justify-center items-center mx-auto px-2">
+      <div className=" w-[950px] lg:w-[1430px] h-[500px] lg:h-[650px] flex justify-center items-center ">
+        <ReactPlayer
+          url="https://www.youtube.com/watch?v=aL27fX5kv9U"
+          width={"100%"}
+          height={"100%"}
+          // controls={true}
+          style={{
+            borderRadius: "10px",
+            overflow: "hidden",
+          }}
+          playing={true}
+          loop={true}
+          muted={true}
+        />
       </div>
-      <div className="md:w-3/4 md:h-screen flex flex-col">
-        <div className=" w-full h-[10%]">
-            <CustomHeader heading="Security" icon={<Security color="success" />} />
-        </div>
-        <div className="bg-[#EDF2FA] w-full h-[90%] flex flex-col lg:flex-row">
-            <div className=" my-auto mx-auto h-[45%] flex flex-col pb-5">
-                <div className=" flex justify-between">
-                    <p>Indoor Farm Camera</p>
-                    <IconButton>
-                        <PowerSettingsNewOutlined />
-                    </IconButton>
-                </div>
-                <Image src={"./sec2.svg"} width={494} height={381} alt="image" className=" w-full h-full" />
+      <div className=" w-full flex overflow-hidden overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide space-x-2 ">
+        {Videos.map(({ video }) => (
+          <div key={video} className=" w-full h-full">
+            <div className=" w-[400px] h-[230px] lg:h-[150px] flex justify-center items-center">
+              <ReactPlayer
+                url={video}
+                width={"100%"}
+                height={"100%"}
+                // controls={true}
+                style={{
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                }}
+                playing={false}
+                loop={true}
+                muted={true}
+              />
             </div>
-            <div className=" my-auto mx-auto h-[45%] flex flex-col pb-5">
-                <div className=" flex justify-between">
-                    <p>Indoor Farm Camera</p>
-                    <IconButton>
-                        <PowerSettingsNewOutlined />
-                    </IconButton>
-                </div>
-                <Image src={"./sec2.svg"} width={494} height={381} alt="image" className=" w-full h-full" />
-            </div>
-        </div>
-
+          </div>
+        ))
+        }
       </div>
     </div>
   );
