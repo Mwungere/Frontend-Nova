@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import Providers from "./providers";
+import { DarkModeProvider } from "./Context/store";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Nova",
@@ -21,8 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          {children}
-          {/* <DarkModeProvider>{children}</DarkModeProvider> */}
+          <DarkModeProvider>{children}</DarkModeProvider>
         </Providers>
       </body>
     </html>
