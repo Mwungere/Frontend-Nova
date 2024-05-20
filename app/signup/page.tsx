@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
-// import toast, { Toaster } from "react-hot-toast";
-import { useToast } from "@chakra-ui/react";
+import toast, { Toaster } from 'react-hot-toast';
 import { useState } from "react";
 import { IoEyeSharp } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
@@ -11,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { handleRequest } from "../RequestFunctions";
 import Link from "next/link";
 import { signFinally } from "../signFinally";
-import { Button, Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 interface FormData {
   names: string;
   email: string;
@@ -31,8 +29,6 @@ const SignUp = () => {
   const [show, setShow] = useState<boolean>(false);
   const [pic, setPic] = useState();
   const [picLoading, setPicLoading] = useState<boolean>(false);
-  const toast = useToast();
-
   const handleClick = () => {
     setShow(!show);
   };
@@ -44,18 +40,10 @@ const SignUp = () => {
     );
   };
 
-
-
-  const postDetails = (pics:any) => {
+  const postDetails = (pics: any) => {
     setPicLoading(true);
     if (pics === undefined) {
-      toast({
-        title: "Please Select an Image!",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      toast.error("Please select an Image" ,{duration:5000, position:"top-right"})
       return;
     }
     console.log(pics);
@@ -79,13 +67,7 @@ const SignUp = () => {
           setPicLoading(false);
         });
     } else {
-      toast({
-        title: "Please Select an Image!",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
+      toast.error("Please select an Image" ,{duration:5000, position:"top-right"})
       setPicLoading(false);
       return;
     }
@@ -97,24 +79,11 @@ const SignUp = () => {
       const error = new Error("Password must be at least 6 characters");
       setErrors(error.message);
 
-      toast({
-        title:"Faced an error",
-        description:error.message,
-        status:"error",
-        isClosable:true,
-        position:"top-right"
-      })
+      toast.error(error.message ,{duration:5000, position:"top-right"})
 
     } else if (formData.password !== formData.confirmPassword) {
       const error = new Error("Passwords do not match");
-      toast({
-        title:"Faced an error",
-        description:error.message,
-        status:"error",
-        isClosable:true,
-        position:"top-right"
-      })
-
+      toast.error(error.message ,{duration:5000, position:"top-right"})
     } else {
       setErrors(null);
       const url = "http://194.163.167.131:7500/api/v1/users/registerUser";
@@ -149,7 +118,7 @@ const SignUp = () => {
         </div>
 
         <div>
-          <h1 className=" text-black font-body mt-[3em]  mb-4 text-2xl font-semibold">
+          <h1 className=" text-black font-body mt-[2em]  mb-4 text-2xl font-semibold">
             Create An Account
           </h1>
           <h3 className="mb-10">Enter the fields below to get started </h3>
@@ -165,18 +134,14 @@ const SignUp = () => {
           <hr className="w-[30%] ml-[1rem] mt-4  text-gray-400" />
         </div>
 
-        <div>
+        <div className="sm:w-[90%] lg:w-[80%]">
           <form onSubmit={handleSubmit}>
-            <div className="flex flex-col  mt-4">
+            <div className="flex flex-col  mt-2">
               <label htmlFor="names">Names * </label>
-              <Input
-                mt={2}
-                w={"80%"}
-                type="text"
-                size={"lg"}
+              <input
+                className="w-[80%] outline-none sm:mt-1 lg:mt-[10px] focus:border-gray-400 h-[40px] border-[1px] indent-[12px] rounded-lg border-gray-400 "
                 name="names"
                 value={formData.names}
-                focusBorderColor="gray.400"
                 onChange={(e) =>
                   setFormData((prevData) => {
                     return { ...prevData, names: e.target.value };
@@ -184,17 +149,14 @@ const SignUp = () => {
                 }
               />
             </div>
-            <div className="flex flex-col  mt-4">
+            <div className="flex flex-col  mt-2 mb-2">
               <label className="font-semibold" htmlFor="names">
                 Email *
               </label>
-              <Input
+              <input
+                className="w-[80%] outline-none sm:mt-1 lg:mt-[10px] focus:border-gray-400 h-[40px] border-[1px] indent-[12px] rounded-lg border-gray-400 "
                 type="email"
                 name="email"
-                w={"80%"}
-                mt={2}
-                size={"lg"}
-                focusBorderColor="gray.400"
                 value={formData.email}
                 onChange={(e) =>
                   setFormData((prevData) => {
@@ -204,69 +166,72 @@ const SignUp = () => {
               />
             </div>
 
-            <div className="flex flex-col  mt-4">
-              <label className="font-semibold" htmlFor="names">
-                Password *
-              </label>
-
-              <InputGroup size="lg" mt={2} w={"80%"}>
-                <Input
-                  pr="4.5rem"
-                  type={show ? "text" : "password"}
-                  borderColor={errors ? "red.900" : "gray.400"}
-                  name="password"
-                  focusBorderColor="gray.400"
-                  value={formData.password}
-                  onChange={(e) =>
-                    setFormData((prevData) => {
-                      return { ...prevData, password: e.target.value };
-                    })
-                  }
-                />
-                <InputRightElement width="4.5rem">
-                  {show ? (
-                    <Icon as={IoMdEyeOff} />
-                  ) : (
-                    <Icon as={IoEyeSharp} size={"sm"} onClick={handleClick} />
-                  )}
-                </InputRightElement>
-              </InputGroup>
+            <label className="font-semibold" htmlFor="password">
+              Password *
+            </label>
+            <div className="relative w-[80%] mb-2 rounded-lg sm:mt-1 lg:mt-[10px]">
+              <input
+                id="password"
+                type={show ? "text" : "password"}
+                className={`w-full  border  outline-none ${
+                  errors ? "border-red-900" : "border-gray-400"
+                } rounded-lg p-2 focus:border-gray-400`}
+                name="password"
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    password: e.target.value,
+                  }))
+                }
+              />
+              <span
+                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                onClick={handleClick}
+              >
+                {show ? <IoMdEyeOff /> : <IoEyeSharp />}
+              </span>
             </div>
 
 
-            <div className="flex flex-col  mt-4">
-              <label className="font-semibold" htmlFor="names">
-                Password *
-              </label>
-
-              <InputGroup size="lg" mt={2} w={"80%"}>
-                <Input
-                  pr="4.5rem"
-                  type={show ? "text" : "password"}
-                  borderColor={errors ? "red.900" : "gray.400"}
-                  name="password"
-                  focusBorderColor="gray.400"
-                  value={formData.confirmPassword}
-                  onChange={(e) =>
-                    setFormData((prevData) => {
-                      return { ...prevData, confirmPassword: e.target.value };
-                    })
-                  }
-                />
-                <InputRightElement width="4.5rem">
-                  {show ? (
-                    <Icon as={IoMdEyeOff} onClick={handleClick} />
-                  ) : (
-                    <Icon as={IoEyeSharp} size={"sm"} onClick={handleClick} />
-                  )}
-                </InputRightElement>
-              </InputGroup>
+            <label className="font-semibold " htmlFor="password">
+              Confirm password *
+            </label>
+            <div className="relative w-[80%] rounded-lg mb-2 sm:mt-1 lg:mt-[10px]">
+              <input
+                id="confirmpassword"
+                type={show  ? "text" : "password"}
+                className={`w-full  border  outline-none ${
+                  errors ? "border-red-900" : "border-gray-400"
+                } rounded-lg p-2 focus:border-gray-400`}
+                name="password"
+                value={formData.confirmPassword}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    confirmPassword: e.target.value,
+                  }))
+                }
+              />
+              <span
+                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                onClick={handleClick}
+              >
+                {show ? <IoMdEyeOff /> : <IoEyeSharp />}
+              </span>
             </div>
 
-            <div className="flex  w-[80%]">
-            <Button bg={"#1F6115"} color={"white"} mt={5} w={"60%"} _hover={{bg:"#1F6115"}} size={"lg"} flex={"row"} justifyContent={"center"}> Submit</Button>
-            </div>
+            
 
+            <div className="w-[80%] pt-3">
+              <button
+                type="submit"   
+                className="bg-[#1F6115] py-3 rounded-lg  hover:bg-[#1F6115] w-[60%] flex flex-row  text-white justify-center "
+              >
+                {" "}
+                Submit
+              </button>
+            </div>
           </form>
 
           <div className="flex flex-row">
@@ -278,7 +243,7 @@ const SignUp = () => {
               Login{" "}
             </Link>{" "}
           </div>
-          {/* <Toaster /> */}
+          <Toaster />
         </div>
       </div>
       <div></div>

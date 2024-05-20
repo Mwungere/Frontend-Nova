@@ -6,7 +6,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
   <ReduxProvider>
-      <AppRouterCacheProvider options={{ key:'css'  }}>
+      <AppRouterCacheProvider >
           {children}
       </AppRouterCacheProvider>
       <Next13ProgressBar

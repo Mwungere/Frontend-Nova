@@ -8,54 +8,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/store/store";
 import axios from "axios";
+import CodeInputForm from "./CodeInputForm";
 const VerificationMain = () => {
   const router = useRouter()
   const [confirmationCode, setConfirmationCode] = useState<string | undefined>();
-  const userEmail = useAppSelector((state) => state.verification.email);
   const toast = useToast();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const formData = {
-      email: userEmail,
-      code: confirmationCode,
-    };
-    const res = await axios.post(
-      "http://127.0.0.1:3500/api/v1/confirmation/verify_code",
-      formData,
-      {}
-    );
-    try {
-      if (res.status == 200) {
-        toast({
-          title: "Confirmation code verification",
-          description: res.data.message,
-          status: "success",
-          position: "top-right",
-          duration: 3000,
-          isClosable: true,
-        });
-        router.replace("/new-password")    
-      } else if (res.status == 404) {
-        toast({
-          title: "Verification error",
-          description: res.data.message,
-          status: "error",
-          position: "top-right",
-          isClosable: true,
-          duration: 3000,
-        });
-      }
-    } catch (error) {
-      toast({
-        title: "Verification error",
-        description: res.data.message,
-        status: "error",
-        position: "top-right",
-        isClosable: true,
-        duration: 3000,
-      });
-    }
+   
   };
 
   return (
@@ -115,42 +75,9 @@ const VerificationMain = () => {
           </p>
         </div>
 
-        <div className="flex flex-col pt-[5%]  justify-center items-center py-5">
-          <HStack>
-            <PinInput
-              size="lg"
-              value={confirmationCode}
-              onChange={(value) => setConfirmationCode(value)}
-            >
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-            </PinInput>
-          </HStack>
-        </div>
+        <CodeInputForm />
 
-        <div className="flex justify-center items-center">
-          <button
-            onClick={handleSubmit}
-            className="bg-[#1F6115] py-[2%] mx-auto mt-[4%] w-[30%] text-white rounded-xl"
-          >
-            Verify
-          </button>
-        </div>
-        <div className="pt-[1em] mb-[2em] mt-[5%] text-center ">
-          <p className="text-gray-300 font-lexend">
-            Don't have an account ?{" "}
-            <Link
-              href="/signup"
-              className="text-[#1F6115] font-lexend   cursor-pointer"
-            >
-              Sign up{" "}
-            </Link>{" "}
-          </p>
-        </div>
+        
       </div>
     </div>
   );

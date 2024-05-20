@@ -4,11 +4,10 @@ import RecoverEmail from "../../public/RecoverEmail.png";
 import Link from "next/link";
 import emailjs from "@emailjs/browser";
 import { useState } from "react";
-import { Button, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { Input } from "@chakra-ui/react";
+import { MdEmail } from "react-icons/md";
 import { useAppDispatch } from "@/store/store";
-import { EmailIcon } from "@chakra-ui/icons";
+import toast from "react-hot-toast";
 import { setVerificationState } from "@/store/verificationSlice";
 import axios from "axios";
 const RecoveryEmail = () => {
@@ -16,7 +15,6 @@ const RecoveryEmail = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const toast = useToast();
   const handleSubmit = async(e: React.FormEvent) => {
     setIsLoading(true)
     e.preventDefault();
@@ -43,13 +41,7 @@ const RecoveryEmail = () => {
             console.log("SUCCESS!", response.status, response.text);
             setIsLoading(false)
             setTimeout(() => {
-              toast({
-                title: "Confirmation code",
-                description: "Confirmation code sent successfully",
-                duration: 5000,
-                status: "success",
-                position: "top-right",
-              });
+              toast.success("Confirmation code sent successfully",{duration:5000, position:"top-right"});
               dispatch(setVerificationState({email:recoveryEmail}))
 
               router.replace("/go-email");
@@ -121,28 +113,24 @@ const RecoveryEmail = () => {
           <div className="">
             <form action="" className="flex flex-col ">
               <label htmlFor="email">Email</label>
-              <Input
+              <input
                 type="text"
-                size={"lg"}
-                focusBorderColor="gray.400"
-                onChange={(e) => setRecoveryEmail(e.target.value)}
-                className="border-[2px] indent-3 border-gray-400 p-1 mt-[2%] rounded-lg w-[60%] outline-gray-400"
+                onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setRecoveryEmail(e.target.value)}
+                className="border-[1px] border-gray-400    outline-none indent-3  p-1 mt-[2%] rounded-lg w-[70%]  h-[40px]"
               />
-
-              <Button
-                mt={"15%"}
-                _hover={{bgColor:"#1F6115"}}
-                leftIcon={<EmailIcon />}
-                onClick={handleSubmit}
-                bg={"#1F6115"}
-                isLoading={isLoading}
-                loadingText="Sending verification ...."
-                color={"white"}
-                size={"lg"}
-                variant="solid"
-              >
-                Send confirmation code
-              </Button>
+ <button
+      className={`mt-6 text-white w-[70%] bg-[#1F6115] hover:bg-[#1F6115] flex items-center justify-center space-x-2 py-2 px-4 rounded-lg ${
+        isLoading ? 'cursor-not-allowed' : ''
+      }`}
+      onClick={handleSubmit}
+    >
+      <MdEmail />
+      {isLoading ? (
+        <span>Sending verification ...</span>
+      ) : (
+        <span>Send confirmation code</span>
+      )}
+    </button>
             </form>
             <div className="pt-[1em] mb-[2em] mt-3">
               <p className="text-gray-300 font-lexend">

@@ -1,14 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import { CustomNavbarProps } from "@/types";
 import { usePathname } from "next/navigation";
-import { LightMode } from "@mui/icons-material";
-import { IoMoon } from "react-icons/io5";
-
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { ColorModeContext } from "@/app/context/colorContext";
+import { IconButton } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
+  const colorMode = useContext(ColorModeContext)
+  const theme = useTheme()
   const scrollDownToServices = () => {
     const services = document.getElementById("services");
     if (services) {
@@ -105,10 +109,10 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
               </li>
             );
           })}
-          {/* {
-            darkMode ?  <Icon as={IoMoon} className="ml-6 cursor-pointer" w={5} h={5}  onClick={toggleDarkMode}/> : <LightMode onClick={toggleDarkMode}
-            className=" hover:cursor-pointer  ml-4" />
-          }     */}
+ 
+<IconButton  sx={{ ml: 1 }}  onClick={colorMode.toggleColorMode} color="inherit">
+{theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+</IconButton>
         </ul>
       </div>
     </div>

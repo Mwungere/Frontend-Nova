@@ -136,54 +136,62 @@ const NewPassword = () => {
           </div>
           <div className="w-[70%] flex justify-center mx-auto pt-[5%] flex-col">
           
-          <FormLabel>New Password</FormLabel>
-          <InputGroup size="lg" w={"80%"} mb={3}>
-                <Input
-                  pr="4.5rem"
-                  type={show ? "text" : "password"}
-                  borderColor={errors ? "red.900" : "gray.400"}
-                  name="password"
-                  focusBorderColor="gray.400"
-                  value={formData.newPassword}
-                  onChange={(e) =>
-                    setFormData((prevData) => {
-                      return { ...prevData, newPassword: e.target.value };
-                    })
-                  }
-                />
-                <InputRightElement width="4.5rem">
-                  {show ? (
-                    <Icon as={IoMdEyeOff} />
-                  ) : (
-                    <Icon as={IoEyeSharp} size={"sm"} onClick={handleClick} />
-                  )}
-                </InputRightElement>
-              </InputGroup>
+          <label className="font-semibold " htmlFor="password">
+              New password *
+            </label>
+            <div className="relative w-[80%] rounded-lg mb-2 sm:mt-1 lg:mt-[10px]">
+              <input
+                id="confirmpassword"
+                type={show  ? "text" : "password"}
+                className={`w-full  border  outline-none ${
+                  errors ? "border-red-900" : "border-gray-400"
+                } rounded-lg p-2 focus:border-gray-400`}
+                name="password"
+                value={formData.confirmPassword}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    confirmPassword: e.target.value,
+                  }))
+                }
+              />
+              <span
+                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                onClick={handleClick}
+              >
+                {show ? <IoMdEyeOff /> : <IoEyeSharp />}
+              </span>
+            </div> 
 
-              <FormLabel>Confirm Password</FormLabel>
-              <InputGroup size="lg"  w={"80%"}>
-                <Input
-                  pr="4.5rem"
-                  type={show ? "text" : "password"}
-                  borderColor={errors ? "red.900" : "gray.400"}
-                  name="confirmPassword"
-                  focusBorderColor="gray.400"
-                  value={formData.confirmPassword}
-                  onChange={(e) =>
-                    setFormData((prevData) => {
-                      return { ...prevData, confirmPassword: e.target.value };
-                    })
-                  }
-                />
-                <InputRightElement width="4.5rem">
-                  {show ? (
-                    <Icon as={IoMdEyeOff} />
-                  ) : (
-                    <Icon as={IoEyeSharp} size={"sm"} onClick={handleClick} />
-                  )}
-                </InputRightElement>
-              </InputGroup>
-            <Button bg={"#1F6115"} mt={5} w={"70%"} flex={""} justifyContent={"center"} color={"white"} _hover={{bg:"#1F6115"}} onClick={handleSubmit}>Reset password</Button>
+
+              <label className="font-semibold " htmlFor="password">
+              Confirm password *
+            </label>
+            <div className="relative w-[80%] rounded-lg mb-2 sm:mt-1 lg:mt-[10px]">
+              <input
+                id="confirmpassword"
+                type={show  ? "text" : "password"}
+                className={`w-full  border  outline-none ${
+                  errors ? "border-red-900" : "border-gray-400"
+                } rounded-lg p-2 focus:border-gray-400`}
+                name="password"
+                value={formData.confirmPassword}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    confirmPassword: e.target.value,
+                  }))
+                }
+              />
+              <span
+                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                onClick={handleClick}
+              >
+                {show ? <IoMdEyeOff /> : <IoEyeSharp />}
+              </span>
+            </div>  
+               
+            <button className="bg-[#1F6115] mt-5 w-[70%] text-white py-3 rounded-lg flex justify-center hover:bg-[#1F6115]"onClick={handleSubmit}>Reset password</button>
           </div>
 
           <div className="pt-[1em] mb-[2em] mt-3 mx-auto w-[70%]">
