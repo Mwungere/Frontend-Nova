@@ -74,7 +74,7 @@ const SignIn = () => {
           }}
         >
           <div className="my-[20%] pt-[3%] opacity-70 w-[60%] h-fit  rounded-lg flex flex-col  bg-white">
-            <div className="pl-[10%] my-[6%] ">
+            <div className="pl-[10%] my-[6%]  ">
               <h1 className=" text-[#1F6115] text-4xl 2xl:text-6xl h-[50px] mb-[2em] 2xl:mb-[3em] font-body font-bold ">
                 Want To <br></br> Monitor And <br /> Ensure Your <br /> Farm
                 Security
@@ -123,14 +123,8 @@ const SignIn = () => {
             <label htmlFor="email" className="font-body">
               Email *
             </label>
-            <Input
-            size={"lg"}
-            mt={2}
-            w={"70%"}
-            placeholder="Hello input"
-            focusBorderColor="gray.400"
-              type="email"
-              id="email"
+            <input className="mt-2 w-[70%] border-[1px] border-gray-400 outline-none mb-2 h-[40px] rounded-lg indent-2 " type="email"
+                id="email"
               value={formData.email}
               onChange={(e) =>
                 setFormData((prevData) => ({
@@ -141,33 +135,30 @@ const SignIn = () => {
             />
 
 
-            <div className="flex flex-col  mt-4">
-              <label className="font-semibold" htmlFor="names">
+              <label className="font-semibold mt-[1px]" htmlFor="names">
                 Password *
               </label>
 
-              <InputGroup size="lg" mt={2} w={"70%"}>
-                <Input
-                  pr="4.5rem"
-                  type={show ? "text" : "password"}
-                  borderColor={"gray.400"}
-                  name="password"
-                  focusBorderColor="gray.400"
-                  value={formData.password}
-                  onChange={(e) =>
-                    setFormData((prevData) => {
-                      return { ...prevData, password: e.target.value };
-                    })
-                  }
-                />
-                <InputRightElement width="4.5rem">
-                  {show ? (
-                    <Icon as={IoMdEyeOff} onClick={handleClick} />
-                  ) : (
-                    <Icon as={IoEyeSharp} size={"sm"} onClick={handleClick} />
-                  )}
-                </InputRightElement>
-              </InputGroup>
+            <div className="relative w-[70%] mb-4 rounded-lg sm:mt-1 lg:mt-[10px]">
+              <input
+                id="password"
+                type={show ? "text" : "password"}
+                className={`w-full  border  outline-none rounded-lg p-2 focus:border-gray-400`}
+                name="password"
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    password: e.target.value,
+                  }))
+                }
+              />
+              <span
+                className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                onClick={handleClick}
+              >
+                {show ? <IoMdEyeOff /> : <IoEyeSharp />}
+              </span>
             </div>
 
             <div className="flex flex-col md:flex-row mt-6 lg:flex-col xl:flex-row gap-3 md:gap-44 lg:gap-5 2xl:gap-44">
