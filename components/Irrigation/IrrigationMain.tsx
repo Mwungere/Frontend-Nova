@@ -9,16 +9,37 @@ import {
   Water,
 } from "@mui/icons-material";
 import { Button, Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { SensorDataType } from "@/app/irrigation/page";
-import DashboardGraph from "../Dashboard/DashboardGraph";
 import { ResponsiveLine } from "@nivo/line";
-
 interface IrrigationMainProps {
   sensorData: SensorDataType[];
 }
 const IrrigationMain: React.FC<IrrigationMainProps> = ({ sensorData }) => {
+  const [sensorDatas, setSensorData] = useState<any>({  temperature: '', moisture: '', time:"" });
+  useEffect(() => {
+    const socket = new WebSocket('ws://localhost:8000/ws/sensor-data/');
+
+    socket.onmessage = function (e) { 
+      const data = JSON.parse(e.data);     
+      setSensorData((prevData:any)=>({...prevData, time:data.time, temperature:data.temperature, moisture:data.moisture}));
+    };
+
+    socket.onclose = function (e) {
+      console.error('WebSocket closed unexpectedly');
+    };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(sensorDatas);
+  }, [sensorDatas]); 
+
+
 
   const formatTime = (time: Date) => {
     const hours = time.getHours();
