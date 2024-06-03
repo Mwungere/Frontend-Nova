@@ -72,7 +72,7 @@ const SecurityMain = () => {
             <div>Loading...</div>
           )} */}
         </div>
-        <div className="hidden lg:flex flex-col w-[340px] h-[550px] overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide bg-white ml-5 px-3">
+        <div className="hidden lg:flex flex-col w-[340px] h-[500px] overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide bg-white ml-5 px-3">
           {Videos.slice(0, 5).map(({ video, camera, status }) => {
             let isActive: boolean = false;
             if (status === "live") {
@@ -207,20 +207,15 @@ const SecurityMain = () => {
             onClick={() => handleVideoStream(video)}
           >
             <div className="w-[400px] h-[230px]  flex justify-center items-center relative">
-              <ReactPlayer
-                className=" object-cover"
-                url={video}
-                width={"100%"}
-                height={"100%"}
-                style={{
-                  borderRadius: "10px",
-                  overflow: "hidden",
-                }}
-                playing={false}
-                controls={true}
-                loop={true}
-                muted={true}
-              />
+            <iframe
+      width="853"
+      height="480"
+      src={currentVideo}
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+      title="Embedded youtube"
+    />
             </div>
           </div>
         ))}

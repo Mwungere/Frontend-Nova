@@ -35,7 +35,7 @@ const SignUp = () => {
 
   const handleSignUpWithGoogle = async () => {
     signFinally(
-      "http://194.163.167.131:7500/api/v1/users/registerUser",
+      "http://localhost:3500/api/v1/users/registerUser",
       router
     );
   };
@@ -86,7 +86,7 @@ const SignUp = () => {
       toast.error(error.message ,{duration:5000, position:"top-right"})
     } else {
       setErrors(null);
-      const url = "http://194.163.167.131:7500/api/v1/users/registerUser";
+      const url = "http://localhost:3500/api/v1/users/registerUser";
       await handleRequest(formData, url, router);
     }
   };

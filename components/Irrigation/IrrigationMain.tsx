@@ -33,8 +33,8 @@ const IrrigationMain: React.FC= () => {
         receivedData.time
       ) {
         setLatestSensorData({
-          time: receivedData.time,
-          temperature: receivedData.temperature,
+          time: receivedData.time ,
+          temperature: receivedData.temperature ,
           moisture: receivedData.moisture
         });
         setAllDatas(prevData => [...prevData, receivedData]);
@@ -63,25 +63,6 @@ const IrrigationMain: React.FC= () => {
     return `${formattedHours}:${formattedMinutes} ${ampm}`;
   };
 
-  const transformedData: TransformedDataType[] = [
-    {
-      id: "temperature",
-      color: "hsl(255, 70%, 50%)",
-      data: allDatas.map((dataPoint) => ({
-        x: formatTime(dataPoint.time), // Assuming you want time as x-axis
-        y: Number(dataPoint.temperature), // Convert to number
-      })),
-    },
-    {
-      id: "moisture",
-      color: "hsl(20, 70%, 50%)",
-      data: allDatas.map((dataPoint) => ({
-        x: formatTime(dataPoint.time), // Assuming you want time as x-axis
-        y: Number(dataPoint.moisture), // Convert to number
-      })),
-    },
-  ];
-  console.log("Transformed Data:", transformedData);
   console.log("All datas", allDatas);
 
   const getWeatherIcon = (weather: WeatherDataType) => {
