@@ -7,11 +7,8 @@ import IrrigationMain from './IrrigationMain'
 import { SensorDataType } from '@/app/irrigation/page'
 
 
-interface IrrigationProps {
-  sensorData: SensorDataType[]; 
-}
 
-const Irrigation : React.FC<IrrigationProps> = ({sensorData}) => {
+const Irrigation : React.FC = () => {
   
   return (
     <div className=' w-full h-screen overflow-x-hidden flex'>
@@ -25,7 +22,7 @@ const Irrigation : React.FC<IrrigationProps> = ({sensorData}) => {
           <CustomHeader heading='Irrigation' icon={<WaterDrop color='success' />} />
         </div>
         <div className=' w-full h-[90%] bg-[#EDF2FA]'>
-          <IrrigationMain sensorData= {sensorData}/>
+          <IrrigationMain  />
         </div>
       </div>
     </div>

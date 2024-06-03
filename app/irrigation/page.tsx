@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 export interface SensorDataType {
   time: Date;
-  temperature: string;
+  temperature: string;  
   moisture: string;
 }
 
@@ -55,7 +55,7 @@ const Page = () => {
 
         </div>
       ) : sensorData.length > 0 ? ( */}
-        <Irrigation sensorData={sensorData} />
+        <Irrigation  />
       {/* ) : (
         <div>No sensor data available</div>
       )} */}
