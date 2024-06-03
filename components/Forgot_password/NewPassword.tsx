@@ -5,11 +5,12 @@ import Image from "next/image";
 import { IoEyeSharp } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
 import Link from "next/link";
-import { Button, FormControl, FormLabel, Icon, Input, InputGroup, InputRightElement, useToast } from "@chakra-ui/react";
 import { useAppSelector } from "@/store/store";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { Toaster, toast } from "react-hot-toast";
+
 interface FormData {
   newPassword: string,
   confirmPassword: string
@@ -19,33 +20,26 @@ const NewPassword = () => {
   const [show, setShow] = useState<boolean>(false)
   const [errors, setErrors] = useState<string>()
   const [formData, setFormData] = useState<FormData>({newPassword:"", confirmPassword:""})
-   const toast = useToast()
    const userEmail = useAppSelector((state)=>state.verification.email)
    const router = useRouter()
    const handleClick = ()=>{
     setShow(!show)
    }
 
+
   const handleSubmit = async(e:React.FormEvent) => {
     e.preventDefault()
     if(formData?.newPassword !== formData?.confirmPassword) {
-     toast({
-      title:"Passwords do not match",
-      description:"Passwords do not match please",
-      status:"error",
-      position:"top-right"
-     }) 
+     toast.error(
+      "Passwords do not match",
+     {position:"top-right"}
+     ) 
      setErrors("Passwords do not match")
      return;
     }
 
     if(formData?.newPassword.length < 6 || formData?.newPassword.length < 6){
-      toast({
-        title:"Passwords length not matched",
-        description:"Please password must be at least 6 characters",
-        status:"error",
-        position:"top-right"
-       }) 
+      toast.error( "Please password must be at least 6 characters", {position:"top-right"}) 
        setErrors("Passwords must be at least 6 characters")
        return;
     }
@@ -63,22 +57,18 @@ const NewPassword = () => {
      })
      try {
       if(res.status == 200){
-        toast({
-          title:"Password updated",
-          description:"Password updated successfully",
-          status:"success",
-          position:"top-right"
-         })  
+        toast(
+          "Password updated successfully",
+          {position:"top-right"}
+         )  
          router.replace("/signin");
       }
      } catch (error) {
       console.log(error);
-      toast({
-        title:"Password reset failed",
-        description:"Faced an error when resetting password",
-        status:"error",
-        position:"top-right"
-       })  
+      toast.error(
+        "Faced an error when resetting password",
+      {position:"top-right"}
+      )  
      
      }
   }
