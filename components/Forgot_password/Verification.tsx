@@ -2,8 +2,6 @@
 import VerificationBackground from "../../public/verificationBackground.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useToast } from "@chakra-ui/react";
-import { HStack, PinInput, PinInputField } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/store/store";
@@ -12,7 +10,6 @@ import CodeInputForm from "./CodeInputForm";
 const VerificationMain = () => {
   const router = useRouter()
   const [confirmationCode, setConfirmationCode] = useState<string | undefined>();
-  const toast = useToast();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
    

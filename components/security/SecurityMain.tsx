@@ -206,11 +206,11 @@ const SecurityMain = () => {
             className="w-full h-full cursor-pointer"
             onClick={() => handleVideoStream(video)}
           >
-            <div className="w-[400px] h-[230px]  flex justify-center items-center relative">
+            <div className="w-[400px] h-[230px]  flex justify-center items-center relative overflow-y-scroll whitespace-nowrap scroll-smooth scrollbar-hide">
             <iframe
-      width="853"
-      height="480"
-      src={currentVideo}
+      width="100%"
+      height="100%"
+      src={`http://10.5.220.198:8000`}
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
