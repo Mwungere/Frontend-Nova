@@ -1,5 +1,3 @@
-import exp from "constants";
-import Image from "@/node_modules/next/image";
 export const pricingLinks = [
     {
       title: "Basic Plan",
@@ -263,278 +261,6 @@ export const todos = [
   },
 ]
   
-export const data = [
-  {
-    "id": "japan",
-    "color": "hsl(280, 70%, 50%)",
-    "data": [
-      {
-        "x": "plane",
-        "y": 216
-      },
-      {
-        "x": "helicopter",
-        "y": 71
-      },
-      {
-        "x": "boat",
-        "y": 130
-      },
-      {
-        "x": "train",
-        "y": 97
-      },
-      {
-        "x": "subway",
-        "y": 257
-      },
-      {
-        "x": "bus",
-        "y": 9
-      },
-      {
-        "x": "car",
-        "y": 22
-      },
-      {
-        "x": "moto",
-        "y": 183
-      },
-      {
-        "x": "bicycle",
-        "y": 119
-      },
-      {
-        "x": "horse",
-        "y": 50
-      },
-      {
-        "x": "skateboard",
-        "y": 94
-      },
-      {
-        "x": "others",
-        "y": 212
-      }
-    ]
-  },
-  {
-    "id": "france",
-    "color": "hsl(47, 70%, 50%)",
-    "data": [
-      {
-        "x": "plane",
-        "y": 154
-      },
-      {
-        "x": "helicopter",
-        "y": 143
-      },
-      {
-        "x": "boat",
-        "y": 290
-      },
-      {
-        "x": "train",
-        "y": 276
-      },
-      {
-        "x": "subway",
-        "y": 254
-      },
-      {
-        "x": "bus",
-        "y": 219
-      },
-      {
-        "x": "car",
-        "y": 92
-      },
-      {
-        "x": "moto",
-        "y": 260
-      },
-      {
-        "x": "bicycle",
-        "y": 246
-      },
-      {
-        "x": "horse",
-        "y": 229
-      },
-      {
-        "x": "skateboard",
-        "y": 6
-      },
-      {
-        "x": "others",
-        "y": 134
-      }
-    ]
-  },
-  {
-    "id": "us",
-    "color": "hsl(187, 70%, 50%)",
-    "data": [
-      {
-        "x": "plane",
-        "y": 17
-      },
-      {
-        "x": "helicopter",
-        "y": 167
-      },
-      {
-        "x": "boat",
-        "y": 207
-      },
-      {
-        "x": "train",
-        "y": 106
-      },
-      {
-        "x": "subway",
-        "y": 87
-      },
-      {
-        "x": "bus",
-        "y": 192
-      },
-      {
-        "x": "car",
-        "y": 151
-      },
-      {
-        "x": "moto",
-        "y": 289
-      },
-      {
-        "x": "bicycle",
-        "y": 109
-      },
-      {
-        "x": "horse",
-        "y": 116
-      },
-      {
-        "x": "skateboard",
-        "y": 145
-      },
-      {
-        "x": "others",
-        "y": 217
-      }
-    ]
-  },
-  {
-    "id": "germany",
-    "color": "hsl(8, 70%, 50%)",
-    "data": [
-      {
-        "x": "plane",
-        "y": 109
-      },
-      {
-        "x": "helicopter",
-        "y": 254
-      },
-      {
-        "x": "boat",
-        "y": 268
-      },
-      {
-        "x": "train",
-        "y": 31
-      },
-      {
-        "x": "subway",
-        "y": 5
-      },
-      {
-        "x": "bus",
-        "y": 4
-      },
-      {
-        "x": "car",
-        "y": 160
-      },
-      {
-        "x": "moto",
-        "y": 71
-      },
-      {
-        "x": "bicycle",
-        "y": 290
-      },
-      {
-        "x": "horse",
-        "y": 39
-      },
-      {
-        "x": "skateboard",
-        "y": 215
-      },
-      {
-        "x": "others",
-        "y": 96
-      }
-    ]
-  },
-  {
-    "id": "norway",
-    "color": "hsl(355, 70%, 50%)",
-    "data": [
-      {
-        "x": "plane",
-        "y": 287
-      },
-      {
-        "x": "helicopter",
-        "y": 13
-      },
-      {
-        "x": "boat",
-        "y": 111
-      },
-      {
-        "x": "train",
-        "y": 61
-      },
-      {
-        "x": "subway",
-        "y": 214
-      },
-      {
-        "x": "bus",
-        "y": 175
-      },
-      {
-        "x": "car",
-        "y": 9
-      },
-      {
-        "x": "moto",
-        "y": 4
-      },
-      {
-        "x": "bicycle",
-        "y": 37
-      },
-      {
-        "x": "horse",
-        "y": 70
-      },
-      {
-        "x": "skateboard",
-        "y": 269
-      },
-      {
-        "x": "others",
-        "y": 266
-      }
-    ]
-  }
-]
 
 export const users = [
   {
@@ -595,18 +321,90 @@ export const waterData = [
 
 export const Videos = [
   {
-    video:'https://www.youtube.com/watch?v=7KoDXtX--34&list=RD7KoDXtX--34&start_radio=1'
+    camera:'camera 1',
+    video:'/ep1.mp4',
+    status: 'live'
   },
   {
-    video:'https://www.youtube.com/watch?v=Q3zJRrIe89I&list=RD7KoDXtX--34&index=3'
+    camera:'camera 2',
+    video:'/ep2.mp4',
+    status:'offline'
   },
   {
-    video:'https://www.youtube.com/watch?v=9uIufpUah9Y&list=RD7KoDXtX--34&index=5'
+    camera:'camera 3',
+    video:'/ep3.mp4',
+    status:'offline'
+
   },
   {
-    video:'https://www.youtube.com/watch?v=P760YnVj76I&list=RD7KoDXtX--34&index=24'
+    camera:'camera 4',
+    video:'/ep4.mp4',
+    status:'offline'
   },
   {
-    video:'https://www.youtube.com/watch?v=Fes6I7fAqUI&list=RD7KoDXtX--34&index=30'
+    camera:'camera 5',
+    video:'/ep5.mp4',
+    status:'offline'
+  },
+  {
+    camera:'camera 6',
+    video:'/ep6.mp4',
+    status:'offline'
+  },
+  {
+    camera:'camera 7',
+    video:'/ep7.mp4',
+    status:'offline'
+  },
+  {
+    camera:'camera 8',
+    video:'/ep8.mp4',
+    status:'offline'
+  },
+  {
+    camera:'camera 9',
+    video:'/ep9.mp4',
+    status:'offline'
+  },
+]
+
+export const recentCameraCaptions = [
+  {
+    caption:"Unfamiliar dog wandering in the farm",
+    location:"Gate",
+    time:"7:30 AM"
+  },
+  {
+    caption:"Unknown individual spotted in the field",
+    location:"Gate",
+    time:"7:30 AM"
+  },
+  {
+    caption:"Bird species seen nesting in crops",
+    location:"Gate",
+    time:"7:30 AM"
+  }
+]
+
+export const cameras = [
+  {
+    id:1,
+    cam: "Backyard Camera",
+    img:"/cam1.svg",
+  },
+  {
+    id:2,
+    cam: "Frontyard Camera",
+    img:"/cam2.svg",
+  },
+  {
+    id:3,
+    cam: "Backyard Camera",
+    img:"/cam2.svg",
+  },
+  {
+    id:4,
+    cam: "Backyard Camera",
+    img:"/cam1.svg",
   },
 ]

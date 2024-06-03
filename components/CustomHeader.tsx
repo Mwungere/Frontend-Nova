@@ -186,7 +186,7 @@ const CustomHeader = ({ heading, icon }: CustomHeaderProps) => {
             sx={{
               marginTop: "-200px",
               marginRight: "-1300px",
-              maxWidth: "700", // Adjust the width as needed
+              maxWidth: "700",
             }}
           >
             <DialogTitle id="dialog-title">Notifications</DialogTitle>

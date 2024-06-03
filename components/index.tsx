@@ -13,8 +13,9 @@ import Testimonials from "./home/Testimonials";
 import Gallery from "./home/Gallery";
 import Questions from "./home/Questions";
 import Button from "./Button"; 
-import Security from "./security/Security";
 import Dashboard from "./Dashboard/Dashboard";
+import Security from "./security/Security";
+import CamControls from "./security/Camcontrols/CamControls";
 import Settings from "./Settings/Settings";
 import Sidebar from "./Sidebar";
 import CustomHeader from "./CustomHeader";
@@ -43,4 +44,5 @@ export {
     CustomHeader,
     DashboardMain,
     Health,
+    CamControls
 }
