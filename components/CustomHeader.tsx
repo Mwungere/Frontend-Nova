@@ -39,7 +39,7 @@ const notifications = [
     new: true,
   },
   {
-    title: "Low Level of Soil Moisture",
+    title: "Motion Detected in the Field",
     time: "2024-01-26T13:30:00",
     icon: "📉",
     new: true,
@@ -51,7 +51,7 @@ const notifications = [
     new: false,
   },
   {
-    title: "Warm Breeze in Atmosphere",
+    title: "Motion detected in the Field",
     time: "2024-01-26T15:15:00",
     icon: "🌞",
     new: false,
