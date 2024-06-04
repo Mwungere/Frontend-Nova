@@ -44,7 +44,7 @@ jobs:
           script: |
             cd ~/nova/novamis/Frontend-Nova
             git stash
-            git pull origin test
+            git pull origin main
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             npm i -g yarn
