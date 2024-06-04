@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/store/store";
 import axios from "axios";
 import CodeInputForm from "./CodeInputForm";
 const VerificationMain = () => {

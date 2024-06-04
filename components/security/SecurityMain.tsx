@@ -1,4 +1,3 @@
-// SecurityMain.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import ReactPlayer from "react-player";
@@ -21,11 +20,9 @@ import VideocamOutlinedIcon from "@mui/icons-material/VideocamOutlined";
 import { fetchVideoUrl } from "@/app/firebaseConfig";
 import VideocamOffOutlinedIcon from "@mui/icons-material/VideocamOffOutlined";
 import { Avatar, List, ListItem } from "material-ui";
-
 const SecurityMain = () => {
   const [currentVideo, setCurrentVideo] = useState<string>("/ep1.mp4");
   const [open, setOpen] = useState(false);
-
   useEffect(() => {
     const getVideoUrl = async () => {
       const videoUrl = await fetchVideoUrl("nova_farm_12345");
@@ -34,15 +31,12 @@ const SecurityMain = () => {
         setCurrentVideo(videoUrl);
       }
     };
-
     getVideoUrl();
   }, []);
-
   const handleVideoStream = (videoUrl: string) => {
     setCurrentVideo(videoUrl);
     setOpen(false);
   };
-
   return (
     <div className="w-full h-full flex flex-col space-y-2 overflow-hidden justify-center items-center mx-auto p-2">
       <div className=" w-full flex justify-center items-center">
@@ -72,7 +66,7 @@ const SecurityMain = () => {
             <div>Loading...</div>
           )} */}
         </div>
-        <div className="hidden lg:flex flex-col w-[340px] h-[500px] overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide bg-white ml-5 px-3">
+        <div className="hidden lg:flex flex-col w-[340px] h-[550px] overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide bg-white ml-5 px-3">
           {Videos.slice(0, 5).map(({ video, camera, status }) => {
             let isActive: boolean = false;
             if (status === "live") {
@@ -134,7 +128,6 @@ const SecurityMain = () => {
               <p className=" font-body">8</p>
             </div>
           </div>
-
           <div className=" w-full flex justify-end">
             <p
               onClick={() => setOpen(true)}
@@ -142,7 +135,6 @@ const SecurityMain = () => {
             >
               See More...
             </p>
-
             <Dialog
               open={open}
               onClose={() => setOpen(false)}
@@ -210,7 +202,7 @@ const SecurityMain = () => {
             <iframe
       width="100%"
       height="100%"
-      src={`http://10.5.220.198:8000`}
+      src={currentVideo}
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
@@ -219,7 +211,6 @@ const SecurityMain = () => {
             </div>
           </div>
         ))}
-
         {Videos.map(({ video }) => (
           <div
             key={video}
@@ -229,7 +220,7 @@ const SecurityMain = () => {
             <div className="w-[400px] h-[230px] flex justify-center items-center bg-slate-300">
               <VideocamOffOutlinedIcon
                 fontSize="large"
-                sx={{ fontSize: "100px", color: "#ffffff" }}
+                sx={{ fontSize: "100px", color: "#FFFFFF" }}
               />
             </div>
           </div>
@@ -273,5 +264,4 @@ const SecurityMain = () => {
     </div>
   );
 };
-
 export default SecurityMain;

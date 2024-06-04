@@ -18,34 +18,34 @@ const Page = () => {
   const [sensorData, setSensorData] = useState<SensorDataType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter()
-  useEffect(() => {
-    // const jwt = Cookies.get("jwt");
-    // if(!jwt || jwt.length ==0){
-    //   toast.error("Not authorized to reach this page",{duration:3000, position:"top-right"})
-    //   router.replace("/signin");
-    // }
-    Pusher.logToConsole = true;
-    var pusher = new Pusher('b474acc965ca822765e5', {
-      cluster: 'eu'
-    });
+  // useEffect(() => {
+  //   // const jwt = Cookies.get("jwt");
+  //   // if(!jwt || jwt.length ==0){
+  //   //   toast.error("Not authorized to reach this page",{duration:3000, position:"top-right"})
+  //   //   router.replace("/signin");
+  //   // }
+  //   Pusher.logToConsole = true;
+  //   var pusher = new Pusher('b474acc965ca822765e5', {
+  //     cluster: 'eu'
+  //   });
 
-    console.log("reached here");
+  //   console.log("reached here");
 
-    var channel = pusher.subscribe('nova_data');
-    channel.bind('sensor_data_event', function (data: SensorDataType) {
-      setSensorData((prevData) => [...prevData, data]);
-      setLoading(false);
-      const timestamp = new Date(data.time);
-      const hour = timestamp.getHours();
-      const minute = timestamp.getMinutes();
-      console.log(`Hour: ${hour}, Minute: ${minute}`);
-    });
+  //   var channel = pusher.subscribe('nova_data');
+  //   channel.bind('sensor_data_event', function (data: SensorDataType) {
+  //     setSensorData((prevData) => [...prevData, data]);
+  //     setLoading(false);
+  //     const timestamp = new Date(data.time);
+  //     const hour = timestamp.getHours();
+  //     const minute = timestamp.getMinutes();
+  //     console.log(`Hour: ${hour}, Minute: ${minute}`);
+  //   });
 
-    return () => {
-      channel.unbind_all();
-      channel.unsubscribe();
-    };
-  }, []);
+  //   return () => {
+  //     channel.unbind_all();
+  //     channel.unsubscribe();
+  //   };
+  // }, []);
 
   return (
     <div className="">
