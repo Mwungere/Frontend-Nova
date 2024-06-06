@@ -1,6 +1,5 @@
-import { Health } from '@/components'
-import React from 'react'
 
+import { Health } from '@/components'
 const page = () => {
   return (
     <div>

@@ -14,9 +14,9 @@ const firebaseConfig = {
 let app: any;
 let auth: Auth | null = null;
 
-if (typeof window !== "undefined") {
-  app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
-}
+// if (typeof window !== "undefined") {
+//   app = initializeApp(firebaseConfig);
+//   auth = getAuth(app);
+// }
 
 export { app, auth };

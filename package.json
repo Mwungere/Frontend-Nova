@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-  },
+  }, 
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
     "@emotion/cache": "^11.11.0",
@@ -25,7 +25,6 @@
     "@nivo/core": "^0.85.1",
     "@nivo/line": "^0.85.1",
     "@nivo/pie": "^0.85.1",
-    "@pusher/push-notifications-web": "^1.1.0",
     "@reduxjs/toolkit": "^2.2.4",
     "@tremor/react": "^3.13.3",
     "@types/js-cookie": "^3.0.6",
@@ -42,7 +41,6 @@
     "next13-progressbar": "^1.2.1",
     "nextjs-progressbar": "^0.0.16",
     "pusher-js": "^8.4.0-rc2",
-    "react": "^18",
     "react-apexcharts": "^1.4.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",

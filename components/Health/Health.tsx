@@ -3,10 +3,8 @@ import React, { useRef, useState, ChangeEvent, DragEvent } from "react";
 import { CustomHeader, Sidebar } from "@/components";
 import { LocalFlorist, MoreVert } from "@mui/icons-material";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
-import Image from "next/image";
 import HealthNavbar from "./HealthNavbar";
 import { HealthSlidesData } from "@/constants";
-
 interface ImageData {
   name: string;
   url: string;

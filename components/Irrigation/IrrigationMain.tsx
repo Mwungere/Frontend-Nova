@@ -8,15 +8,8 @@ import Image from "next/image";
 import { waterData, weatherData } from "@/constants";
 import { WeatherDataType } from "@/types";
 import { SensorDataType } from "@/app/irrigation/page";
-interface IrrigationMainProps {
-  sensorData: SensorDataType[];
-}
+import { ApexOptions  } from "apexcharts";
 
-interface TransformedDataType {
-  id: string;
-  color: string;
-  data: { x: string; y: number }[];
-}
 
 const IrrigationMain: React.FC = () => {
   const [latestSensorData, setLatestSensorData] =
@@ -26,6 +19,7 @@ const IrrigationMain: React.FC = () => {
 
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:8000/ws/sensor-data/");
+    
 
     socket.onmessage = function (e) {
       const receivedData = JSON.parse(e.data);
@@ -46,7 +40,7 @@ const IrrigationMain: React.FC = () => {
     };
 
     socket.onclose = function (e) {
-      console.error("WebSocket closed unexpectedly");
+      console.error("WebSocket closed unexpectedly");      
     };
 
     return () => {
@@ -65,7 +59,6 @@ const IrrigationMain: React.FC = () => {
     return `${formattedHours}:${formattedMinutes} ${ampm}`;
   };
 
-  console.log("All datas", allDatas);
 
   const getWeatherIcon = (weather: WeatherDataType) => {
     switch (weather.weather.toLowerCase()) {
@@ -96,7 +89,7 @@ const IrrigationMain: React.FC = () => {
     setAlignment(newAlignment);
   };
 
-  const chartOptions1 = {
+  const chartOptions1 :ApexOptions = {
     chart: {
       id: "realtime",
       height: 100,
@@ -149,7 +142,7 @@ const IrrigationMain: React.FC = () => {
       data: allDatas.map((data) => data.temperature),
     }
   ];
-  const chartOptions = {
+  const chartOptions:ApexOptions = {
     chart: {
       id: "realtime",
       height: 100,
@@ -198,7 +191,7 @@ const IrrigationMain: React.FC = () => {
     },
   };
 
-  const chartSeries = [
+  const chartSeries: object = [
     {
       name: "Moisture",
       data: allDatas.map((data) => data.moisture),

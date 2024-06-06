@@ -20,9 +20,7 @@ export const handleRequest = async (data: FormData, url:string , router: ReturnT
       data,
     {
       headers: {
-        "Content-Type":"application/json",
-        "Cookie":`jwt=${Cookies.get("jwt")}`
-                
+        "Content-Type":"application/json",                
       },
     }
   );
