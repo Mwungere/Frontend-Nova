@@ -1,4 +1,3 @@
-
 import { Health } from '@/components'
 const page = () => {
   return (
