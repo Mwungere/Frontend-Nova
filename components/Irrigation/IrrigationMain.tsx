@@ -8,8 +8,7 @@ import Image from "next/image";
 import { waterData, weatherData } from "@/constants";
 import { WeatherDataType } from "@/types";
 import { SensorDataType } from "@/app/irrigation/page";
-import { ApexOptions  } from "apexcharts";
-
+import { ApexOptions } from "apexcharts";
 
 const IrrigationMain: React.FC = () => {
   const [latestSensorData, setLatestSensorData] =
@@ -19,7 +18,6 @@ const IrrigationMain: React.FC = () => {
 
   useEffect(() => {
     const socket = new WebSocket("ws://localhost:8000/ws/sensor-data/");
-    
 
     socket.onmessage = function (e) {
       const receivedData = JSON.parse(e.data);
@@ -40,7 +38,7 @@ const IrrigationMain: React.FC = () => {
     };
 
     socket.onclose = function (e) {
-      console.error("WebSocket closed unexpectedly");      
+      console.error("WebSocket closed unexpectedly");
     };
 
     return () => {
@@ -58,7 +56,6 @@ const IrrigationMain: React.FC = () => {
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
     return `${formattedHours}:${formattedMinutes} ${ampm}`;
   };
-
 
   const getWeatherIcon = (weather: WeatherDataType) => {
     switch (weather.weather.toLowerCase()) {
@@ -89,7 +86,7 @@ const IrrigationMain: React.FC = () => {
     setAlignment(newAlignment);
   };
 
-  const chartOptions1 :ApexOptions = {
+  const chartOptions1: ApexOptions = {
     chart: {
       id: "realtime",
       height: 100,
@@ -127,7 +124,7 @@ const IrrigationMain: React.FC = () => {
         return time.toISOString();
       }),
     },
-    
+
     yaxis: {
       max: 100,
       min: 0,
@@ -136,13 +133,13 @@ const IrrigationMain: React.FC = () => {
       show: false,
     },
   };
-  const chartSeries1: Object = [
+  const chartSeries1: ApexAxisChartSeries | ApexNonAxisChartSeries | undefined =
     {
       name: "Temperature",
       data: allDatas.map((data) => data.temperature),
-    }
-  ];
-  const chartOptions:ApexOptions = {
+    } as unknown as ApexAxisChartSeries | ApexNonAxisChartSeries;
+
+  const chartOptions: ApexOptions = {
     chart: {
       id: "realtime",
       height: 100,
@@ -171,7 +168,7 @@ const IrrigationMain: React.FC = () => {
       text: "Moisture",
       align: "left",
     },
-    colors: ['#66DA26'],
+    colors: ["#66DA26"],
 
     xaxis: {
       type: "datetime",
@@ -181,7 +178,7 @@ const IrrigationMain: React.FC = () => {
         return time.toISOString();
       }),
     },
-    
+
     yaxis: {
       max: 1024,
       min: 0,
@@ -191,12 +188,11 @@ const IrrigationMain: React.FC = () => {
     },
   };
 
-  const chartSeries: object = [
+  const chartSeries: ApexAxisChartSeries | ApexNonAxisChartSeries | undefined =
     {
       name: "Moisture",
       data: allDatas.map((data) => data.moisture),
-    },
-  ];
+    } as unknown as ApexAxisChartSeries | ApexNonAxisChartSeries;
 
   return (
     <div className="w-full h-full flex flex-col lg:flex-row items-center justify-center flex-wrap p-3 space-y-2">
