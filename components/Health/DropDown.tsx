@@ -4,7 +4,6 @@ import Divider from '@mui/material/Divider';
 import { MoreVert } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import StyledMenu from './StyledMenu';
-
 export default function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -14,7 +13,6 @@ export default function CustomizedMenus() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <div>
       <IconButton
@@ -33,7 +31,7 @@ export default function CustomizedMenus() {
           'aria-labelledby': 'demo-customized-button',
         }}
         anchorEl={anchorEl}
-        open={open}
+        open={Boolean(anchorEl)}
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} disableRipple>

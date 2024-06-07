@@ -191,7 +191,7 @@ const IrrigationMain: React.FC = () => {
     },
   };
 
-  const chartSeries: Object = [
+  const chartSeries: object = [
     {
       name: "Moisture",
       data: allDatas.map((data) => data.moisture),
