@@ -52,4 +52,4 @@ jobs:
             chmod +x scripts/create_test_env.sh
             ./scripts/create_test_env.sh
             yarn run build
-            pm2 restart nova-frotend
+            pm2 start npm --name "nova-frontend" --start -- -p 3001
