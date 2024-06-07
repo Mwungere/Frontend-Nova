@@ -2,11 +2,9 @@
 import { Badge, Button, IconButton, List, ListItem, Stack, Typography } from "@mui/material";
 import React from "react";
 import { FaChevronDown } from "react-icons/fa";
-import BasicArea from "./DashboardGraph";
 import { Search } from "@mui/icons-material";
 import TodoTable from "./TodoTable";
 import AddTodoDialog from "./AddTodoDialog";
-import LineChart from "./DashboardGraph";
 import { IrrigationData, users } from "@/constants";
 import { ResponsiveLine } from "@nivo/line";
 
@@ -57,7 +55,7 @@ const DashboardMain = () => {
   return (
     <div className=" w-full h-full flex flex-col lg:flex-row justify-center items-center pt-56 lg:pt-0  px-2">
       <div className=" w-full lg:w-1/2 flex flex-col justify-center items-center ">
-        <div className=" pl-4 flex self-start items-center">
+        <div className=" pl-4 flex self-start items-center pt-12">
           <img src="/sunny.svg" alt="image" />
           <h1 className=" font-body text-3xl font-bold">
             Good Afternoon, Smith!
