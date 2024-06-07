@@ -136,7 +136,7 @@ const IrrigationMain: React.FC = () => {
       show: false,
     },
   };
-  const chartSeries1 = [
+  const chartSeries1: Object = [
     {
       name: "Temperature",
       data: allDatas.map((data) => data.temperature),
@@ -191,7 +191,7 @@ const IrrigationMain: React.FC = () => {
     },
   };
 
-  const chartSeries: object = [
+  const chartSeries: Object = [
     {
       name: "Moisture",
       data: allDatas.map((data) => data.moisture),
@@ -310,7 +310,6 @@ const IrrigationMain: React.FC = () => {
 
         <ApexChart
           type="line"
-          
           options={chartOptions1}
           series={chartSeries1}
           height={400}

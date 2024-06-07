@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import { handleRequest } from "../RequestFunctions";
 import { signFinally } from "../signFinally";
 import { useRouter } from "next/navigation";
-import { Icon, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEyeSharp } from "react-icons/io5";
 type formData = {
