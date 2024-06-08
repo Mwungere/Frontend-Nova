@@ -72,8 +72,8 @@ const SignIn = () => {
             height: "100%",
           }}
         >
-          <div className="my-[20%] pt-[3%] opacity-70 w-[60%] h-fit  rounded-lg flex flex-col  bg-white">
-            <div className="pl-[10%] my-[6%]  ">
+          <div className="my-[20%] bg-white  pt-[5%]  opacity-70 w-[60%] h-fit  rounded-lg flex flex-col  ">
+            <div className="pl-[10%]  my-[6%]  ">
               <h1 className=" text-[#1F6115] text-4xl 2xl:text-6xl h-[50px] mb-[2em] 2xl:mb-[3em] font-body font-bold ">
                 Want To <br></br> Monitor And <br /> Ensure Your <br /> Farm
                 Security

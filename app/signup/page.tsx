@@ -255,7 +255,9 @@ const SignUp = () => {
           backgroundSize: "cover",
         }}
       >
-        <div className="bg-white  w-[50%] pt-[5%] rounded-lg bg-opacity-50  mx-auto my-auto h-[30%]">
+
+    <div className="my-[20%] bg-white   opacity-70 w-[60%] h-fit  rounded-lg flex flex-col items-center ">
+    <div className=" my-[20%] rounded-lg  h-fit  mx-auto ">
           <h1 className="font-bold text-[2em] text-center text-[#1F6115]">
             Start Your <br /> Journey With Us!
           </h1>
@@ -266,6 +268,8 @@ const SignUp = () => {
             Monitoring Farm Activities Simplified
           </p>
         </div>
+    </div>
+
       </div>
     </div>
   );
