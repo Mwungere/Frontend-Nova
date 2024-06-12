@@ -1,17 +1,19 @@
 "use client"
 import { Badge, Button, IconButton, List, ListItem, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { Search } from "@mui/icons-material";
 import TodoTable from "./TodoTable";
 import AddTodoDialog from "./AddTodoDialog";
 import { IrrigationData, users } from "@/constants";
 import { ResponsiveLine } from "@nivo/line";
+import { User, UserContext } from "../contexts/UserContext";
 
 
 
 
 const DashboardMain = () => {
+  const user: User | null = useContext(UserContext); 
   const truncate = (str:string, length:number) => {
     if(!str)return "";
     return str.length>length?str.slice(0,length)+"...":str
@@ -52,13 +54,34 @@ const DashboardMain = () => {
     }
   ];
 
+  const returnTimeRangeName = ()=>{
+    var timeNow: Date = new Date();
+    const hours = timeNow.getHours();
+    if (hours >= 0  && hours < 12) {
+      return "morning";
+    } else if (hours >= 12 && hours < 17) {
+      return "afternoon";
+    } else if (hours >= 17 && hours < 24) {
+      return "evening";
+    } else {
+      return "night";
+    }
+  }  
+
+  
+  const findFirstname = (person?: string  )=>{
+    if(!person)return "";
+    const namesArray : string[] = person.split(" ");
+    return namesArray[0];
+  }
+
   return (
     <div className=" w-full h-full flex flex-col lg:flex-row justify-center items-center pt-56 lg:pt-0  px-2">
       <div className=" w-full lg:w-1/2 flex flex-col justify-center items-center ">
         <div className=" pl-4 flex self-start items-center pt-12">
           <img src="/sunny.svg" alt="image" />
           <h1 className=" font-body text-3xl font-bold">
-            Good Afternoon, Smith!
+            Good {returnTimeRangeName()}, {findFirstname(user?.username)}!
           </h1>
         </div>
         <div className="p-3 w-full h-[300px] flex flex-col items-center bg-white rounded-xl">

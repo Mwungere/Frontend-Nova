@@ -4,87 +4,43 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import Cookies from "js-cookie"
 import { setTimeout } from "timers"
+import { log } from "console"
 interface FormData{
-    names?: string | null | undefined ,
+    username?: string | null | undefined ,
     email?: string | null | undefined ,
-    confirmPassword?: string,
     password?: string
 };
 
+interface LoginRequest{
+  email?: string | null | undefined ,
+    password?: string
+}
 
 
-export const handleRequest = async (data: FormData, url:string , router: ReturnType<typeof useRouter>) => {
+export const handleRequest = async (data:FormData | LoginRequest , url:string , router: ReturnType<typeof useRouter>) => {  
     try {
-        const res = await axios.post(
-      url,
-      data,
+      const res = await axios.post(url,data,
     {
       headers: {
         "Content-Type":"application/json",                
       },
     }
   );
-  
-  
-        if (res.status === 200 && url === "http://127.0.0.1:3500/api/v1/users/registerUser") {
-            toast.success(res.data.message, {
-                duration: 3000,
-                position: "top-right",
-            });
-              setTimeout(() => {            
-              return router.replace("/signin")
-}, 3000);
-        }
-        if (res.status === 200 && url === "http://127.0.0.1:3500/api/v1/users/loginUser") {
-            toast.success(res.data.message, {
-                duration: 3000, 
-                position: "top-right",
-            });
-          setTimeout(() => {      
-         Cookies.set("nova_user", JSON.stringify(res.data.user))
-         Cookies.set("jwt",res.data.token);
-              return router.replace("/irrigation")   
-}, 3000);
-          
-}
-     
-      
-        
-} catch (error: any) {
-  if (error.response) {
-    const status = error.response.status;
 
-    if (status === 409) {
-      toast.error(error.response.data.message, {
-        duration: 5000,
-        position: "top-right",
-      });
-        return;
-    } else if (status === 401) {
-         toast.error(error.response.data.message, {
-        duration: 5000,
-        position: "top-right",
-         });
-        return;
-    } else if (status === 404) {
-         toast.error(error.response.data.message, {
-        duration: 5000,
-        position: "top-right",
-         });     
-        setTimeout(() => {
-            router.replace("/not-found")
-        }, 3000);
-        return;
-    }else if (status === 500) {
-            router.replace("/not-found")
-        return;
-    }else {
-      toast.error(`Unexpected error: ${status}`, {
-        duration: 5000,
-        position: "top-right",
-      }); 
-        return; 
-      }
-  }
+ if(res.status == 200  && url =="http://127.0.0.1:3500/api/v1/users"){
+  toast.success(res.data.message,{duration: 2000, position:"top-right"})
+  router.replace("/signin");
+ }
+ if(res.status == 200  && url =="http://127.0.0.1:3500/api/v1/users/login"){
+  console.log(res.data);
+  
+  toast.success(res.data.message,{duration:2000 , position:"top-right"})
+  Cookies.set("user", JSON.stringify(res.data.user))
+  Cookies.set("token",(res.data.token))
+  router.replace("/dashboard")
+ }
+} catch (error: any) {  
+  toast.error(error.response.data.error, {duration:2000, position:"top-right"})
+  return;
 }
 }

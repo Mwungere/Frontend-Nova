@@ -9,42 +9,50 @@ import { waterData, weatherData } from "@/constants";
 import { WeatherDataType } from "@/types";
 import { SensorDataType } from "@/app/irrigation/page";
 import { ApexOptions } from "apexcharts";
-
+import {io } from "socket.io-client"
 const IrrigationMain: React.FC = () => {
   const [latestSensorData, setLatestSensorData] =
     useState<SensorDataType | null>(null);
   const [allDatas, setAllDatas] = useState<SensorDataType[]>([]);
   const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-  useEffect(() => {
-    const socket = new WebSocket("ws://localhost:8000/ws/sensor-data/");
+  // useEffect(() => {
+  //   const socket = new WebSocket("ws://localhost:8000/ws/sensor-data/");
 
-    socket.onmessage = function (e) {
-      const receivedData = JSON.parse(e.data);
-      if (
-        receivedData.temperature &&
-        receivedData.moisture &&
-        receivedData.time
-      ) {
-        setLatestSensorData({
-          time: receivedData.time,
-          temperature: receivedData.temperature,
-          moisture: receivedData.moisture,
-        });
-        setAllDatas((prevData) => [...prevData, receivedData]);
-      } else {
-        console.warn("Incomplete data received", receivedData);
-      }
-    };
+  //   socket.onmessage = function (e) {
+  //     const receivedData = JSON.parse(e.data);
+  //     if (
+  //       receivedData.temperature &&
+  //       receivedData.moisture &&
+  //       receivedData.time
+  //     ) {
+  //       setLatestSensorData({
+  //         time: receivedData.time,
+  //         temperature: receivedData.temperature,
+  //         moisture: receivedData.moisture,
+  //       });
+  //       setAllDatas((prevData) => [...prevData, receivedData]);
+  //     } else {
+  //       console.warn("Incomplete data received", receivedData);
+  //     }
+  //   };
 
-    socket.onclose = function (e) {
-      console.error("WebSocket closed unexpectedly");
-    };
+  //   socket.onclose = function (e) {
+  //     console.error("WebSocket closed unexpectedly");
+  //   };
 
-    return () => {
-      socket.close();
-    };
-  }, []);
+  //   return () => {
+  //     socket.close();
+  //   };
+  // }, []);
+
+useEffect(()=>{
+  const socket = io("http://localhost:3600")
+  socket.on("connect", ()=>{
+console.log("You connected with the id ", socket.id);
+
+  })
+},[])  
 
   const formatTime = (time: string | Date) => {
     const date = typeof time === "string" ? new Date(time) : time;
@@ -296,21 +304,21 @@ const IrrigationMain: React.FC = () => {
         </div>
       </div>
       <div className="flex justify-center items-center w-full h-[420px] bg-white rounded-2xl">
-        <ApexChart
+        {/* <ApexChart
           type="line"
           options={chartOptions}
           series={chartSeries}
           height={400}
           width={700}
-        />
+        /> */}
 
-        <ApexChart
+        {/* <ApexChart
           type="line"
           options={chartOptions1}
           series={chartSeries1}
           height={400}
           width={700}
-        />
+        /> */}
       </div>
     </div>
   );

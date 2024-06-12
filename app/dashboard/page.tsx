@@ -1,16 +1,13 @@
 "use client"
 import Dashboard from '@/components/Dashboard/Dashboard'
-import Cookies from "js-cookie"
-import React, { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import toast from 'react-hot-toast'
+import { UserContextProvider } from '@/components/contexts/UserContext'
+import React, { useEffect, useState } from 'react'
+
 const page = () => {
-  const router = useRouter();
- 
   return (
-    <div>
-      <Dashboard />
-    </div>
+    <UserContextProvider>
+            <Dashboard />
+    </UserContextProvider>
   )
 }
 

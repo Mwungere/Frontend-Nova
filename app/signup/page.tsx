@@ -9,9 +9,8 @@ import GoogleButton from "react-google-button";
 import { useRouter } from "next/navigation";
 import { handleRequest } from "../RequestFunctions";
 import Link from "next/link";
-import { signFinally } from "../signFinally";
 interface FormData {
-  names: string;
+  username: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -20,7 +19,7 @@ interface FormData {
 const SignUp = () => {
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
-    names: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -33,12 +32,7 @@ const SignUp = () => {
     setShow(!show);
   };
 
-  const handleSignUpWithGoogle = async () => {
-    signFinally(
-      "http://localhost:3500/api/v1/users/registerUser",
-      router
-    );
-  };
+ 
 
   const postDetails = (pics: any) => {
     setPicLoading(true);
@@ -86,15 +80,20 @@ const SignUp = () => {
       toast.error(error.message ,{duration:5000, position:"top-right"})
     } else {
       setErrors(null);
-      const url = "http://localhost:3500/api/v1/users/registerUser";
-      await handleRequest(formData, url, router);
+      const requestData = {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password
+      }
+      const url = "http://localhost:3500/api/v1/users";
+      await handleRequest(requestData, url, router);
     }
   };
   return (
-    <div className="flex md:flex-row sm:flex-col h-screen  lg:overflow-y-hidden  ">
-      <div className="pl-[3%] pt-5 pr-5 sm:w-full md:w-[50%]  ">
-        <div className="flex flex-row justify-between ">
-          <div className="flex font-bold cursor-pointer items-center font-body">
+    <div className="flex md:flex-row sm:flex-col h-screen  w-[100%] lg:overflow-y-hidden  ">
+      <div className="lg:pl-[3%] ss:pl-[3%] pt-5 lg:pr-5 ss:w-[100%]   sm:w-[90%] md:w-[80%] lg:w-[50%]   md:pl-[5%]  ">
+        <div className="flex flex-row justify-between mt-[5%] ">
+          <div className="flex font-bold  cursor-pointer   items-center font-body">
             <Image
               src="/logo.svg"
               width={70}
@@ -103,54 +102,46 @@ const SignUp = () => {
               alt="logo"
             />
             <h1 className=" text-black font-body mt-2 ml-2 text-2xl font-semibold">
-              Nova
+              Novars
             </h1>
           </div>
 
-          <div>
+          <div className="bg-white justify-center lg:mr-[5%] flex-col flex items-center">
             <Link
               href="/"
-              className="text-black font-body mt-2 ml-2 text-2xl font-semibold"
+              className=" font-body  ml-2 text-2xl "
             >
               Back
             </Link>
           </div>
         </div>
 
-        <div>
-          <h1 className=" text-black font-body mt-[2em]  mb-4 text-2xl font-semibold">
+        <div className="pt-[3 %]">
+          <h1 className=" text-black font-body mt-[5%]  mb-4 text-2xl font-semibold">
             Create An Account
           </h1>
           <h3 className="mb-10">Enter the fields below to get started </h3>
-          <GoogleButton
-            label="Sign up with Google"
-            onClick={handleSignUpWithGoogle}
-          />
         </div>
 
-        <div className="flex flex-row mt-[1em] ">
-          <hr className="w-[30%] mt-4 text-gray-400 mr-[1rem] " />
-          <p>or</p>
-          <hr className="w-[30%] ml-[1rem] mt-4  text-gray-400" />
-        </div>
+      
 
-        <div className="sm:w-[90%] lg:w-[80%]">
-          <form onSubmit={handleSubmit}>
+        <div className="ss:w-[100%]  lg:w-[80%]">
+          <form onSubmit={handleSubmit} className=" pt-[2%] w-[100%] ">
             <div className="flex flex-col  mt-2">
               <label htmlFor="names">Names * </label>
               <input
                 className="w-[80%] outline-none sm:mt-1 lg:mt-[10px] focus:border-gray-400 h-[40px] border-[1px] indent-[12px] rounded-lg border-gray-400 "
                 name="names"
-                value={formData.names}
+                value={formData.username}
                 onChange={(e) =>
                   setFormData((prevData) => {
-                    return { ...prevData, names: e.target.value };
+                    return { ...prevData, username: e.target.value };
                   })
                 }
               />
             </div>
             <div className="flex flex-col  mt-2 mb-2">
-              <label className="font-semibold" htmlFor="names">
+              <label   htmlFor="names">
                 Email *
               </label>
               <input
@@ -166,7 +157,7 @@ const SignUp = () => {
               />
             </div>
 
-            <label className="font-semibold" htmlFor="password">
+            <label  htmlFor="password">
               Password *
             </label>
             <div className="relative w-[80%] mb-2 rounded-lg sm:mt-1 lg:mt-[10px]">
@@ -194,7 +185,7 @@ const SignUp = () => {
             </div>
 
 
-            <label className="font-semibold " htmlFor="password">
+            <label  htmlFor="password">
               Confirm password *
             </label>
             <div className="relative w-[80%] rounded-lg mb-2 sm:mt-1 lg:mt-[10px]">
@@ -249,7 +240,7 @@ const SignUp = () => {
       <div></div>
 
       <div
-        className="hidden  w-[50%] bg-cover  bg-no-repeat  lg:flex flex-col items-center overflow-y-hidden justify-center"
+        className="ss:hidden  md:visible bg-black w-[50%] bg-cover  bg-no-repeat  lg:flex flex-col items-center overflow-y-hidden justify-center"
         style={{
           backgroundImage: `url(/background.png)`,
           backgroundSize: "cover",

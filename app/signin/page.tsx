@@ -8,7 +8,6 @@ import Cookies from "js-cookie";
 import { useState } from "react";
 import { useEffect } from "react";
 import { handleRequest } from "../RequestFunctions";
-import { signFinally } from "../signFinally";
 import { useRouter } from "next/navigation";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoEyeSharp } from "react-icons/io5";
@@ -40,20 +39,22 @@ const SignIn = () => {
     setShow(!show)
   }
 
-  const handleSignInWithGoogle = async () => {
-    await signFinally("http://127.0.0.1:3500/api/v1/users/loginUser", router);
-  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formData.rememberMe) {
       Cookies.set("rememberedUser", formData.email, { expires: 365 });
     } else {
       Cookies.remove("rememberedUser");
     }
-    const url = "http://127.0.0.1:3500/api/v1/users/loginUser";
+    const url = "http://127.0.0.1:3500/api/v1/users/login";
     setLoading(!loading);
-    await handleRequest(formData, url, router);
+    const loginRequestData = {
+      email:formData.email,
+      password:formData.password
+    }
+    await handleRequest(loginRequestData, url, router);
     setLoading(false);
   };
 
@@ -63,7 +64,7 @@ const SignIn = () => {
   return (
     <div>
       {loading && <div className="loading-bar"></div>}
-      <div className="flex flex-row items-center h-screen lg:overflow-y-hidden">
+      <div className="flex flex-row  h-screen  lg:overflow-y-hidden">
         <div
           className="hidden  w-[50%] bg-cover bg-no-repeat  lg:flex flex-col items-center overflow-y-hidden justify-center"
           style={{
@@ -88,7 +89,7 @@ const SignIn = () => {
           </div>
         </div>
 
-        <div className=" w-[70%] lg:w-[50%] pt-[3%] h-full pl-[5%] mx-auto">
+        <div className=" w-[70%] lg:w-[50%] pt-[5%] ss:w-[100%] h-full pl-[5%] mx-auto">
           <div className=" flex justify-between">
             <div className=" flex gap-2 -mt-[1%] lg:-mt-[5%]">
               <Image
@@ -105,12 +106,12 @@ const SignIn = () => {
             </div>
             <Link
               href="/signup"
-              className=" font-body text-[#232A42] mt-[4%] lg:-mt-[1%] lg:mr-[10%]"
+              className=" font-body text-[#232A42] mt-[2%] lg:-mt-[1%] lg:mr-[10%]"
             >
               Back
             </Link>
           </div>
-          <h1 className="font-lexend text-3xl font-bold mt-[10%] lg:mt-[8%] text-black">
+          <h1 className="font-lexend text-3xl font-bold mt-[8%] lg:mt-[3%] text-black">
             Hey, Hello
             <span className="text-[2em] ">👋</span>
           </h1>
@@ -134,7 +135,7 @@ const SignIn = () => {
             />
 
 
-              <label className="font-semibold mt-[1px]" htmlFor="names">
+              <label className="mt-[1px]" htmlFor="names">
                 Password *
               </label>
 
@@ -183,8 +184,7 @@ const SignIn = () => {
 
             <input
               type="submit"
-              onClick={handleSubmit}
-              className="text-white h-[60px] cursor-pointer font-lexend mt-[1em] w-[100%] lg:h-[50px] lg:w-[90%] 2xl:w-[60%] border-none rounded-lg bg-[#1F6115]"
+              className="text-white h-[60px] cursor-pointer font-lexend mt-[1em] md:w-[70%] ss:w-[90%] lg:h-[50px] lg:w-[90%] 2xl:w-[60%] border-none rounded-lg bg-[#1F6115]"
               value={"Login"}
             />
           </form>
@@ -200,12 +200,6 @@ const SignIn = () => {
               </Link>{" "}
             </p>
           </div>
-          <div className="flex flex-row mt-[1em] ">
-            <hr className="w-[30%] mt-4 text-gray-400 mr-[1rem] " />
-            <p>or</p>
-            <hr className="w-[30%] ml-[1rem] mb-6 mt-4  text-gray-400" />
-          </div>
-          <GoogleButton onClick={handleSignInWithGoogle} />
         </div>
         <Toaster />
       </div>
