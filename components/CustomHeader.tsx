@@ -28,9 +28,10 @@ import {
   useTheme,
 } from "@mui/material";
 import Cookies from "js-cookie";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import CustomizedMenus from "./Health/DropDown";
 import { usePathname } from "next/navigation";
+import { UserContext } from "./contexts/UserContext";
 const notifications = [
   {
     title: "Irrigation Successfully Done",
@@ -86,9 +87,7 @@ const CustomHeader = ({ heading, icon }: CustomHeaderProps) => {
     return new Date(timeString).toLocaleTimeString("en-US", options);
   };
 
-  const userString = Cookies.get("nova_user");
-  const user = userString ? JSON.parse(userString) : null;
-
+  const user = useContext(UserContext)
   const firstNameSplitter = (name: string): string => {
     let firstLetter = "";
     for (let i = 0; i < name.length && i < 1; i++) {
@@ -96,10 +95,6 @@ const CustomHeader = ({ heading, icon }: CustomHeaderProps) => {
     }
     return firstLetter;
   };
-
-  const firstLetter = user
-    ? firstNameSplitter(user.displayName || user.names)
-    : "";
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -228,20 +223,14 @@ const CustomHeader = ({ heading, icon }: CustomHeaderProps) => {
           <div>
             <Stack direction={"row"} className="lg:flex" spacing={1}>
               <Avatar
-                src={
-                  user && user.photoURL
-                    ? user.photoURL.replace("http://", "https://") ||
-                      "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
-                    : "https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
-                }
-                alt={firstLetter}
+                src={user?.pic}
               />
               <Stack direction={"column"}>
                 <Typography variant="body1">
-                  {user ? user.displayName || user.names : ""}
+                  {user?.username}
                 </Typography>
                 <Typography variant="body2">
-                  {user ? user.email : ""}
+                  {user?.email}
                 </Typography>
               </Stack>
             </Stack>
