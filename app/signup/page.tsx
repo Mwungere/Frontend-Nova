@@ -164,7 +164,7 @@ const SignUp = () => {
               <input
                 id="password"
                 type={show ? "text" : "password"}
-                className={`w-full  border  outline-none ${
+                className={`w-full  border   outline-none ${
                   errors ? "border-red-900" : "border-gray-400"
                 } rounded-lg p-2 focus:border-gray-400`}
                 name="password"
@@ -180,7 +180,7 @@ const SignUp = () => {
                 className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
                 onClick={handleClick}
               >
-                {show ? <IoMdEyeOff /> : <IoEyeSharp />}
+                {show ? <IoMdEyeOff className="text-gray-500"/> : <IoEyeSharp className="text-gray-500"/>}
               </span>
             </div>
 
@@ -208,7 +208,7 @@ const SignUp = () => {
                 className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
                 onClick={handleClick}
               >
-                {show ? <IoMdEyeOff /> : <IoEyeSharp />}
+                {show ? <IoMdEyeOff className="text-gray-500" /> : <IoEyeSharp  className="text-gray-500 "/>}
               </span>
             </div>
 

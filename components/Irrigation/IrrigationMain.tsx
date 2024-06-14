@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { Cloud, BeachAccess, LocationOn, Water } from "@mui/icons-material";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
@@ -9,62 +9,70 @@ import { waterData, weatherData } from "@/constants";
 import { WeatherDataType } from "@/types";
 import { SensorDataType } from "@/app/irrigation/page";
 import { ApexOptions } from "apexcharts";
-import {io } from "socket.io-client"
+import { io } from "socket.io-client";
+import Cookies from "js-cookie";
+import ChartComponent from "./ChartComponent";
+import { UserContext } from "../contexts/UserContext";
+
 const IrrigationMain: React.FC = () => {
-  const [latestSensorData, setLatestSensorData] =
-    useState<SensorDataType | null>(null);
-  const [allDatas, setAllDatas] = useState<SensorDataType[]>([]);
+
+
   const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
+  const [latestSensorData, setLatestSensorData] = useState<any>(null); // Adjust type as per your actual data structure
+  const [allDatas, setAllDatas] = useState<any[]>([]); // Adjust type as per your actual data structure
+  const token: any = Cookies.get("token");
+  const [isStupid,setIsStupid] = useState<any>(["Verygood",]);
+  
+  const [physicalQuantity, setPhysicalQuantity] = useState<string>("temperature"); // Default to temperature or the initial physical quantity
 
-  // useEffect(() => {
-  //   const socket = new WebSocket("ws://localhost:8000/ws/sensor-data/");
+  const user   = useContext(UserContext);
+  useEffect(() => {
+    const socket = io("http://localhost:3500");
 
-  //   socket.onmessage = function (e) {
-  //     const receivedData = JSON.parse(e.data);
-  //     if (
-  //       receivedData.temperature &&
-  //       receivedData.moisture &&
-  //       receivedData.time
-  //     ) {
-  //       setLatestSensorData({
-  //         time: receivedData.time,
-  //         temperature: receivedData.temperature,
-  //         moisture: receivedData.moisture,
-  //       });
-  //       setAllDatas((prevData) => [...prevData, receivedData]);
-  //     } else {
-  //       console.warn("Incomplete data received", receivedData);
-  //     }
-  //   };
+    socket.on("connect", () => {
+      console.log("Connected with ID:", socket.id);
+    });
 
-  //   socket.onclose = function (e) {
-  //     console.error("WebSocket closed unexpectedly");
-  //   };
+    socket.emit("token", token);
 
-  //   return () => {
-  //     socket.close();
-  //   };
-  // }, []);
+    socket.on("sensorDatas", (data) => {
+      console.log("Received sensor data:", data);
+      if(data.length > 0){
+       data.map((d:any)=>{
+        if(d.user == user?._id){
+          setLatestSensorData(d)
+          setAllDatas((prevData)=>[...prevData, d])
+        }
+       })
+      }
+      setAllDatas(data);
+      setPhysicalQuantity(data.physicalQuantity); 
+    });
 
-useEffect(()=>{
-  const socket = io("http://localhost:3600")
-  socket.on("connect", ()=>{
-console.log("You connected with the id ", socket.id);
+    socket.on("newDatas", (newData) => {
+      console.log("Received new data:", newData);
+      setAllDatas((prevData) => [...prevData, newData]); 
+    });
 
-  })
-},[])  
 
-  const formatTime = (time: string | Date) => {
-    const date = typeof time === "string" ? new Date(time) : time;
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
-    const ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12 || 12;
-    const formattedHours = hours < 10 ? `0${hours}` : hours;
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    return `${formattedHours}:${formattedMinutes} ${ampm}`;
-  };
 
+    return () => {
+      socket.disconnect(); 
+    };
+  }, []);
+
+console.log("All datas" , allDatas);
+
+
+const formatTime = (time: string | Date) => {
+  const date = typeof time === "string" ? new Date(time) : time;
+  const formatted = date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+  return formatted;
+};
   const getWeatherIcon = (weather: WeatherDataType) => {
     switch (weather.weather.toLowerCase()) {
       case "sunny":
@@ -102,7 +110,7 @@ console.log("You connected with the id ", socket.id);
       animations: {
         enabled: true,
         easing: "linear",
-        dynamicAnimation: {
+        dynamicAnimation: { 
           speed: 1000,
         },
       },
@@ -129,7 +137,7 @@ console.log("You connected with the id ", socket.id);
       categories: allDatas.map((d) => {
         let time = new Date(d.time);
         time.setHours(time.getHours() + 2);
-        return time.toISOString();
+        return time;
       }),
     },
 
@@ -183,7 +191,7 @@ console.log("You connected with the id ", socket.id);
       categories: allDatas.map((d) => {
         let time = new Date(d.time);
         time.setHours(time.getHours() + 2);
-        return time.toISOString();
+        return time;
       }),
     },
 
@@ -304,6 +312,7 @@ console.log("You connected with the id ", socket.id);
         </div>
       </div>
       <div className="flex justify-center items-center w-full h-[420px] bg-white rounded-2xl">
+        <ChartComponent  data={allDatas} physicalQuantity={physicalQuantity}/>
         {/* <ApexChart
           type="line"
           options={chartOptions}

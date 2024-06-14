@@ -157,7 +157,7 @@ const SignIn = () => {
                 className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
                 onClick={handleClick}
               >
-                {show ? <IoMdEyeOff /> : <IoEyeSharp />}
+                {show ? <IoMdEyeOff className="text-gray-500" /> : <IoEyeSharp  className="text-gray-500"/>}
               </span>
             </div>
 
@@ -168,7 +168,7 @@ const SignIn = () => {
                   className=" h-4 w-4 hover:cursor-pointer"
                   onClick={() =>
                     setFormData((prevData) => ({
-                      ...prevData,
+                      ...prevData,  
                       rememberMe: !prevData.rememberMe,
                     }))
                   }

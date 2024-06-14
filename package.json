@@ -34,7 +34,7 @@
     "@types/socket.io-client": "^3.0.0",
     "apexcharts": "^3.49.1",
     "axios": "^1.6.5",
-    "chart.js": "^4.4.2",
+    "chart.js": "^4.4.3",
     "emotion-theming": "^10.3.0",
     "firebase": "^10.12.2",
     "google-libphonenumber": "^3.2.34",
