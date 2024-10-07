@@ -85,7 +85,7 @@ const SignUp = () => {
         email: formData.email,
         password: formData.password
       }
-      const url = "http://localhost:3500/api/v1/users";
+      const url = "http://194.163.167.131:7500/api/v1/users";
       await handleRequest(requestData, url, router);
     }
   };

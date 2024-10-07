@@ -36,10 +36,10 @@ const IrrigationMain: React.FC = () => {
     socket.emit("token", token);
 
     socket.on("sensorDatas", (data) => {
-      console.log("Received sensor data:", data);
       if(data.length > 0){
        data.map((d:any)=>{
         if(d.user == user?._id){
+          console.log(d);          
           setLatestSensorData(d)
           setAllDatas((prevData)=>[...prevData, d])
         }
@@ -61,7 +61,6 @@ const IrrigationMain: React.FC = () => {
     };
   }, []);
 
-console.log("All datas" , allDatas);
 
 
 const formatTime = (time: string | Date) => {
