@@ -4,34 +4,33 @@ on:
   push:
     branches:
       - main
-# manually triggered
-# on:
-#   workflow_dispatch:
-#     inputs:
-#       branch:
-#         description: 'Branch to deploy'
-#         required: true
-#         default: 'test'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: '20'
-      #     check-latest: true
-      #     cache: 'yarn'
+
+      # Set up Node.js (if you want this part)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          check-latest: true
+          cache: 'yarn'
+
+      # Optional: Install dependencies and build the Next.js app
+      # Uncomment if you want to run build on the action runner, not the server
       # - name: Install dependencies
       #   run: yarn install
 
       # - name: Build Next.js app
       #   run: yarn run build
 
+      # Deploy to SSH server
       - name: Deploy to SSH server
         uses: appleboy/ssh-action@master
         with:
@@ -39,17 +38,32 @@ jobs:
           port: 22
           username: root
           password: bxnnHBAuNECS3a6m
-         # key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # fingerprint: ${{ secrets.SSH_FINGERPRINT }}
+         # key: ${{ secrets.SSH_PRIVATE_KEY }}  # Recommended for security, use secrets
+         # fingerprint: ${{ secrets.SSH_FINGERPRINT }}
           script: |
+            # Go to the project folder
             cd ~/nova/novamis/Frontend-Nova
+
+            # Stash local changes, if any, and pull the latest code from the main branch
             git stash
             git pull origin main
+
+            # Load NVM and set up Node.js if not already available
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
+
+            # Install Yarn globally if not already installed
             npm i -g yarn
+
+            # Install project dependencies
             yarn install
+
+            # Ensure the test environment script is executable and run it
             chmod +x scripts/create_test_env.sh
             ./scripts/create_test_env.sh
+
+            # Build the project (Next.js)
             yarn run build
-            pm2 start npm --name "nova-frontend" -- start -- -p 3030
+
+            # Start or restart the frontend app with PM2
+            pm2 restart "nova-frontend" || pm2 start npm --name "nova-frontend" -- start -- -p 3030

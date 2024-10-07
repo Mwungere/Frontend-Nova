@@ -1,8 +1,40 @@
-// context/ThemeContext.tsx
-"use client";
-
+"use client"
 import React, { createContext, useEffect, useMemo, useState, ReactNode, FC } from "react";
+
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
+
+// Dark and light theme definitions
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#ff5252', // Primary color for dark mode
+    },
+    background: {
+      default: '#20242c', // Dark mode background
+      paper: '#292d36', // Dark mode paper background
+    },
+    text: {
+      primary: '#ffffff', // Text color for dark mode
+    },
+  },
+});
+
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#ffffff', 
+    },
+    background: {
+      default: '#f0f0f0', 
+      paper: '#ffffff',  
+    },
+    text: {
+      primary: '#000000',
+    },
+  },
+});
 
 interface ThemeContextValue {
   mode: "light" | "dark";
@@ -17,22 +49,15 @@ interface ThemeContextProviderProps {
 }
 
 const ThemeContextProvider: FC<ThemeContextProviderProps> = ({ children }) => {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [mode, setMode] = useState<"light" | "dark">(prefersDarkMode ? "dark" : "light");
-
-  useEffect(() => {
-    setMode(prefersDarkMode ? "dark" : "light");
-  }, [prefersDarkMode]);
+  // By default, light mode
+  const [mode, setMode] = useState<"light" | "dark">("light");
 
   const toggleColorMode = () => {
     setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
   };
 
-  const theme = useMemo(() => createTheme({
-    palette: {
-      mode,
-    },
-  }), [mode]);
+  // Memoize the theme based on the current mode
+  const theme = useMemo(() => (mode === 'dark' ? darkTheme : lightTheme), [mode]);
 
   return (
     <ThemeContext.Provider value={{ mode, toggleColorMode, theme }}>
