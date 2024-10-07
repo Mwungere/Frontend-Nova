@@ -10,6 +10,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { ColorModeContext } from "@/app/context/colorContext";
 import { IconButton } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+
 const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
   const colorMode = useContext(ColorModeContext)
   const theme = useTheme()
