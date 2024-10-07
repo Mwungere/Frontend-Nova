@@ -1,0 +1,55 @@
+name: Test Deploy to SSH Server
+
+on:
+  push:
+    branches:
+      - main
+# manually triggered
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       branch:
+#         description: 'Branch to deploy'
+#         required: true
+#         default: 'test'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '20'
+      #     check-latest: true
+      #     cache: 'yarn'
+      # - name: Install dependencies
+      #   run: yarn install
+
+      # - name: Build Next.js app
+      #   run: yarn run build
+
+      - name: Deploy to SSH server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 194.163.167.131
+          port: 22
+          username: root
+          password: bxnnHBAuNECS3a6m
+         # key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # fingerprint: ${{ secrets.SSH_FINGERPRINT }}
+          script: |
+            cd ~/nova/novamis/Frontend-Nova
+            git stash
+            git pull origin main
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            npm i -g yarn
+            yarn install
+            chmod +x scripts/create_test_env.sh
+            ./scripts/create_test_env.sh
+            yarn run build
+            pm2 start npm --name "nova-frontend" -- start -- -p 3001
