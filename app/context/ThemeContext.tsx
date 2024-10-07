@@ -1,11 +1,13 @@
-"use client"
-import { createTheme, useMediaQuery, Theme } from "@mui/material";
-import { createContext, useEffect, useState, ReactNode, FC } from "react"; 
+// context/ThemeContext.tsx
+"use client";
+
+import React, { createContext, useEffect, useMemo, useState, ReactNode, FC } from "react";
+import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
 
 interface ThemeContextValue {
-  mode: boolean;
-  setMode: (mode: boolean) => void;
-  theme: Theme
+  mode: "light" | "dark";
+  toggleColorMode: () => void;
+  theme: ReturnType<typeof createTheme>;
 }
 
 export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
@@ -15,22 +17,28 @@ interface ThemeContextProviderProps {
 }
 
 const ThemeContextProvider: FC<ThemeContextProviderProps> = ({ children }) => {
-  const prefersMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [mode, setMode] = useState<boolean>(prefersMode);
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [mode, setMode] = useState<"light" | "dark">(prefersDarkMode ? "dark" : "light");
 
   useEffect(() => {
-    setMode(prefersMode);
-  }, [prefersMode]);
+    setMode(prefersDarkMode ? "dark" : "light");
+  }, [prefersDarkMode]);
 
-  const theme: Theme = createTheme({
+  const toggleColorMode = () => {
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  };
+
+  const theme = useMemo(() => createTheme({
     palette: {
-      mode: mode ? "dark" : "light",
+      mode,
     },
-  });
+  }), [mode]);
 
   return (
-    <ThemeContext.Provider value={{ mode, setMode, theme }}>
-      {children}
+    <ThemeContext.Provider value={{ mode, toggleColorMode, theme }}>
+      <ThemeProvider theme={theme}>
+        {children}
+      </ThemeProvider>
     </ThemeContext.Provider>
   );
 };

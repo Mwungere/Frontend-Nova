@@ -12,7 +12,7 @@ import { ApexOptions } from "apexcharts";
 import { io } from "socket.io-client";
 import Cookies from "js-cookie";
 import ChartComponent from "./ChartComponent";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../../app/context/UserContext";
 
 const IrrigationMain: React.FC = () => {
 

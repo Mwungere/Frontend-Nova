@@ -7,7 +7,7 @@ import TodoTable from "./TodoTable";
 import AddTodoDialog from "./AddTodoDialog";
 import { IrrigationData, users } from "@/constants";
 import { ResponsiveLine } from "@nivo/line";
-import { User, UserContext } from "../contexts/UserContext";
+import { User, UserContext } from "../../app/context/UserContext";
 
 
 
