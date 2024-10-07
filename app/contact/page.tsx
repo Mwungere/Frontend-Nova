@@ -1,7 +1,7 @@
-import { Navbar } from "@/components";
 import Image from "next/image";
 import { FaLinkedin, FaFacebook, FaTwitter, FaInstagram, FaPhone, FaEnvelope, FaLocationArrow } from "react-icons/fa";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 const ContactPage = () => {
   const icons = [

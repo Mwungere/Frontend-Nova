@@ -1,22 +1,19 @@
 "use client";
 
-import {
-  BlurredDiv2,
-  BlurredDiv3,
-  Footer,
-  GetToKnowAboutUs,
-  Intro,
-  Navbar,
-  NewsLetter,
-  CaringForYourFarmPlants,
-  OurLandscapingWork,
-  Testimonials,
-  Gallery,
-  Questions,
-} from "@/components";
+import BlurredDiv2 from "@/components/home/BlurredDiv2";
+import CaringForYourFarmPlants from "@/components/home/CaringForYourFarmPlants";
+import Footer from "@/components/home/Footer";
+import Gallery from "@/components/home/Gallery";
+import GetToKnowAboutUs from "@/components/home/GetToKnowAboutUs.tsx";
+import Intro from "@/components/home/Intro";
+import NewsLetter from "@/components/home/NewsLetter";
+import OurLandscapingWork from "@/components/home/OurLandscapingWork";
+import Questions from "@/components/home/Questions";
+import Testimonials from "@/components/home/Testimonials";
+import Navbar from "@/components/Navbar";
 
-export default function Home() {
 
+const page = () => {
   return (
     <>
     <main className="">
@@ -30,10 +27,12 @@ export default function Home() {
       <Testimonials />
       <Gallery />
       <Questions />
-      <BlurredDiv3 />
+      <BlurredDiv2 />
       <NewsLetter />
       <Footer />
     </main>
     </>
-  );
+  )
 }
+
+export default page

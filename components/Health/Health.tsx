@@ -1,10 +1,11 @@
 "use client"
 import React, { useRef, useState, ChangeEvent, DragEvent } from "react";
-import { CustomHeader, Sidebar } from "@/components";
 import { LocalFlorist, MoreVert } from "@mui/icons-material";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import HealthNavbar from "./HealthNavbar";
 import { HealthSlidesData } from "@/constants";
+import Sidebar from "../Sidebar";
+import CustomHeader from "../CustomHeader";
 interface ImageData {
   name: string;
   url: string;
@@ -83,7 +84,7 @@ const Health = () => {
       </div>
       <div className="  w-full lg:w-3/4 flex flex-col">
         <div className=" w-full h-[10%] flex bg-white">
-        <div className=' lg:hidden'><Sidebar /></div>
+          <div className=' lg:hidden'><Sidebar /></div>
           <CustomHeader
             heading="Health"
             icon={<LocalFlorist color="success" />}
@@ -166,7 +167,7 @@ const Health = () => {
             </div>
             <div className="w-full h-[500px] lg:w-[60%] lg:h-[100%] lg:pl-8 mt-4 lg:mt-0 overflow-x-auto relative">
               <div className=" w-full h-full relative overflow-x-auto flex">
-              {HealthSlidesData.map(
+                {HealthSlidesData.map(
                   ({ title, description, imageUrl }, index) => {
                     const divStyle = {
                       backgroundImage: `url(${imageUrl})`,
@@ -177,9 +178,8 @@ const Health = () => {
                     return (
                       <div
                         key={index}
-                        className={`p-5 text-center flex flex-shrink-0 w-full h-full items-center justify-center flex-col rounded-lg ${
-                          currentSlide === index ? "visible" : "hidden"
-                        }`}
+                        className={`p-5 text-center flex flex-shrink-0 w-full h-full items-center justify-center flex-col rounded-lg ${currentSlide === index ? "visible" : "hidden"
+                          }`}
                         style={divStyle}
                       >
                         <h1 className="text-white font-body font-bold text-3xl mb-10">
@@ -195,9 +195,8 @@ const Health = () => {
                 {HealthSlidesData.map((_, index) => (
                   <div
                     key={index}
-                    className={`h-2 rounded-full mx-1 cursor-pointer ${
-                      currentSlide === index ? "bg-[#1F6115] w-10" : "bg-gray-300 w-2"
-                    }`}
+                    className={`h-2 rounded-full mx-1 cursor-pointer ${currentSlide === index ? "bg-[#1F6115] w-10" : "bg-gray-300 w-2"
+                      }`}
                     onClick={() => handleSlideChange(index)}
                   />
                 ))}

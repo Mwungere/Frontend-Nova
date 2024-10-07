@@ -1,7 +1,7 @@
-import { CamControls } from '@/components'
+import CamControls from '@/components/security/Camcontrols/CamControls'
 import React from 'react'
 
-const page = () => {
+const Page = () => {
   return (
     <div className=' w-[100vw] h-[100vh]'>
       <CamControls />
@@ -9,4 +9,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

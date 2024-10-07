@@ -124,7 +124,7 @@ const Sidebar = () => {
   return (
     <Box sx={{ width: "100%", height: "100%", bgcolor: "#1F6115", overflowX: "hidden", overflowY: "hidden" }}>
       <div className="flex justify-center items-center w-full h-full bg-white lg:hidden">
-        <IconButton onClick={toggleDrawer(true)}><ListIcon className=" font-body font-bold text-3xl" /></IconButton>
+        <IconButton onClick={toggleDrawer(true)}><ListIcon className=" font-body font-bold text-3xl -mt-7 sm:-mt-0" /></IconButton>
         <Drawer open={drawerOpen} onClose={toggleDrawer(false)}>
           <DrawerList />
         </Drawer>
@@ -142,7 +142,7 @@ const Sidebar = () => {
                 <Link href={link}>
                   <ListItem
                     key={desc}
-                    className={isActive ? "font-bold font-body bg-[#3D3D3D] transition-all duration-500 ease-in-out" : "font-body"}
+                    className={isActive ? "font-bold font-body bg-green-500 transition-all duration-500 ease-in-out" : "font-body"}
                   >
                     <ListItemButton>
                       <ListItemIcon style={{ color: "white" }}>{icon}</ListItemIcon>

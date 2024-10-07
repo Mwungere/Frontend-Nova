@@ -408,3 +408,82 @@ export const cameras = [
     img:"/cam1.svg",
   },
 ]
+
+export const products = [
+  {
+    id:'1',
+    product:'Organic',
+    img:'/product4.svg',
+    
+  },
+  {
+    id:'2',
+    product:'Inorganic',
+    img:'/product3.svg',
+    
+  },
+  {
+    id:'3',
+    product:'Pesticides',
+    img:'/product2.svg',
+    
+  },
+  {
+    id:'4',
+    product:'NPK',
+    img:'/product1.svg',
+    
+  },
+]
+
+export const foodCrops = [
+  {
+    id: 1,
+    name:'Potato',
+    img:'/food1.svg',
+    data:'Lorem ipsum'
+  },
+  {
+    id: 2,
+    name:'Tomato',
+    img:'/food2.svg',
+    data:'Lorem ipsum'
+  },
+  {
+    id:3,
+    name:'Carrot',
+    img:'/food3.svg',
+    data:'Lorem ipsum'
+  },
+  {
+    id: 4,
+    name:'Onion',
+    img:'/food4.svg',
+    data:'Lorem ipsum'
+  },
+  {
+    id: 1,
+    name:'Potato',
+    img:'/food1.svg',
+    data:'Lorem ipsum'
+  },
+  {
+    id: 2,
+    name:'Tomato',
+    img:'/food2.svg',
+    data:'Lorem ipsum'
+  },
+  {
+    id:3,
+    name:'Carrot',
+    img:'/food3.svg',
+    data:'Lorem ipsum'
+  },
+  {
+    id: 4,
+    name:'Onion',
+    img:'/food4.svg',
+    data:'Lorem ipsum'
+  },
+  
+]

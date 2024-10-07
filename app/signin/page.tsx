@@ -1,6 +1,5 @@
 "use client";
 import { Toaster, toast } from "react-hot-toast";
-import { Button } from "@/components";
 import Link from "next/link";
 import Image from "@/node_modules/next/image";
 import GoogleButton from "react-google-button";
@@ -48,7 +47,7 @@ const SignIn = () => {
     } else {
       Cookies.remove("rememberedUser");
     }
-    const url = "http://194.163.167.131:7500/api/v1/users/login";
+    const url = "http://194.163.167.131:7500/api/v1/users/loginUser";
     setLoading(!loading);
     const loginRequestData = {
       email:formData.email,

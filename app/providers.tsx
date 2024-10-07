@@ -11,7 +11,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
       </AppRouterCacheProvider>
       <Next13ProgressBar
         height="4px"
-        color="#0A2FFF"
+        color="#27F306"
         options={{ showSpinner: true }}
         showOnShallow
       />

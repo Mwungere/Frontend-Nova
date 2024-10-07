@@ -18,8 +18,8 @@ const IrrigationMain: React.FC = () => {
 
 
   const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
-  const [latestSensorData, setLatestSensorData] = useState<any>(null); // Adjust type as per your actual data structure
-  const [allDatas, setAllDatas] = useState<any[]>([]); // Adjust type as per your actual data structure
+  const [latestSensorData, setLatestSensorData] = useState<any>(null); 
+  const [allDatas, setAllDatas] = useState<any[]>([]); 
   const token: any = Cookies.get("token");
   const [isStupid,setIsStupid] = useState<any>(["Verygood",]);
   

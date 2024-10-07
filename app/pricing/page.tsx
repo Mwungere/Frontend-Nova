@@ -1,4 +1,5 @@
-import { Navbar, Pricing } from '@/components'
+import Navbar from '@/components/Navbar'
+import Pricing from '@/components/pricing/Pricing'
 import React from 'react'
 
 const PricingPage = () => {

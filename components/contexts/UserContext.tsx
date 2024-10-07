@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 export interface User {
   _id: string;
-  username: string;
+  names: string;
   email: string;
   pic: string;
   createdAt: Date;

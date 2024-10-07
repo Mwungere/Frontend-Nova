@@ -1,5 +1,6 @@
-import { Health } from '@/components'
-const page = () => {
+import Health from "@/components/Health/Health"
+
+const Page = () => {
   return (
     <div>
         <Health />
@@ -7,4 +8,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

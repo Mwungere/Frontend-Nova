@@ -1,6 +1,8 @@
 "use client"
-import {CustomHeader, DashboardMain, Sidebar} from "@/components";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import Sidebar from "../Sidebar";
+import CustomHeader from "../CustomHeader";
+import DashboardMain from "./DashboardMain";
 
 const Dashboard = () => {
 

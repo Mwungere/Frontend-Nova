@@ -9,6 +9,7 @@ export interface CustomHeaderProps{
     heading: string;
     icon: ReactElement;
     menuIcon?: ReactElement;
+    subHeading?: string;
 }
 
 export interface WeatherDataType{
