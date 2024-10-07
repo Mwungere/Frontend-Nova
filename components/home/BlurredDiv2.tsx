@@ -23,3 +23,4 @@ const BlurredDiv2 = () => {
 };
 
 export default BlurredDiv2;
+

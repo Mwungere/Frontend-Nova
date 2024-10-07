@@ -1,4 +1,3 @@
-"use client"
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { useRouter } from 'next/navigation';
 import Cookies from "js-cookie";

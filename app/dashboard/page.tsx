@@ -1,7 +1,9 @@
+"use client"
 import Dashboard from '@/components/Dashboard/Dashboard'
 import { UserContextProvider } from '@/components/contexts/UserContext'
+import React, { useEffect, useState } from 'react'
 
-const Page = () => {
+const page = () => {
   return (
     <UserContextProvider>
             <Dashboard />
@@ -9,4 +11,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default page

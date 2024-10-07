@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar'
 import Pricing from '@/components/pricing/Pricing'
 import React from 'react'
 
-const Page = () => {
+const PricingPage = () => {
   return (
       <main className=' bg-[#1D6923] p-4 overflow-hidden'>
         <Navbar
@@ -16,4 +16,4 @@ const Page = () => {
 }
 
 
-export default Page
+export default PricingPage

@@ -3,7 +3,7 @@ import { FaLinkedin, FaFacebook, FaTwitter, FaInstagram, FaPhone, FaEnvelope, Fa
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
-const Page = () => {
+const ContactPage = () => {
   const icons = [
     { icon: <FaFacebook />, url: "https://www.facebook.com/" },
     { icon: <FaInstagram />, url: "https://www.instagram.com/" },
@@ -87,4 +87,4 @@ const Page = () => {
   )
 }
 
-export default Page;
+export default ContactPage;
