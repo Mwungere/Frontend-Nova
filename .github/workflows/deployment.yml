@@ -22,13 +22,7 @@ jobs:
           check-latest: true
           cache: 'yarn'
 
-      # Optional: Install dependencies and build the Next.js app
-      # Uncomment if you want to run build on the action runner, not the server
-      # - name: Install dependencies
-      #   run: yarn install
-
-      # - name: Build Next.js app
-      #   run: yarn run build
+      
 
       # Deploy to SSH server
       - name: Deploy to SSH server
