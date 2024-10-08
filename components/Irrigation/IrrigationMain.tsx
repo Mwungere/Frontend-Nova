@@ -13,66 +13,73 @@ import { io } from "socket.io-client";
 import Cookies from "js-cookie";
 import ChartComponent from "./ChartComponent";
 import { UserContext } from "../contexts/UserContext";
+import TemperatureLineChart from "./TemperatureLineChart";
+import HumidityChart from "./HumidityChart";
 
 const IrrigationMain: React.FC = () => {
 
+  const [selectedChart, setSelectedChart] = useState<string>("Temperature");
 
-  const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
-  const [latestSensorData, setLatestSensorData] = useState<any>(null); // Adjust type as per your actual data structure
-  const [allDatas, setAllDatas] = useState<any[]>([]); // Adjust type as per your actual data structure
-  const token: any = Cookies.get("token");
-  const [isStupid,setIsStupid] = useState<any>(["Verygood",]);
-  
-  const [physicalQuantity, setPhysicalQuantity] = useState<string>("temperature"); // Default to temperature or the initial physical quantity
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    setSelectedChart(value);
+  };
 
-  const user   = useContext(UserContext);
-  useEffect(() => {
-    const socket = io("http://localhost:3500");
+    const [latestSensorData, setLatestSensorData] = useState<any>(null); // Adjust type as per your actual data structure
+    const [allDatas, setAllDatas] = useState<any[]>([]); // Adjust type as per your actual data structure
+    const token: any = Cookies.get("token");
 
-    socket.on("connect", () => {
-      console.log("Connected with ID:", socket.id);
-    });
+    const [physicalQuantity, setPhysicalQuantity] = useState<string>("temperature"); // Default to temperature or the initial physical quantity
 
-    socket.emit("token", token);
+    const user = useContext(UserContext);
+    useEffect(() => {
+      const socket = io("http://194.163.167.131:7500/ws/sensor-data/");
 
-    socket.on("sensorDatas", (data) => {
-      console.log("Received sensor data:", data);
-      if(data.length > 0){
-       data.map((d:any)=>{
-        if(d.user == user?._id){
-          setLatestSensorData(d)
-          setAllDatas((prevData)=>[...prevData, d])
+      socket.on("connect", () => {
+        console.log("Connected with ID:", socket.id);
+      });
+
+      socket.emit("token", token);
+
+      socket.on("sensorDatas", (data) => {
+        console.log("Received sensor data:", data);
+        if(data.length > 0){
+         data.map((d:any)=>{
+          if(d.user == user?._id){
+            setLatestSensorData(d)
+            setAllDatas((prevData)=>[...prevData, d])
+          }
+         })
         }
-       })
-      }
-      setAllDatas(data);
-      setPhysicalQuantity(data.physicalQuantity); 
+        setAllDatas(data);
+        setPhysicalQuantity(data.physicalQuantity); 
+      });
+
+      socket.on("newDatas", (newData) => {
+        console.log("Received new data:", newData);
+        setAllDatas((prevData) => [...prevData, newData]); 
+      });
+
+
+
+      return () => {
+        socket.disconnect(); 
+      };
+    }, []);
+
+  console.log("All datas" , allDatas);
+
+
+  const formatTime = (time: string | Date) => {
+    const date = typeof time === "string" ? new Date(time) : time;
+    const formatted = date.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
     });
+    return formatted;
+  };
 
-    socket.on("newDatas", (newData) => {
-      console.log("Received new data:", newData);
-      setAllDatas((prevData) => [...prevData, newData]); 
-    });
-
-
-
-    return () => {
-      socket.disconnect(); 
-    };
-  }, []);
-
-console.log("All datas" , allDatas);
-
-
-const formatTime = (time: string | Date) => {
-  const date = typeof time === "string" ? new Date(time) : time;
-  const formatted = date.toLocaleString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
-  return formatted;
-};
   const getWeatherIcon = (weather: WeatherDataType) => {
     switch (weather.weather.toLowerCase()) {
       case "sunny":
@@ -102,116 +109,9 @@ const formatTime = (time: string | Date) => {
     setAlignment(newAlignment);
   };
 
-  const chartOptions1: ApexOptions = {
-    chart: {
-      id: "realtime",
-      height: 100,
-      type: "line",
-      animations: {
-        enabled: true,
-        easing: "linear",
-        dynamicAnimation: { 
-          speed: 1000,
-        },
-      },
-      toolbar: {
-        show: false,
-      },
-      zoom: {
-        enabled: false,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "smooth",
-    },
-    title: {
-      text: "Temperature / Celsius",
-      align: "left",
-    },
-
-    xaxis: {
-      type: "datetime",
-      categories: allDatas.map((d) => {
-        let time = new Date(d.time);
-        time.setHours(time.getHours() + 2);
-        return time;
-      }),
-    },
-
-    yaxis: {
-      max: 100,
-      min: 0,
-    },
-    legend: {
-      show: false,
-    },
-  };
-  const chartSeries1: ApexAxisChartSeries | ApexNonAxisChartSeries | undefined =
-    {
-      name: "Temperature",
-      data: allDatas.map((data) => data.temperature),
-    } as unknown as ApexAxisChartSeries | ApexNonAxisChartSeries;
-
-  const chartOptions: ApexOptions = {
-    chart: {
-      id: "realtime",
-      height: 100,
-      type: "line",
-      animations: {
-        enabled: true,
-        easing: "linear",
-        dynamicAnimation: {
-          speed: 1000,
-        },
-      },
-      toolbar: {
-        show: false,
-      },
-      zoom: {
-        enabled: false,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "smooth",
-    },
-    title: {
-      text: "Moisture",
-      align: "left",
-    },
-    colors: ["#66DA26"],
-
-    xaxis: {
-      type: "datetime",
-      categories: allDatas.map((d) => {
-        let time = new Date(d.time);
-        time.setHours(time.getHours() + 2);
-        return time;
-      }),
-    },
-
-    yaxis: {
-      max: 1024,
-      min: 0,
-    },
-    legend: {
-      show: false,
-    },
-  };
-
-  const chartSeries: ApexAxisChartSeries | ApexNonAxisChartSeries | undefined =
-    {
-      name: "Moisture",
-      data: allDatas.map((data) => data.moisture),
-    } as unknown as ApexAxisChartSeries | ApexNonAxisChartSeries;
 
   return (
-    <div className="w-full h-full flex flex-col lg:flex-row items-center justify-center flex-wrap p-3 space-y-2">
+    <div className="w-full h-full flex flex-col items-center justify-center p-3 space-y-2">
       <div className="w-full flex space-x-3 overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide">
         {/* first div */}
         <div className="flex flex-col min-w-[520px] h-[350px] bg-white rounded-2xl px-2">
@@ -226,7 +126,7 @@ const formatTime = (time: string | Date) => {
             <div>{getWeatherIcon(weatherData)}</div>
             <div className="flex justify-center items-center">
               <p className="text-5xl font-body font-medium mt-[5%]">
-                {latestSensorData?.temperature}{" "}
+                {/* {latestSensorData?.temperature}{" "} */}
                 <span className="text-3xl">C</span>{" "}
                 <span className="font-semibold font-body text-sm">Atm</span>
               </p>
@@ -238,7 +138,7 @@ const formatTime = (time: string | Date) => {
             </p>
             <p className="font-body font-semibold mb-4">
               <span className="text-[#838ea1]">Previous: </span>
-              {latestSensorData?.time && formatTime(latestSensorData.time)}
+              {/* {latestSensorData?.time && formatTime(latestSensorData.time)} */}
             </p>
             <p className="font-body font-semibold text-secondary">
               <span className="text-[#838ea1]">Status: </span>
@@ -311,23 +211,25 @@ const formatTime = (time: string | Date) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center w-full h-[420px] bg-white rounded-2xl">
-        <ChartComponent  data={allDatas} physicalQuantity={physicalQuantity}/>
-        {/* <ApexChart
-          type="line"
-          options={chartOptions}
-          series={chartSeries}
-          height={400}
-          width={700}
-        /> */}
+      <div className=" relative min-w-full max-w-full max-h-[500px] lg:flex-1 flex bg-white p-2 rounded-xl">
 
-        {/* <ApexChart
-          type="line"
-          options={chartOptions1}
-          series={chartSeries1}
-          height={400}
-          width={700}
-        /> */}
+        <div className="absolute top-4 right-4">
+          <select
+            value={selectedChart}
+            onChange={handleSelectChange}
+            className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700"
+          >
+            <option value="Temperature">Temperature</option>
+            <option value="Humidity">Humidity</option>
+          </select>
+        </div>
+
+        {selectedChart === "Temperature" ? (
+          <TemperatureLineChart />
+        ) : (
+          <HumidityChart />
+        )}
+
       </div>
     </div>
   );
