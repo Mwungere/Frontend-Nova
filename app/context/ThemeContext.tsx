@@ -7,14 +7,14 @@ const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#ff5252', // Primary color for dark mode
+      main: '#ff5252', 
     },
     background: {
-      default: '#20242c', // Dark mode background
-      paper: '#292d36', // Dark mode paper background
+      default: '#20242c', 
+      paper: '#292d36', 
     },
     text: {
-      primary: '#ffffff', // Text color for dark mode
+      primary: '#ffffff', 
     },
   },
 });
