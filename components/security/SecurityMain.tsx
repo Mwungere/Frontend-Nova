@@ -16,7 +16,7 @@ const SecurityMain = () => {
   const [currentVideo, setCurrentVideo] = useState<string>("");
 
   useEffect(() => {
-    const videoSocket = new WebSocket("ws://194.163.167.131:7500/ws/video-data/");
+    const videoSocket = new WebSocket("ws://localhost:8000/ws/video-data/");
 
     videoSocket.onopen = function () {
       console.log("WebSocket connection established");
