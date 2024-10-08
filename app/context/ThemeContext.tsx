@@ -3,7 +3,6 @@ import React, { createContext, useEffect, useMemo, useState, ReactNode, FC } fro
 
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
 
-// Dark and light theme definitions
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
