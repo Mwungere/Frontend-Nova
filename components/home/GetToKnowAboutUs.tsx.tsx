@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image'
+import { ThemeContext } from '@/app/context/ThemeContext';
 const GetToKnowAboutUs = () => {
+
+  const context = useContext(ThemeContext);
+
+  if (!context) {
+    return null; // Handle the case where context is undefined
+  }
+  const { theme } = context; 
 
   return (
     <div className=' w-full flex flex-col'>
       <div className=' w-full flex mt-18 flex-col md:flex-row-reverse justify-around mx-auto py-10'>
         <div className='flex-1 lg:mr-40 lg:mt-[45px]'>
           <h1 className={`text-secondary font-body font-bold text-4xl mt-10 mb-4 lg:text-6xl lg:mb-7`}>Get To Know More <br /> About Us!</h1>
-          <p className={`text-[#2f2e2e] font-body lg:text-xl`}>
+          <p 
+          className={`text-[#2f2e2e] ${theme.palette.mode === 'dark' ? 'text-color' : 'text-gray-800'} font-body lg:text-xl lg:mt-20`}
+          >
             Established in 2023 by a dedicated group of five individuals, the Nova Project has evolved into a remarkable endeavor. Through our innovative Nova product, we've grown to become one of Africa's most successful initiatives, benefiting over three million people on the continent. But our journey continues. We're committed to expanding our services worldwide, with a mission to make our services accessible and affordable to citizens across the globe, from Africa to America, Asia, Antarctica, and Europe. Our dedication to making a positive global impact knows no bounds.
           </p>
           <button className=' bg-secondary text-white p-3 px-20 rounded-3xl flex gap-10 mx-auto my-3  lg:mt-4 font-body'>

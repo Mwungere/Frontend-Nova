@@ -51,7 +51,7 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
         <div onClick={() => setOpen(!open)} className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden">
           {open ? <FaTimes /> : <FaBars />}
         </div>
-        <ul className={`md:flex md:items-center md:pb-0 absolute md:static md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-20 transition-all duration-500 ease-in-out ${open ? "top-20 opacity-100 bg-gray-900" : "top-[-490px] md:opacity-100 opacity-0"}`}>
+        <ul className={`md:flex md:items-center md:pb-0 absolute md:static md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-20 transition-all duration-500 ease-in-out ${open ? "top-20 opacity-100" : "top-[-490px] md:opacity-100 opacity-0"}`}>
           {links.map(({ desc, link }) => {
             const isActive = pathname.endsWith(link);
             return (
