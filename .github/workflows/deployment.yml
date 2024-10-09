@@ -43,19 +43,9 @@ jobs:
             source ~/.nvm/nvm.sh
             export PATH="$NVM_DIR/versions/node/$(nvm version)/bin:$PATH"
             
-            # Install Yarn globally if not already installed
             npm install -g yarn
             
-            # Install project dependencies
             yarn install
-            
-            # Check if the test environment script exists
-            if [ -f scripts/create_test_env.sh ]; then
-                chmod +x scripts/create_test_env.sh
-                ./scripts/create_test_env.sh
-            else
-                echo "Warning: scripts/create_test_env.sh not found."
-            fi
             
             # Build the project (Next.js)
             yarn run build
