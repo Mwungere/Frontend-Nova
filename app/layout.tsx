@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "./context/ThemeContext"; // Adjust the import path
+import { ThemeContext } from "./context/ThemeContext"; 
 import { Metadata } from "next";
 import "./globals.css";
 import Providers from "./providers";
@@ -25,3 +25,5 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
     </html>
   );
 }
+
+

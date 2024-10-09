@@ -27,10 +27,10 @@ jobs:
       - name: Execute SSH Commands
         uses: appleboy/ssh-action@master
         with:
-          host: 194.163.167.131
+          host: ${{ secrets.SSH_HOST }}
           port: 22
-          username: root
-          password: bxnnHBAuNECS3a6m
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd ~/nova/novamis/Frontend-Nova
             
@@ -41,7 +41,7 @@ jobs:
             # Load NVM and set up Node.js
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            export PATH="$NVM_DIR/versions/node/$(nvm version)/bin:$PATH"
+            nvm use 20
             
             # Install Yarn globally if not already installed
             npm install -g yarn
