@@ -12,11 +12,14 @@ import { ApexOptions } from "apexcharts";
 import { io } from "socket.io-client";
 import Cookies from "js-cookie";
 import ChartComponent from "./ChartComponent";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../../app/context/UserContext";
 import TemperatureLineChart from "./TemperatureLineChart";
 import HumidityChart from "./HumidityChart";
 
+
+
 const IrrigationMain: React.FC = () => {
+
 
   const [selectedChart, setSelectedChart] = useState<string>("Temperature");
 
@@ -25,61 +28,130 @@ const IrrigationMain: React.FC = () => {
     setSelectedChart(value);
   };
 
-    const [latestSensorData, setLatestSensorData] = useState<any>(null); // Adjust type as per your actual data structure
-    const [allDatas, setAllDatas] = useState<any[]>([]); // Adjust type as per your actual data structure
-    const token: any = Cookies.get("token");
 
-    const [physicalQuantity, setPhysicalQuantity] = useState<string>("temperature"); // Default to temperature or the initial physical quantity
-
-    const user = useContext(UserContext);
-    useEffect(() => {
-      const socket = io("http://194.163.167.131:7500/ws/sensor-data/");
-
-      socket.on("connect", () => {
-        console.log("Connected with ID:", socket.id);
-      });
-
-      socket.emit("token", token);
-
-      socket.on("sensorDatas", (data) => {
-        console.log("Received sensor data:", data);
-        if(data.length > 0){
-         data.map((d:any)=>{
-          if(d.user == user?._id){
-            setLatestSensorData(d)
-            setAllDatas((prevData)=>[...prevData, d])
-          }
-         })
-        }
-        setAllDatas(data);
-        setPhysicalQuantity(data.physicalQuantity); 
-      });
-
-      socket.on("newDatas", (newData) => {
-        console.log("Received new data:", newData);
-        setAllDatas((prevData) => [...prevData, newData]); 
-      });
-
-
-
-      return () => {
-        socket.disconnect(); 
-      };
-    }, []);
-
-  console.log("All datas" , allDatas);
-
-
-  const formatTime = (time: string | Date) => {
-    const date = typeof time === "string" ? new Date(time) : time;
-    const formatted = date.toLocaleString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    });
-    return formatted;
+  type TemperatureData = {
+    timestamp: string;
+    temperature: number | string;  // Adjust type based on the actual data type you're working with
   };
 
+  interface HumidityEntry {
+    timestamp: string;
+    humidity: any; // Change `any` to a more specific type if possible, e.g., `number`
+}
+
+interface HumidityData {
+    sensor1: HumidityEntry[];
+    sensor2: HumidityEntry[];
+}
+
+  const [latestSensorData, setLatestSensorData] = useState<any>(null); 
+  const [allDatas, setAllDatas] = useState<any[]>([]); 
+  const token: any = Cookies.get("token");  
+  const [temperatureData, setTemperatureData] = useState<TemperatureData[]>([]);
+  const [humidityData, setHumidityData] = useState<HumidityData>({ sensor1: [], sensor2: [] });
+
+  
+  const user   = useContext(UserContext);
+  
+  useEffect(() => {
+    const socket = new WebSocket("ws://194.163.167.131:7500/ws/sensor-data/");
+
+    socket.onopen = () => {
+        console.log("WebSocket connection opened.");
+    };
+
+    socket.onmessage = (event) => {
+        try {
+            const parsedData = JSON.parse(event.data);
+            console.log("Parsed data:", parsedData);
+
+            // Check if the parsed data contains sensor data
+            const sensorDataObject = parsedData?.sensor_data;
+
+            if (sensorDataObject && typeof sensorDataObject === "object") {
+                const humiditySensor = sensorDataObject?.Humidity_sensor;
+
+                if (humiditySensor) {
+                    const sensor1Data = humiditySensor["Sensor 1"];
+                    const sensor2Data = humiditySensor["Sensor 2"]; // Add this line to get Sensor 2 data
+
+                    // Extract temperature data from Sensor 1
+                    if (Array.isArray(sensor1Data)) {
+                        const temperatureDataForSensor1 = sensor1Data.map((entry) => ({
+                            timestamp: new Date(entry.timestamp).toLocaleString(),
+                            temperature: entry.temperatureValue || "N/A",
+                        }));
+
+                        console.log("Extracted temperature data:", temperatureDataForSensor1);
+                        setTemperatureData(temperatureDataForSensor1);
+                    } else {
+                        console.error("Sensor 1 data is not an array.");
+                    }
+
+                    // Extract humidity data for both sensors
+                    if (Array.isArray(sensor1Data)) {
+                        const humidityDataForSensor1 = sensor1Data.map((entry) => ({
+                            timestamp: new Date(entry.timestamp).toLocaleString(),
+                            humidity: entry.moistureValue || "N/A", // Ensure your data contains this field
+                        }));
+                        console.log("Extracted humidity data for Sensor 1:", humidityDataForSensor1);
+                        setHumidityData((prevData) => ({
+                            ...prevData,
+                            sensor1: humidityDataForSensor1,
+                        }));
+                    } else {
+                        console.error("Sensor 1 data is not an array.");
+                    }
+
+                    if (Array.isArray(sensor2Data)) { // Extract humidity for Sensor 2
+                        const humidityDataForSensor2 = sensor2Data.map((entry) => ({
+                            timestamp: new Date(entry.timestamp).toLocaleString(),
+                            humidity: entry.moistureValue || "N/A", // Ensure your data contains this field
+                        }));
+                        console.log("Extracted humidity data for Sensor 2:", humidityDataForSensor2);
+                        setHumidityData((prevData) => ({
+                            ...prevData,
+                            sensor2: humidityDataForSensor2,
+                        }));
+                    } else {
+                        console.error("Sensor 2 data is not an array.");
+                    }
+                } else {
+                    console.error("Humidity sensor data is not available.");
+                }
+            } else {
+                console.error("sensor_data is not an object:", sensorDataObject);
+            }
+        } catch (error) {
+            console.error("Error parsing data:", error);
+        }
+    };
+
+    socket.onclose = () => {
+        console.log("WebSocket connection closed.");
+    };
+
+    return () => {
+        socket.close();
+    };
+}, []);
+
+  
+  
+
+  
+  
+
+
+const formatTime = (time: string | Date) => {
+  const date = typeof time === "string" ? new Date(time) : time;
+  const formatted = date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+  return formatted;
+};
   const getWeatherIcon = (weather: WeatherDataType) => {
     switch (weather.weather.toLowerCase()) {
       case "sunny":
@@ -119,7 +191,7 @@ const IrrigationMain: React.FC = () => {
             <p className="font-body text-lg font-normal">Overview</p>
             <div className="flex">
               <LocationOn />
-              <p className="font-body text-lg font-normal">Nyabihu</p>
+              <p className="font-body text-lg font-normal">Kigali</p>
             </div>
           </div>
           <div className="flex justify-center items-center my-10 space-x-10">
@@ -225,9 +297,9 @@ const IrrigationMain: React.FC = () => {
         </div>
 
         {selectedChart === "Temperature" ? (
-          <TemperatureLineChart />
+          <TemperatureLineChart temperatureData={temperatureData} />
         ) : (
-          <HumidityChart />
+          <HumidityChart humidityData={humidityData} />
         )}
 
       </div>

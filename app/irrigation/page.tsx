@@ -1,7 +1,7 @@
 "use client"
 
 import Irrigation from "@/components/Irrigation/Irrigation";
-import { UserContextProvider } from "@/components/contexts/UserContext";
+import { UserContextProvider } from "@/app/context/UserContext";
 export interface SensorDataType {
   time: Date;
   temperature: string;  

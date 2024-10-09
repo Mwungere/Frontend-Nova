@@ -7,7 +7,7 @@ import TodoTable from "./TodoTable";
 import AddTodoDialog from "./AddTodoDialog";
 import { IrrigationData, users } from "@/constants";
 import { ResponsiveLine } from "@nivo/line";
-import { User, UserContext } from "../contexts/UserContext";
+import { User, UserContext } from "../../app/context/UserContext";
 
 
 
@@ -81,7 +81,7 @@ const DashboardMain = () => {
         <div className=" pl-4 flex self-start items-center pt-12">
           <img src="/sunny.svg" alt="image" />
           <h1 className=" font-body text-3xl font-bold">
-            Good {returnTimeRangeName()}, {findFirstname(user?.username)}!
+            Good {returnTimeRangeName()}, {findFirstname(user?.names)}!
           </h1>
         </div>
         <div className="p-3 w-full h-[300px] flex flex-col items-center bg-white rounded-xl">

@@ -13,36 +13,43 @@ import {
 import { Line } from 'react-chartjs-2';
 import { FaChevronDown } from 'react-icons/fa';
 
+
+interface TemperatureData {
+    timestamp: string;
+    temperature: number | string;
+  }
+  
+  interface TemperatureLineChartProps {
+    temperatureData: TemperatureData[];
+  }
+
+
+
 // Register the necessary Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const TemperatureLineChart: React.FC = () => {
-
-    const [selectedOption, setSelectedOption] = useState<string>('Option 1');
-
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const value = event.target.value;
-        setSelectedOption(value);
-        console.log('Selected:', value); // Log the selected value to the console
-    };
+const TemperatureLineChart: React.FC<TemperatureLineChartProps> = ({temperatureData}) => {
 
     const data = {
-        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'], // X-axis labels (for days or time)
+        labels: temperatureData.map((entry) => entry.timestamp), // X-axis labels (timestamps)
         datasets: [
-            {
-                label: 'Temperature (°C)', // Line label
-                data: [22, 24, 19, 21, 25, 23, 26], // Data for each day (temperature in °C)
-                borderColor: 'rgba(75, 192, 192, 1)', // Line color (light blue)
-                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Area under the line color
-                borderWidth: 2, // Line thickness
-                pointBackgroundColor: 'rgba(75, 192, 192, 1)', // Point color
-                pointBorderColor: '#fff', // Point border color
-                pointRadius: 5, // Size of points on the line
-                fill: true, // Fill the area under the line
-                tension: 0.4,
-            },
+          {
+            label: "Temperature (°C)", // Line label
+            data: temperatureData.map((entry) => 
+              typeof entry.temperature === 'number' ? entry.temperature : null  // Ensure valid number for charting
+            ),
+            borderColor: "rgba(75, 192, 192, 1)", // Line color
+            backgroundColor: "rgba(75, 192, 192, 0.2)", // Area under the line color
+            borderWidth: 2, // Line thickness
+            pointBackgroundColor: "rgba(75, 192, 192, 1)", // Point color
+            pointBorderColor: "#fff", // Point border color
+            pointRadius: 5, // Size of points on the line
+            fill: true, // Fill the area under the line
+            tension: 0.4,
+          },
         ],
-    };
+      };
+    
 
     const options = {
         responsive: true,

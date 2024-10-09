@@ -1,6 +1,6 @@
 "use client"
 import Dashboard from '@/components/Dashboard/Dashboard'
-import { UserContextProvider } from '@/components/contexts/UserContext'
+import { UserContextProvider } from '@/app/context/UserContext'
 import React, { useEffect, useState } from 'react'
 
 const page = () => {

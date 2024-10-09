@@ -23,36 +23,46 @@ ChartJS.register(
     Legend
 );
 
-const HumidityChart: React.FC = () => {
-    // Data for three sensors
+interface HumidityEntry {
+    timestamp: string;
+    humidity: number; // Change `any` to a more specific type if possible, e.g., `number`
+}
+
+interface HumidityData {
+    sensor1: HumidityEntry[];
+    sensor2: HumidityEntry[];
+}
+
+interface HumidityChartProps {
+    humidityData: HumidityData;
+}
+
+const HumidityChart: React.FC<HumidityChartProps> = ({humidityData}) => {
+    // Data for two sensors
+    const labels = humidityData.sensor1.map(entry => entry.timestamp); // Use timestamps as labels
+
+    const datasets = [
+        {
+            label: 'Sensor 1',
+            data: humidityData.sensor1.map(entry => entry.humidity), // Extract humidity values for Sensor 1
+            borderColor: '#35f1c2',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            fill: true,
+            tension: 0.4, // Makes the lines curve slightly
+        },
+        {
+            label: 'Sensor 2',
+            data: humidityData.sensor2.map(entry => entry.humidity), // Extract humidity values for Sensor 2
+            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            fill: true,
+            tension: 0.4,
+        },
+    ];
+
     const data = {
-        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7'],
-        datasets: [
-            {
-                label: 'Sensor 1',
-                data: [65, 59, 80, 81, 56, 55, 40],
-                borderColor: '#35f1c2',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                fill: true,
-                tension: 0.4, // Makes the lines curve slightly
-            },
-            {
-                label: 'Sensor 2',
-                data: [58, 62, 78, 75, 60, 50, 42],
-                borderColor: 'rgba(255, 99, 132, 1)',
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                fill: true,
-                tension: 0.4,
-            },
-            {
-                label: 'Sensor 3',
-                data: [68, 72, 79, 85, 58, 48, 45],
-                borderColor: 'rgba(54, 162, 235, 1)',
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                fill: true,
-                tension: 0.4,
-            },
-        ],
+        labels,
+        datasets,
     };
 
     const options = {

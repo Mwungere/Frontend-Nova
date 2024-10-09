@@ -1,11 +1,45 @@
 "use client"
-import { createTheme, useMediaQuery, Theme } from "@mui/material";
-import { createContext, useEffect, useState, ReactNode, FC } from "react"; 
+import React, { createContext, useEffect, useMemo, useState, ReactNode, FC } from "react";
+
+import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
+
+// Dark and light theme definitions
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: '#ff5252', // Primary color for dark mode
+    },
+    background: {
+      default: '#20242c', // Dark mode background
+      paper: '#292d36', // Dark mode paper background
+    },
+    text: {
+      primary: '#ffffff', // Text color for dark mode
+    },
+  },
+});
+
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#ffffff', 
+    },
+    background: {
+      default: '#ffffff', 
+      paper: '#ffffff',  
+    },
+    text: {
+      primary: '#000000',
+    },
+  },
+});
 
 interface ThemeContextValue {
-  mode: boolean;
-  setMode: (mode: boolean) => void;
-  theme: Theme
+  mode: "light" | "dark";
+  toggleColorMode: () => void;
+  theme: ReturnType<typeof createTheme>;
 }
 
 export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
@@ -15,22 +49,21 @@ interface ThemeContextProviderProps {
 }
 
 const ThemeContextProvider: FC<ThemeContextProviderProps> = ({ children }) => {
-  const prefersMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [mode, setMode] = useState<boolean>(prefersMode);
+  // By default, light mode
+  const [mode, setMode] = useState<"light" | "dark">("light");
 
-  useEffect(() => {
-    setMode(prefersMode);
-  }, [prefersMode]);
+  const toggleColorMode = () => {
+    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+  };
 
-  const theme: Theme = createTheme({
-    palette: {
-      mode: mode ? "dark" : "light",
-    },
-  });
+  // Memoize the theme based on the current mode
+  const theme = useMemo(() => (mode === 'dark' ? darkTheme : lightTheme), [mode]);
 
   return (
-    <ThemeContext.Provider value={{ mode, setMode, theme }}>
-      {children}
+    <ThemeContext.Provider value={{ mode, toggleColorMode, theme }}>
+      <ThemeProvider theme={theme}>
+        {children}
+      </ThemeProvider>
     </ThemeContext.Provider>
   );
 };

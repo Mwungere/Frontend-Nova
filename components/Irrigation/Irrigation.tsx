@@ -4,7 +4,6 @@ import Sidebar from '../Sidebar'
 import CustomHeader from '../CustomHeader'
 import {  WaterDrop } from '@mui/icons-material'
 import IrrigationMain from './IrrigationMain'
-import { SensorDataType } from '@/app/irrigation/page'
 
 
 

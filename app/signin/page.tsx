@@ -47,7 +47,7 @@ const SignIn = () => {
     } else {
       Cookies.remove("rememberedUser");
     }
-    const url = "http://127.0.0.1:3500/api/v1/users/login";
+    const url = "http://194.163.167.131:7500/api/v1/users/loginUser";
     setLoading(!loading);
     const loginRequestData = {
       email:formData.email,
