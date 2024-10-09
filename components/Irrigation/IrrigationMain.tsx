@@ -13,54 +13,134 @@ import { io } from "socket.io-client";
 import Cookies from "js-cookie";
 import ChartComponent from "./ChartComponent";
 import { UserContext } from "../../app/context/UserContext";
+import TemperatureLineChart from "./TemperatureLineChart";
+import HumidityChart from "./HumidityChart";
+
+
 
 const IrrigationMain: React.FC = () => {
 
 
-  const ApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
+  const [selectedChart, setSelectedChart] = useState<string>("Temperature");
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = event.target.value;
+    setSelectedChart(value);
+  };
+
+
+  type TemperatureData = {
+    timestamp: string;
+    temperature: number | string;  // Adjust type based on the actual data type you're working with
+  };
+
+  interface HumidityEntry {
+    timestamp: string;
+    humidity: any; // Change `any` to a more specific type if possible, e.g., `number`
+}
+
+interface HumidityData {
+    sensor1: HumidityEntry[];
+    sensor2: HumidityEntry[];
+}
+
   const [latestSensorData, setLatestSensorData] = useState<any>(null); 
   const [allDatas, setAllDatas] = useState<any[]>([]); 
-  const token: any = Cookies.get("token");
-  const [isStupid,setIsStupid] = useState<any>(["Verygood",]);
+  const token: any = Cookies.get("token");  
+  const [temperatureData, setTemperatureData] = useState<TemperatureData[]>([]);
+  const [humidityData, setHumidityData] = useState<HumidityData>({ sensor1: [], sensor2: [] });
+
   
-  const [physicalQuantity, setPhysicalQuantity] = useState<string>("temperature"); // Default to temperature or the initial physical quantity
-
   const user   = useContext(UserContext);
+  
   useEffect(() => {
-    const socket = io("http://localhost:3500");
+    const socket = new WebSocket("ws://194.163.167.131:7500/ws/sensor-data/");
 
-    socket.on("connect", () => {
-      console.log("Connected with ID:", socket.id);
-    });
+    socket.onopen = () => {
+        console.log("WebSocket connection opened.");
+    };
 
-    socket.emit("token", token);
+    socket.onmessage = (event) => {
+        try {
+            const parsedData = JSON.parse(event.data);
+            console.log("Parsed data:", parsedData);
 
-    socket.on("sensorDatas", (data) => {
-      if(data.length > 0){
-       data.map((d:any)=>{
-        if(d.user == user?._id){
-          console.log(d);          
-          setLatestSensorData(d)
-          setAllDatas((prevData)=>[...prevData, d])
+            // Check if the parsed data contains sensor data
+            const sensorDataObject = parsedData?.sensor_data;
+
+            if (sensorDataObject && typeof sensorDataObject === "object") {
+                const humiditySensor = sensorDataObject?.Humidity_sensor;
+
+                if (humiditySensor) {
+                    const sensor1Data = humiditySensor["Sensor 1"];
+                    const sensor2Data = humiditySensor["Sensor 2"]; // Add this line to get Sensor 2 data
+
+                    // Extract temperature data from Sensor 1
+                    if (Array.isArray(sensor1Data)) {
+                        const temperatureDataForSensor1 = sensor1Data.map((entry) => ({
+                            timestamp: new Date(entry.timestamp).toLocaleString(),
+                            temperature: entry.temperatureValue || "N/A",
+                        }));
+
+                        console.log("Extracted temperature data:", temperatureDataForSensor1);
+                        setTemperatureData(temperatureDataForSensor1);
+                    } else {
+                        console.error("Sensor 1 data is not an array.");
+                    }
+
+                    // Extract humidity data for both sensors
+                    if (Array.isArray(sensor1Data)) {
+                        const humidityDataForSensor1 = sensor1Data.map((entry) => ({
+                            timestamp: new Date(entry.timestamp).toLocaleString(),
+                            humidity: entry.moistureValue || "N/A", // Ensure your data contains this field
+                        }));
+                        console.log("Extracted humidity data for Sensor 1:", humidityDataForSensor1);
+                        setHumidityData((prevData) => ({
+                            ...prevData,
+                            sensor1: humidityDataForSensor1,
+                        }));
+                    } else {
+                        console.error("Sensor 1 data is not an array.");
+                    }
+
+                    if (Array.isArray(sensor2Data)) { // Extract humidity for Sensor 2
+                        const humidityDataForSensor2 = sensor2Data.map((entry) => ({
+                            timestamp: new Date(entry.timestamp).toLocaleString(),
+                            humidity: entry.moistureValue || "N/A", // Ensure your data contains this field
+                        }));
+                        console.log("Extracted humidity data for Sensor 2:", humidityDataForSensor2);
+                        setHumidityData((prevData) => ({
+                            ...prevData,
+                            sensor2: humidityDataForSensor2,
+                        }));
+                    } else {
+                        console.error("Sensor 2 data is not an array.");
+                    }
+                } else {
+                    console.error("Humidity sensor data is not available.");
+                }
+            } else {
+                console.error("sensor_data is not an object:", sensorDataObject);
+            }
+        } catch (error) {
+            console.error("Error parsing data:", error);
         }
-       })
-      }
-      setAllDatas(data);
-      setPhysicalQuantity(data.physicalQuantity); 
-    });
+    };
 
-    socket.on("newDatas", (newData) => {
-      console.log("Received new data:", newData);
-      setAllDatas((prevData) => [...prevData, newData]); 
-    });
-
-
+    socket.onclose = () => {
+        console.log("WebSocket connection closed.");
+    };
 
     return () => {
-      socket.disconnect(); 
+        socket.close();
     };
-  }, []);
+}, []);
 
+  
+  
+
+  
+  
 
 
 const formatTime = (time: string | Date) => {
@@ -101,116 +181,9 @@ const formatTime = (time: string | Date) => {
     setAlignment(newAlignment);
   };
 
-  const chartOptions1: ApexOptions = {
-    chart: {
-      id: "realtime",
-      height: 100,
-      type: "line",
-      animations: {
-        enabled: true,
-        easing: "linear",
-        dynamicAnimation: { 
-          speed: 1000,
-        },
-      },
-      toolbar: {
-        show: false,
-      },
-      zoom: {
-        enabled: false,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "smooth",
-    },
-    title: {
-      text: "Temperature / Celsius",
-      align: "left",
-    },
-
-    xaxis: {
-      type: "datetime",
-      categories: allDatas.map((d) => {
-        let time = new Date(d.time);
-        time.setHours(time.getHours() + 2);
-        return time;
-      }),
-    },
-
-    yaxis: {
-      max: 100,
-      min: 0,
-    },
-    legend: {
-      show: false,
-    },
-  };
-  const chartSeries1: ApexAxisChartSeries | ApexNonAxisChartSeries | undefined =
-    {
-      name: "Temperature",
-      data: allDatas.map((data) => data.temperature),
-    } as unknown as ApexAxisChartSeries | ApexNonAxisChartSeries;
-
-  const chartOptions: ApexOptions = {
-    chart: {
-      id: "realtime",
-      height: 100,
-      type: "line",
-      animations: {
-        enabled: true,
-        easing: "linear",
-        dynamicAnimation: {
-          speed: 1000,
-        },
-      },
-      toolbar: {
-        show: false,
-      },
-      zoom: {
-        enabled: false,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    stroke: {
-      curve: "smooth",
-    },
-    title: {
-      text: "Moisture",
-      align: "left",
-    },
-    colors: ["#66DA26"],
-
-    xaxis: {
-      type: "datetime",
-      categories: allDatas.map((d) => {
-        let time = new Date(d.time);
-        time.setHours(time.getHours() + 2);
-        return time;
-      }),
-    },
-
-    yaxis: {
-      max: 1024,
-      min: 0,
-    },
-    legend: {
-      show: false,
-    },
-  };
-
-  const chartSeries: ApexAxisChartSeries | ApexNonAxisChartSeries | undefined =
-    {
-      name: "Moisture",
-      data: allDatas.map((data) => data.moisture),
-    } as unknown as ApexAxisChartSeries | ApexNonAxisChartSeries;
 
   return (
-    <div className="w-full h-full flex flex-col lg:flex-row items-center justify-center flex-wrap p-3 space-y-2">
+    <div className="w-full h-full flex flex-col items-center justify-center p-3 space-y-2">
       <div className="w-full flex space-x-3 overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide">
         {/* first div */}
         <div className="flex flex-col min-w-[520px] h-[350px] bg-white rounded-2xl px-2">
@@ -218,14 +191,14 @@ const formatTime = (time: string | Date) => {
             <p className="font-body text-lg font-normal">Overview</p>
             <div className="flex">
               <LocationOn />
-              <p className="font-body text-lg font-normal">Nyabihu</p>
+              <p className="font-body text-lg font-normal">Kigali</p>
             </div>
           </div>
           <div className="flex justify-center items-center my-10 space-x-10">
             <div>{getWeatherIcon(weatherData)}</div>
             <div className="flex justify-center items-center">
               <p className="text-5xl font-body font-medium mt-[5%]">
-                {latestSensorData?.temperature}{" "}
+                {/* {latestSensorData?.temperature}{" "} */}
                 <span className="text-3xl">C</span>{" "}
                 <span className="font-semibold font-body text-sm">Atm</span>
               </p>
@@ -237,7 +210,7 @@ const formatTime = (time: string | Date) => {
             </p>
             <p className="font-body font-semibold mb-4">
               <span className="text-[#838ea1]">Previous: </span>
-              {latestSensorData?.time && formatTime(latestSensorData.time)}
+              {/* {latestSensorData?.time && formatTime(latestSensorData.time)} */}
             </p>
             <p className="font-body font-semibold text-secondary">
               <span className="text-[#838ea1]">Status: </span>
@@ -310,23 +283,25 @@ const formatTime = (time: string | Date) => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center w-full h-[420px] bg-white rounded-2xl">
-        <ChartComponent  data={allDatas} physicalQuantity={physicalQuantity}/>
-        {/* <ApexChart
-          type="line"
-          options={chartOptions}
-          series={chartSeries}
-          height={400}
-          width={700}
-        /> */}
+      <div className=" relative min-w-full max-w-full max-h-[500px] lg:flex-1 flex bg-white p-2 rounded-xl">
 
-        {/* <ApexChart
-          type="line"
-          options={chartOptions1}
-          series={chartSeries1}
-          height={400}
-          width={700}
-        /> */}
+        <div className="absolute top-4 right-4">
+          <select
+            value={selectedChart}
+            onChange={handleSelectChange}
+            className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-700"
+          >
+            <option value="Temperature">Temperature</option>
+            <option value="Humidity">Humidity</option>
+          </select>
+        </div>
+
+        {selectedChart === "Temperature" ? (
+          <TemperatureLineChart temperatureData={temperatureData} />
+        ) : (
+          <HumidityChart humidityData={humidityData} />
+        )}
+
       </div>
     </div>
   );

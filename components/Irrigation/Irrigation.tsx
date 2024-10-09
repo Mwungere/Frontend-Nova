@@ -10,7 +10,7 @@ import IrrigationMain from './IrrigationMain'
 const Irrigation : React.FC = () => {
   
   return (
-    <div className=' w-full h-screen overflow-x-hidden flex'>
+    <div className=' w-screen h-screen overflow-hidden flex'>
           <div className={`hidden relative  w-fit h-fit lg:h-full lg:w-1/4  z-50  lg:block `}>
              <Sidebar />
          </div>

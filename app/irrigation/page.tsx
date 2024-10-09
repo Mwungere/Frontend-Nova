@@ -11,9 +11,9 @@ export interface SensorDataType {
 
 const Page = () => {
   return (
-    <UserContextProvider>
+    // <UserContextProvider>
         <Irrigation  />
-    </UserContextProvider>
+    // </UserContextProvider>
   );
 };
 
