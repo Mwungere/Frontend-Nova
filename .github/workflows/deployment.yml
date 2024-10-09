@@ -45,8 +45,8 @@ jobs:
             
             npm install -g yarn
             
-            yarn install
-            
+            yarn install --network-timeout 100000
+
             # Build the project (Next.js)
             yarn run build
             
