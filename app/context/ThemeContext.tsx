@@ -3,19 +3,18 @@ import React, { createContext, useEffect, useMemo, useState, ReactNode, FC } fro
 
 import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material";
 
-// Dark and light theme definitions
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#ff5252', // Primary color for dark mode
+      main: '#ff5252', 
     },
     background: {
-      default: '#20242c', // Dark mode background
-      paper: '#292d36', // Dark mode paper background
+      default: '#20242c', 
+      paper: '#292d36', 
     },
     text: {
-      primary: '#ffffff', // Text color for dark mode
+      primary: '#ffffff', 
     },
   },
 });
@@ -49,14 +48,12 @@ interface ThemeContextProviderProps {
 }
 
 const ThemeContextProvider: FC<ThemeContextProviderProps> = ({ children }) => {
-  // By default, light mode
   const [mode, setMode] = useState<"light" | "dark">("light");
 
   const toggleColorMode = () => {
     setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
   };
 
-  // Memoize the theme based on the current mode
   const theme = useMemo(() => (mode === 'dark' ? darkTheme : lightTheme), [mode]);
 
   return (

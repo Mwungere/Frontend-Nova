@@ -1,4 +1,3 @@
-// RootLayout.tsx
 import React, { useContext } from "react";
 import { ThemeContext } from "./context/ThemeContext"; // Adjust the import path
 import { Metadata } from "next";

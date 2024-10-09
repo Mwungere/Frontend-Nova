@@ -8,13 +8,14 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Node.js (if you want this part)
+      # Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -22,48 +23,42 @@ jobs:
           check-latest: true
           cache: 'yarn'
 
-      # Optional: Install dependencies and build the Next.js app
-      # Uncomment if you want to run build on the action runner, not the server
-      # - name: Install dependencies
-      #   run: yarn install
-
-      # - name: Build Next.js app
-      #   run: yarn run build
-
       # Deploy to SSH server
-      - name: Deploy to SSH server
+      - name: Execute SSH Commands
         uses: appleboy/ssh-action@master
         with:
           host: 194.163.167.131
           port: 22
           username: root
           password: bxnnHBAuNECS3a6m
-         # key: ${{ secrets.SSH_PRIVATE_KEY }}  # Recommended for security, use secrets
-         # fingerprint: ${{ secrets.SSH_FINGERPRINT }}
           script: |
-            # Go to the project folder
             cd ~/nova/novamis/Frontend-Nova
-
-            # Stash local changes, if any, and pull the latest code from the main branch
+            
+            # Stash local changes and pull the latest code
             git stash
             git pull origin main
-
-            # Load NVM and set up Node.js if not already available
+            
+            # Load NVM and set up Node.js
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-
+            export PATH="$NVM_DIR/versions/node/$(nvm version)/bin:$PATH"
+            
             # Install Yarn globally if not already installed
-            npm i -g yarn
-
+            npm install -g yarn
+            
             # Install project dependencies
             yarn install
-
-            # Ensure the test environment script is executable and run it
-            chmod +x scripts/create_test_env.sh
-            ./scripts/create_test_env.sh
-
+            
+            # Check if the test environment script exists
+            if [ -f scripts/create_test_env.sh ]; then
+                chmod +x scripts/create_test_env.sh
+                ./scripts/create_test_env.sh
+            else
+                echo "Warning: scripts/create_test_env.sh not found."
+            fi
+            
             # Build the project (Next.js)
             yarn run build
-
+            
             # Start or restart the frontend app with PM2
             pm2 restart "nova-frontend" || pm2 start npm --name "nova-frontend" -- start -- -p 3030
