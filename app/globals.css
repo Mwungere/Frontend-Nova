@@ -17,11 +17,11 @@
 
 
 .text-stroke {
-  -webkit-text-stroke: 1px #1F6115; /* Adjust the width and color as needed */
+  -webkit-text-stroke: 1px #1F6115; 
   color: transparent;
 }
 .text-strokeDarkMode {
-  -webkit-text-stroke: 1px #9CE791; /* Adjust the width and color as needed */
+  -webkit-text-stroke: 1px #9CE791; 
   color: transparent;
 }
 .text-color{
