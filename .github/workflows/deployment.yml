@@ -23,7 +23,7 @@ jobs:
           check-latest: true
           cache: 'yarn'
 
-      # Deploy to SSH server
+      # Deploying to SSH server
       - name: Execute SSH Commands
         uses: appleboy/ssh-action@master
         with:

@@ -44,8 +44,7 @@ interface HumidityData {
     sensor2: HumidityEntry[];
 }
 
-  const [latestSensorData, setLatestSensorData] = useState<any>(null); 
-  const [allDatas, setAllDatas] = useState<any[]>([]); 
+
   const token: any = Cookies.get("token");  
   const [temperatureData, setTemperatureData] = useState<TemperatureData[]>([]);
   const [humidityData, setHumidityData] = useState<HumidityData>({ sensor1: [], sensor2: [] });
