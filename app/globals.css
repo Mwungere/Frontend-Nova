@@ -58,7 +58,7 @@
   
 }
 .rounded-bars-container .recharts-bar-rectangle {
-  border-radius: 16px; /* Adjust the value based on your preference */
+  border-radius: 16px; 
 }
 
 .loading-bar {
