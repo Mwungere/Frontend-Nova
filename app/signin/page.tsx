@@ -2,7 +2,6 @@
 import { Toaster, toast } from "react-hot-toast";
 import Link from "next/link";
 import Image from "@/node_modules/next/image";
-import GoogleButton from "react-google-button";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { useEffect } from "react";
