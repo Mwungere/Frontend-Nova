@@ -49,7 +49,7 @@
 
 .toggle-button {
   transition: background-color 0.3s ease-in-out;
-  background-color: #cce5ff; /* Faint blue background */
+  background-color: #cce5ff; 
 
 }
 
