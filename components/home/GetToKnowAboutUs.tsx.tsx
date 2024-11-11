@@ -18,7 +18,7 @@ const GetToKnowAboutUs = () => {
           <p 
           className={`text-[#2f2e2e] ${theme.palette.mode === 'dark' ? 'text-color' : 'text-gray-800'} font-body lg:text-xl lg:mt-20`}
           >
-            Established in 2023 by a dedicated group of five individuals, the Nova Project has evolved into a remarkable endeavor. Through our innovative Nova product, we've grown to become one of Africa's most successful initiatives, benefiting over three million people on the continent. But our journey continues. We're committed to expanding our services worldwide, with a mission to make our services accessible and affordable to citizens across the globe, from Africa to America, Asia, Antarctica, and Europe. Our dedication to making a positive global impact knows no bounds.
+            Established in 2023 by a dedicated group of five individuals, the Novars Project has evolved into a remarkable endeavor. Through our innovative Novars product, we've grown to become one of Africa's most successful initiatives, benefiting over three million people on the continent. But our journey continues. We're committed to expanding our services worldwide, with a mission to make our services accessible and affordable to citizens across the globe, from Africa to America, Asia, Antarctica, and Europe. Our dedication to making a positive global impact knows no bounds.
           </p>
           <button className=' bg-secondary text-white p-3 px-20 rounded-3xl flex gap-10 mx-auto my-3  lg:mt-4 font-body'>
             <span className={` text-white`}>Get started</span>
