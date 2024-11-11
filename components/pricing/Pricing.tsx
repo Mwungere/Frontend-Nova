@@ -36,7 +36,7 @@ const Pricing = () => {
                 Get Started
               </button>
               <div>
-                <h1 className=' font-body font-semibold text-2xl mb-3'>Nova includes:</h1>
+                <h1 className=' font-body font-semibold text-2xl mb-3'>Novars includes:</h1>
                 <div>
                   {
                     included.map(({p}) => (
