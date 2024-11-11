@@ -45,7 +45,7 @@ const Navbar = ({ textStyles, containerStyles }: CustomNavbarProps) => {
         <div className="flex font-bold cursor-pointer items-center font-body">
           <Image src="/logo.svg" width={70} height={70} className="object-contain" alt="logo" />
           <h1 className={`font-body mt-2 ml-2 text-2xl font-semibold ${theme.palette.mode === "dark" ? "text-white" : "text-black"}`}>
-            Nova
+            Novars
           </h1>
         </div>
         <div onClick={() => setOpen(!open)} className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden">
