@@ -24,10 +24,10 @@ const CaringForYourFarmPlants = () => {
           theme.palette.mode === "dark" ? "text-color" : "text-gray-800"
         } font-body lg:text-xl lg:mt-20`}
       >
-        Nova stands out by seamlessly integrating farm security and automatic
+        Novars stands out by seamlessly integrating farm security and automatic
         irrigation, providing a comprehensive <br /> agricultural solution that
         ensures both the sermiafety of farming assets and the optimization of
-        irrigation <br /> practices. This innovative approach sets Nova apart in
+        irrigation <br /> practices. This innovative approach sets Novars apart in
         the competitive landscape.
       </p>
       <div className=" flex flex-col lg:flex-row lg:gap-60">
