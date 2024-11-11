@@ -9,10 +9,10 @@ const Testimonials = () => {
           See What They Are Saying{" "}
         </h1>
         <span className={` text-secondary font-bold font-body text-5xl lg:text-6xl mt-2`}>
-          About Nova
+          About Novars
         </span>
         <p className={` font-body text-[#525252] mt-5 lg:text-lg mb-16`}>
-          Discover testimonials and feedback about the Nova Project from those <br />
+          Discover testimonials and feedback about the Novars Project from those <br />
           who have experienced our innovative solutions firsthand.
         </p>
       </div>
