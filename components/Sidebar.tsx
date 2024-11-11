@@ -132,7 +132,7 @@ const Sidebar = () => {
       <List className="hidden lg:block px-5 overflow-y-scroll whitespace-nowrap scroll-smooth scrollbar-hide">
         <div className="flex items-center justify-start pl-8 gap-5 py-5">
           <Image src={"/logo.svg"} width={41} height={36} alt="logo" />
-          <h1 className="text-white font-body">Nova</h1>
+          <h1 className="text-white font-body">Novars</h1>
         </div>
         {links.map(({ desc, link, icon, children }) => {
           const isActive = pathname.startsWith(link);
